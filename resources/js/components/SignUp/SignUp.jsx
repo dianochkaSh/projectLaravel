@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 
 /* Components */
 import InputField from '../FormElements/InputField/InputField';
-import InputButton from '../FormElements/InputButton/InputButton';
-import { inject, observer } from 'mobx-react';
+
+/* store */
 import userStore from '../../store/UserStore';
 
 inject('userStore');
@@ -29,9 +30,7 @@ class SignUp extends Component {
     };
 
     signUp () {
-        //if(!isNaN(this.state.name) && !isNaN(this.state.email)&& !isNaN(this.state.password) && !isNaN(this.state.confirmPassword)) {
-            userStore.registration(this.state.name, this.state.email, this.state.password, this.state.confirmPassword);
-        //}
+        userStore.registration(this.state.name, this.state.email, this.state.password, this.state.confirmPassword);
     }
     render() {
         return (
@@ -70,7 +69,13 @@ class SignUp extends Component {
                         valueField = {this.state.confirmPassword}
                         handlerFiled = {this.handlerFieldValue}
                     />
-                    <button className="bt-for-show-pass" onClick={this.signUp}> Sign Up</button>
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={this.signUp}
+                    >
+                        Sign Up
+                    </button>
                 </div>
             </div>
         );

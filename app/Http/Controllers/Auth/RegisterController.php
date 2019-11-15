@@ -69,12 +69,14 @@ class RegisterController extends Controller
     public function registration() {
 
         $validateFields = $this->validator(request()->all());
-        if ($validateFields->errors()->count() == 0) {
-            $user = $this->create(request()->all());
-
+        if ($validateFields->fails()) {
+            // show error
         }
-
-
+        $user = $this->create(request()->all());
+        $success['token'] =  $user->createToken('MyApp')-> accessToken;
+        $success['name'] =  $user->name;
+        return response()->json(['success' => $success], 200);
     }
+
 
 }

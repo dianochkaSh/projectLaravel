@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import {inject} from 'mobx-react';
 
 /* Components */
 import InputField from '../FormElements/InputField/InputField';
-import InputButton from '../FormElements/InputButton/InputButton';
+
+/* styles */
 import './Login.style.css';
+
+/* store */
+import userStore from '../../store/UserStore';
+
+inject('userStore');
 class Login extends Component {
     constructor() {
         super();
@@ -23,7 +30,7 @@ class Login extends Component {
 
     };
     signIn () {
-
+        userStore.login(this.state.email, this.state.password);
     }
     render() {
 
@@ -47,11 +54,13 @@ class Login extends Component {
                         valueField = {this.state.password}
                         handlerFiled = {this.handlerFieldValue}
                     />
-                    <InputButton
-                        typeBt='button'
-                        nameBt='Sign In'
-                        handlerBt = {this.signIn}
-                    />
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={this.signIn}
+                    >
+                        Sign In
+                    </button>
                 </div>
             </div>
         );
