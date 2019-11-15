@@ -1,0 +1,57 @@
+{
+    "private": true,
+    "scripts": {
+        "start": "webpack-dev-server --config webpack.dev.config.js --hot --progress --colors --hot --inline --client-log-level warning",
+        "build": "webpack  --watch  --config webpack.dev.config.js",
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.7.2",
+        "@babel/preset-env": "^7.7.1",
+        "@babel/preset-react": "^7.0.0",
+        "axios": "^0.19",
+        "babel": "^6.23.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^8.0.6",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "bootstrap": "^4.3.1",
+        "cross-env": "^5.1",
+        "css-loader": "^3.2.0",
+        "file-loader": "^4.2.0",
+        "jquery": "^3.2",
+        "laravel-mix": "^4.0.7",
+        "lodash": "^4.17.13",
+        "popper.js": "^1.12",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.15.2",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^1.0.0",
+        "url-loader": "^2.2.0",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.10",
+        "webpack-dev-server": "^3.9.0"
+    },
+    "roots": [
+        "resources/js/app"
+    ],
+    "dependencies": {
+        "history": "^4.10.1",
+        "install": "^0.13.0",
+        "mobx": "^5.15.0",
+        "mobx-persist": "^0.4.1",
+        "mobx-react": "^6.1.4",
+        "react-bootstrap": "^1.0.0-beta.14",
+        "react-hot-loader": "^4.12.16",
+        "react-router-dom": "^5.1.2"
+    }
+}
