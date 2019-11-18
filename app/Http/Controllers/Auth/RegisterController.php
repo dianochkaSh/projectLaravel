@@ -61,22 +61,4 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
-
-    /**
-     * Registration user
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function registration() {
-
-        $validateFields = $this->validator(request()->all());
-        if ($validateFields->fails()) {
-            // show error
-        }
-        $user = $this->create(request()->all());
-        $success['token'] =  $user->createToken('MyApp')-> accessToken;
-        $success['name'] =  $user->name;
-        return response()->json(['success' => $success], 200);
-    }
-
-
 }

@@ -1,11 +1,12 @@
 import * as React from 'react';
+import './InputField.style.css'
 
 const InputField = (props) => {
     const handlerChangeValue = (e) => {
         props.handlerFiled(props.nameField, e.target.value);
     };
     return (
-        <div>
+        <div className="container-input">
            <label htmlFor={props.IdInput}>{props.titleField}</label>
            <input
                type={props.typeFiled}

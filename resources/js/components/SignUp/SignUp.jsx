@@ -8,6 +8,7 @@ import InputField from '../FormElements/InputField/InputField';
 import userStore from '../../store/UserStore';
 
 inject('userStore');
+@observer
 class SignUp extends Component {
     constructor() {
         super();
@@ -21,10 +22,11 @@ class SignUp extends Component {
         this.signUp = this.signUp.bind(this);
     }
     handlerFieldValue (key, value) {
+        if (userStore.errorMessage !== null) {
+            userStore.setErrorMessage(null);
+        }
         this.setState({
             [key]: value
-        }, function() {
-
         });
 
     };
@@ -77,6 +79,7 @@ class SignUp extends Component {
                         Sign Up
                     </button>
                 </div>
+                <p>{userStore.errorMessage}</p>
             </div>
         );
     }

@@ -6,7 +6,7 @@
 </head>
 <body>
     <div id="app"></div>
-    <script src="{{ asset('app.bundle.js')}}"></script>
+    <script src="{{ asset('bundle.js')}}"></script>
     <div class="container">
         <header class="row"> </header>
         <div id="main" class="row">
