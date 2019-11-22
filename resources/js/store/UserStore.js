@@ -2,9 +2,9 @@ import { action, observable, runInAction } from 'mobx';
 import axios from 'axios';
 import { CLIENT_ID, CLIENT_SECRET } from '../constants/costants';
 class UserStore {
-    @observable accessToken = 0;
     @observable errorMessage = null;
-
+    @observable tokenAuth = null;
+    @observable username = null;
     @action registration(name, email, password) {
         const url = '/api/auth/registration';
         const params = {
@@ -14,8 +14,8 @@ class UserStore {
         };
         axios.post(url, params)
             .then((response) => {
-                console.log(response);
-                this.accessToken = response.data.success.token;
+                this.setDataAfterEntering(response.data.success);
+                window.location.href= '/';
             })
             .catch((error)=> {
                 let errors = [];
@@ -39,8 +39,8 @@ class UserStore {
         };
         axios.post(url, params)
             .then((response) => {
-                return response;
-                this.accessToken = response.data.success.token;
+                this.setDataAfterEntering(response.data.success);
+                window.location.href= '/';
             })
             .catch(error => {
                 this.setErrorMessage(error.response.data.error);
@@ -50,12 +50,26 @@ class UserStore {
     @action logout() {
         axios.get('/api/auth/logout')
             .then((response) => {
-                console.log(response);
+                this.tokenAuth = null;
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('expiresAt');
+                window.location.href= '/';
             });
     }
 
     @action setErrorMessage(error) {
         this.errorMessage = error;
+    }
+    @action autoAuth() {
+        this.tokenAuth = localStorage.getItem('accessToken');
+        this.username = localStorage.getItem('username');
+    }
+    @action setDataAfterEntering (data) {
+        this.tokenAuth = data.token;
+        this.username = data.name;
+        localStorage.setItem('accessToken', data.token);
+        localStorage.setItem('username', data.name);
+        localStorage.setItem('expiresAt', data.expires_at);
     }
 }
  const userStore = new UserStore();

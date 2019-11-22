@@ -10,11 +10,12 @@ use Carbon\Carbon;
 
 class AuthController extends Controller {
 
-    public function login() {
+    public function login(Request $request) {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             $success['expires_at'] = Carbon::now()->addDays(10);
+            $success['name'] = $user->getAttribute('name');
             return response()->json(['success' => $success],200);
         } else {
             return response()->json(['error' => 'Unauthorised user. Please check user/password.'], 401);
