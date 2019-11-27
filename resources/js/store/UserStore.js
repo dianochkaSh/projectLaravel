@@ -54,7 +54,10 @@ class UserStore {
     }
 
     @action logout() {
-        axios.get('/api/auth/logout')
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+        axios.get('/api/logout',{headers: headers})
             .then((response) => {
                 this.tokenAuth = null;
                 this.username = null;

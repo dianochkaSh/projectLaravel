@@ -19,7 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('auth/registration','Auth\AuthController@registration');
 Route::post('auth/login', 'Auth\AuthController@login');
-Route::get('auth/logout', 'Auth\AuthController@logout');
 
 Route::post('auth/token', 'Api\Auth\DefaultController@authenticate');
 Route::post('auth/refresh', 'Api\Auth\DefaultController@refreshToken');
@@ -28,5 +27,8 @@ Route::group(['prefix' => 'user'], function() {
     Route::get('getUser/{id}', 'User\UserController@get');
 });
 
+Route::middleware('auth:api')->group(function () {
+    Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
+});
 
 

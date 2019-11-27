@@ -43,7 +43,7 @@ class AuthController extends Controller {
     }
 
     public function logout (Request $request) {
-        $accessToken = auth()->guard('api')->user();
+        $accessToken = auth()->guard('api')->user()->token();
         DB::table('oauth_refresh_tokens')
             ->where('access_token_id', $accessToken->id)
             ->update([
@@ -52,7 +52,6 @@ class AuthController extends Controller {
 
         $accessToken->revoke();
         return response()->json(null, 204);
-        //return \App::call('\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy', [$request]);
     }
 
 }
