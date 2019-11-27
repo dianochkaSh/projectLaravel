@@ -24,4 +24,9 @@ Route::get('auth/logout', 'Auth\AuthController@logout');
 Route::post('auth/token', 'Api\Auth\DefaultController@authenticate');
 Route::post('auth/refresh', 'Api\Auth\DefaultController@refreshToken');
 
+Route::group(['prefix' => 'user'], function() {
+    Route::get('getUser/{id}', 'User\UserController@get');
+});
+
+
 

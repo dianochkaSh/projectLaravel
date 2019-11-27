@@ -11,6 +11,7 @@ import Home from './components/Home';
 import Menu  from './components/Menu/Menu';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
+import ProfileUser from './components/ProfileUser/ProfileUser';
 const history = createHistory.createBrowserHistory();
 const App = () => (
     <Provider{...storesProvider}>
@@ -21,6 +22,7 @@ const App = () => (
                     <Route  exact={true} path="/" component={Home}/>
                     <Route  exact={true} path="/login" component={Login}/>
                     <Route  exact={true} path="/signup" component={SignUp}/>
+                    <Route  exact={true} path="/profile" component={ProfileUser}/>
                 </Switch>
             </div>
         </Router>

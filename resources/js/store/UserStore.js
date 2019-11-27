@@ -10,12 +10,16 @@ class UserStore {
         const params = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            grant_type: 'password',
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+            scope: ''
         };
         axios.post(url, params)
             .then((response) => {
-                this.setDataAfterEntering(response.data.success);
-                window.location.href= '/';
+                this.setDataAfterEntering(response.data);
+                window.location.href= '/profile';
             })
             .catch((error)=> {
                 let errors = [];
@@ -42,7 +46,7 @@ class UserStore {
             .then((response) => {
                 console.log(response);
                 this.setDataAfterEntering(response.data);
-                window.location.href= '/';
+                window.location.href= '/profile';
             })
             .catch(error => {
                 this.setErrorMessage(error.response.data.error);
@@ -73,6 +77,12 @@ class UserStore {
         localStorage.setItem('accessToken', data.access_token);
         localStorage.setItem('expiresIn', data.expires_in);
         localStorage.setItem('refreshToken', data.refresh_token);
+    }
+    @action getDataAboutUser () {
+        axios.get('/api/user/getUser/12')
+            .then((response) => {
+                console.log(response);
+            })
     }
 }
  const userStore = new UserStore();
