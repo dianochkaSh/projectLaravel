@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 const LogInMenu = (props) => {
-    const signOut =() => {
-      props.LogOut;
+    const signOut = () => {
+      props.handlerLogOut();
     };
     return (
         <div>

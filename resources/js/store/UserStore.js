@@ -31,15 +31,17 @@ class UserStore {
     @action login(email, password) {
         const url = '/api/auth/login';
         const params = {
-            email: email,
+            username: email,
             password: password,
             grant_type: 'password',
             client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET
+            client_secret: CLIENT_SECRET,
+            scope: ''
         };
         axios.post(url, params)
             .then((response) => {
-                this.setDataAfterEntering(response.data.success);
+                console.log(response);
+                this.setDataAfterEntering(response.data);
                 window.location.href= '/';
             })
             .catch(error => {
@@ -51,8 +53,10 @@ class UserStore {
         axios.get('/api/auth/logout')
             .then((response) => {
                 this.tokenAuth = null;
+                this.username = null;
                 localStorage.removeItem('accessToken');
-                localStorage.removeItem('expiresAt');
+                localStorage.removeItem('expiresIn');
+                localStorage.removeItem('refreshToken');
                 window.location.href= '/';
             });
     }
@@ -66,10 +70,9 @@ class UserStore {
     }
     @action setDataAfterEntering (data) {
         this.tokenAuth = data.token;
-        this.username = data.name;
-        localStorage.setItem('accessToken', data.token);
-        localStorage.setItem('username', data.name);
-        localStorage.setItem('expiresAt', data.expires_at);
+        localStorage.setItem('accessToken', data.access_token);
+        localStorage.setItem('expiresIn', data.expires_in);
+        localStorage.setItem('refreshToken', data.refresh_token);
     }
 }
  const userStore = new UserStore();

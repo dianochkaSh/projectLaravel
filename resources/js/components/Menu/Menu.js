@@ -18,7 +18,7 @@ class Menu extends Component {
         userStore.autoAuth();
     }
     signOutUser (){
-        alert(24234);
+        userStore.logout();
     }
 
     render() {
@@ -29,7 +29,7 @@ class Menu extends Component {
                 { token !== null
                     ? <LogInMenu
                         username={username}
-                        LogOut = {() => this.signOutUser()}
+                        handlerLogOut = {() => this.signOutUser()}
                     />
                     : <LogOutMenu/>
                 }
