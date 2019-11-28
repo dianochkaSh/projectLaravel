@@ -20,7 +20,7 @@ class AuthController extends Controller {
     public function registration(Request $request) {
         $validateFields = Validator::make($request->all(), [
             'name'      => ['required', 'string', 'max:255'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'  => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'  => ['required', 'string', 'min:6'],
         ]);
         if ($validateFields->fails()) {
@@ -31,15 +31,11 @@ class AuthController extends Controller {
             'email'    => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
-        $data = [
-            'client_id'     => $request->get('client_id'),
-            'client_secret' => $request->get('client_secret'),
+        $request->request->add([
             'username'      => $request->get('email'),
-            'password'      => $request->get('password'),
-            'grant_type'    => $request->get('grant_type'),
-            'scope'    => $request->get('scope'),
-        ];
+        ]);
 
+        return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
     }
 
     public function logout (Request $request) {
