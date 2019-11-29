@@ -5,6 +5,7 @@ class UserStore {
     @observable errorMessage = null;
     @observable tokenAuth = null;
     @observable username = null;
+    @observable user = {};
     @action registration(name, email, password) {
         const url = '/api/auth/registration';
         const params = {
@@ -82,10 +83,34 @@ class UserStore {
         localStorage.setItem('refreshToken', data.refresh_token);
     }
     @action getDataAboutUser () {
-        axios.get('/api/user/getUser/12')
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+        axios.get('/api/user/getUser', {headers: headers})
             .then((response) => {
-                console.log(response);
-            })
+                if (response.status === 200) {
+                    this.username = response.data.name;
+                    this.user.name = response.data.name;
+                    this.user.email = response.data.email;
+                    this.user.photo = response.data.photo;
+                    localStorage.setItem('username', response.data.name);
+                }
+            });
+    }
+    @action uploadPhotoUser (file) {
+         const data = new FormData();
+         data.append('file', file);
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+        axios.post('/api/user/uploadPhoto', data, {headers: headers})
+            .then((response) => {
+               console.log(response);
+               if (response.status === 200) {
+                   this.user.photo = response.data.photo;
+               }
+
+            });
     }
 }
  const userStore = new UserStore();

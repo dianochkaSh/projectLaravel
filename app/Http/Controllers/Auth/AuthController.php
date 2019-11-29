@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\UserRepository;
 
 class AuthController extends Controller {
 
@@ -26,11 +27,14 @@ class AuthController extends Controller {
         if ($validateFields->fails()) {
             return response()->json(['error' => $validateFields->errors()->getMessages() ], 400);
         }
-        $user = User::create([
-            'name'     => $request->get('name'),
-            'email'    => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-        ]);
+
+        $data = [
+          'name' => $request->get('name'),
+          'email' => $request->get('email'),
+          'password' => $request->get('password')
+        ];
+        $userRepo = new UserRepository(new User);
+        $user = $userRepo->createUser($data);
         $request->request->add([
             'username'      => $request->get('email'),
         ]);

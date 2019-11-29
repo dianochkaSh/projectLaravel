@@ -23,8 +23,11 @@ Route::post('auth/login', 'Auth\AuthController@login');
 Route::post('auth/token', 'Api\Auth\DefaultController@authenticate');
 Route::post('auth/refresh', 'Api\Auth\DefaultController@refreshToken');
 
-Route::group(['prefix' => 'user'], function() {
-    Route::get('getUser/{id}', 'User\UserController@get');
+Route::middleware('auth:api')->group(function() {
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('getUser', 'User\UserController@get');
+        Route::post('uploadPhoto', 'User\UserController@uploadPhoto');
+    });
 });
 
 Route::middleware('auth:api')->group(function () {

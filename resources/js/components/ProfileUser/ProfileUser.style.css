@@ -1,0 +1,40 @@
+.profile-block {
+    margin: 0 auto;
+    width: 70%;
+}
+.profile-container {
+    margin: 20px;
+    padding: 30px 30px;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.profile-content-left {
+    float: left;
+    margin-right: 20%;
+}
+.profile-user-title {
+    font-size: 24px;
+}
+.info-left-content {
+    display: inline-grid;
+    float: left;
+}
+.info-left-content label {
+    font-weight: 600;
+}
+.info-right-content {
+    display: inline-grid;
+    margin-left: 4%;
+}
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+}
