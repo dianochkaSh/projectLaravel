@@ -58,7 +58,7 @@ class UserStore {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
-        axios.get('/api/logout',{headers: headers})
+        axios.get('/api/logout',{ headers: headers })
             .then((response) => {
                 this.tokenAuth = null;
                 this.username = null;
@@ -86,10 +86,11 @@ class UserStore {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
-        axios.get('/api/user/getUser', {headers: headers})
+        axios.get('/api/user/getUser', { headers: headers })
             .then((response) => {
                 if (response.status === 200) {
-                    this.username = response.data.name;
+                    //this.username = response.data.name;
+                    console.log(response.data);
                     this.user.name = response.data.name;
                     this.user.email = response.data.email;
                     this.user.photo = response.data.photo;
@@ -103,13 +104,24 @@ class UserStore {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
-        axios.post('/api/user/uploadPhoto', data, {headers: headers})
+        axios.post('/api/user/uploadPhoto', data, { headers: headers })
             .then((response) => {
                console.log(response);
                if (response.status === 200) {
                    this.user.photo = response.data.photo;
                }
 
+            });
+    }
+    @action deletePhotoUser() {
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+        axios.get('/api/user/deletePhoto',{ headers: headers })
+            .then((response)=> {
+               if (response.status === 200) {
+                   this.user.photo = 'userPlaceholder.png';
+               }
             });
     }
 }

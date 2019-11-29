@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 /* store */
 import userStore from '../../store/UserStore';
-import LogoUser from  '../../../../public/assets/img/userPlaceholder.png';
+// import LogoUser from  '';
 
 /* style */
 import './ProfileUser.style.css';
@@ -22,14 +22,19 @@ class ProfileUser extends Component {
     handlerUploadPhoto() {
        userStore.uploadPhotoUser(event.target.files[0]);
     }
+    handlerDeletePhoto() {
+        userStore.deletePhotoUser();
+    }
     render() {
-        const photo = userStore.user.photo !== undefined ? require('../../../../storage/app/'+ userStore.user.photo): LogoUser;
+        console.log(userStore.user);
         return(
             <div className='profile-block'>
                 <div className='profile-container'>
                     <p className='profile-user-title'>Profile user</p>
                     <div className='profile-content-left'>
-                        <img src={photo} width="200" height="200"/>
+                        {  userStore.user.photo !== undefined &&
+                            <img src={require('../../../../storage/app/' + userStore.user.photo)} width="200" height="200"/>
+                        }
 
                         {userStore.user.photo === undefined
                             ?
@@ -41,10 +46,8 @@ class ProfileUser extends Component {
                             </div>
                             :
                             <div>
-                                <label htmlFor="file-upload" className="custom-file-upload">
-                                    Delete Photo
-                                </label>
-                                <input id="file-upload" type="file"/>
+                                <button className='btn-delete-photo' onClick={this.handlerDeletePhoto}>Delete Photo
+                                </button>
                             </div>
                         }
                     </div>

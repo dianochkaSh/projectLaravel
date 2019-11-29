@@ -19,6 +19,7 @@ class UserController extends Controller {
         ];
         return response()->json($dataUser, 200);
     }
+
     public function uploadPhoto(Request $request) {
         $user = $accessToken = auth()->guard('api')->user();
         $file = $request->file('file');
@@ -26,12 +27,21 @@ class UserController extends Controller {
         $name = Str::random().'.'.$ext ;
         $path = $request->file('file')->storeAs('public/uploads',$name);
         if ($path) {
-            //$url = Storage::url($path);
             $userRepo = new UserRepository(new User);
             $uploadPhoto = $userRepo->updatePhoto($user->getAttribute('id'), $path);
-            return response()->json(['photo' => $uploadPhoto ], 200);
+            return response()->json(['photo' => $path ], 200);
         } else {
             return response()->json(['error' => 'File has not upload.' ], 400);
+        }
+
+    }
+
+    public function deletePhoto() {
+        $user = $accessToken = auth()->guard('api')->user();
+        $userRepo = new UserRepository(new User);
+        $deletePhoto = $userRepo->updatePhoto($user->getAttribute('id'), '');
+        if ($deletePhoto) {
+            return response()->json(['message' => 'User Photo deleted.' ], 200);
         }
 
     }

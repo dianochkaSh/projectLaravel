@@ -3,6 +3,7 @@ namespace  App\Repositories;
 
 use Jsdecena\Baserepo\BaseRepository;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository {
 
@@ -20,6 +21,7 @@ class UserRepository extends BaseRepository {
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
+            'photo'    => ''
         ]);
     }
 
