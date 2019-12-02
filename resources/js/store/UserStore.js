@@ -89,7 +89,6 @@ class UserStore {
         axios.get('/api/user/getUser', { headers: headers })
             .then((response) => {
                 if (response.status === 200) {
-                    //this.username = response.data.name;
                     console.log(response.data);
                     this.user.name = response.data.name;
                     this.user.email = response.data.email;
@@ -109,6 +108,7 @@ class UserStore {
                console.log(response);
                if (response.status === 200) {
                    this.user.photo = response.data.photo;
+                   //window.location.reload();
                }
 
             });
@@ -120,7 +120,7 @@ class UserStore {
         axios.get('/api/user/deletePhoto',{ headers: headers })
             .then((response)=> {
                if (response.status === 200) {
-                   this.user.photo = 'userPlaceholder.png';
+                   this.user.photo = undefined;
                }
             });
     }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { inject, observer } from 'mobx-react';
+import { inject, observer, observable } from 'mobx-react';
 /* store */
 import userStore from '../../store/UserStore';
 // import LogoUser from  '';
@@ -26,17 +26,17 @@ class ProfileUser extends Component {
         userStore.deletePhotoUser();
     }
     render() {
-        console.log(userStore.user);
         return(
             <div className='profile-block'>
                 <div className='profile-container'>
                     <p className='profile-user-title'>Profile user</p>
                     <div className='profile-content-left'>
-                        {  userStore.user.photo !== undefined &&
-                            <img src={require('../../../../storage/app/' + userStore.user.photo)} width="200" height="200"/>
+                        {  (userStore.user.photo === undefined  || userStore.user.photo === '')
+                             ? <img src={require('../../../../storage/app/public/userPlaceholder.png')} width="200" height="200"/>
+                            : <img src={require('../../../../storage/app/' + userStore.user.photo)} width="200" height="200"/>
                         }
 
-                        {userStore.user.photo === undefined
+                        { (userStore.user.photo === undefined || userStore.user.photo === '' || userStore.user.photo === 'public/userPlaceholder.png')
                             ?
                             <div>
                                 <label htmlFor="file-upload" className="custom-file-upload">
