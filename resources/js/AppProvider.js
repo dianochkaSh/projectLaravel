@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Provider } from 'mobx-react';
 import { hot } from 'react-hot-loader';
-import storesProvider from './store/index';
+import storesProvider from './src/store/index';
 import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import * as createHistory from 'history';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* components */
-import Home from './components/Home';
-import Menu  from './components/Menu/Menu';
-import Login from './components/Login/Login';
-import SignUp from './components/SignUp/SignUp';
-import ProfileUser from './components/ProfileUser/ProfileUser';
+import Home from './src/components/Home';
+import Menu  from './src/components/Menu/Menu';
+import Login from './src/components/Login/Login';
+import SignUp from './src/components/SignUp/SignUp';
+import ProfileUser from './src/components/ProfileUser/ProfileUser';
 const history = createHistory.createBrowserHistory();
 const App = () => (
     <Provider{...storesProvider}>

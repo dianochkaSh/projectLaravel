@@ -108,7 +108,6 @@ class UserStore {
                console.log(response);
                if (response.status === 200) {
                    this.user.photo = response.data.photo;
-                   //window.location.reload();
                }
 
             });

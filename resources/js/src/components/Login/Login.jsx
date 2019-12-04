@@ -8,7 +8,7 @@ import InputField from '../FormElements/InputField/InputField';
 import './Login.style.css';
 
 /* store */
-import userStore from '../../store/UserStore';
+import userStore from '../../../src/store/UserStore';
 
 inject('userStore');
 @observer

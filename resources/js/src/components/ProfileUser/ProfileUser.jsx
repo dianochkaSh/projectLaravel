@@ -31,12 +31,13 @@ class ProfileUser extends Component {
                 <div className='profile-container'>
                     <p className='profile-user-title'>Profile user</p>
                     <div className='profile-content-left'>
-                        {  (userStore.user.photo === undefined  || userStore.user.photo === '')
-                             ? <img src={require('../../../../storage/app/public/userPlaceholder.png')} width="200" height="200"/>
-                            : <img src={require('../../../../storage/app/' + userStore.user.photo)} width="200" height="200"/>
+                        { userStore.user.photo === undefined
+                            ? <img src={require('../../assets/img/userPlaceholder.png')} width="200" height="200"/>
+                            : <img src={userStore.user.photo} width="200" height="200"/>
                         }
 
-                        { (userStore.user.photo === undefined || userStore.user.photo === '' || userStore.user.photo === 'public/userPlaceholder.png')
+
+                        { userStore.user.photo === undefined
                             ?
                             <div>
                                 <label htmlFor="file-upload" className="custom-file-upload">
@@ -46,7 +47,11 @@ class ProfileUser extends Component {
                             </div>
                             :
                             <div>
-                                <button className='btn-delete-photo' onClick={this.handlerDeletePhoto}>Delete Photo
+                                <button
+                                    className='btn-delete-photo'
+                                    onClick={this.handlerDeletePhoto}
+                                >
+                                    Delete Photo
                                 </button>
                             </div>
                         }
