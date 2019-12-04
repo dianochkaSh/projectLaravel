@@ -1,19 +1,24 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { inject, observer, observable } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
+import { observable } from 'mobx';
 /* store */
 import userStore from '../../store/UserStore';
-// import LogoUser from  '';
 
 /* style */
 import './ProfileUser.style.css';
 
+/* components */
+import EditProfile from './EditProfleUser/EditProfileUser';
+
 inject('userStore');
 @observer
 class ProfileUser extends Component {
+    @observable isOpenModal = false;
     constructor() {
         super();
         this.handlerUploadPhoto = this.handlerUploadPhoto.bind(this);
+        this.handlerModalWindow = this.handlerModalWindow.bind(this);
     }
     componentDidMount() {
         userStore.getDataAboutUser();
@@ -24,6 +29,10 @@ class ProfileUser extends Component {
     }
     handlerDeletePhoto() {
         userStore.deletePhotoUser();
+    }
+
+    handlerModalWindow(param) {
+        this.isOpenModal = param;
     }
     render() {
         return(
@@ -64,9 +73,14 @@ class ProfileUser extends Component {
                         <div className='info-right-content'>
                             <label>{userStore.user.name}</label>
                             <label>{userStore.user.email}</label>
+                            <button onClick={() => this.handlerModalWindow(true)} className="btn btn-primary"> Edit Profile </button>
                         </div>
                     </div>
                 </div>
+                <EditProfile
+                    isOpen={this.isOpenModal}
+                    closeWindow={this.handlerModalWindow}
+                />
             </div>
         )
     }
