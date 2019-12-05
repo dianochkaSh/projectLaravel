@@ -78,6 +78,7 @@ class ProfileUser extends Component {
                     </div>
                 </div>
                 <EditProfile
+                    user = {userStore.user}
                     isOpen={this.isOpenModal}
                     closeWindow={this.handlerModalWindow}
                 />

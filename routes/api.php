@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function() {
         Route::get('getUser', 'User\UserController@get');
         Route::post('uploadPhoto', 'User\UserController@uploadPhoto');
         Route::get('deletePhoto', 'User\UserController@deletePhoto');
+        Route::post('editUser', 'User\UserController@edit');
     });
 });
 

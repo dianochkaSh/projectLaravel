@@ -55,6 +55,7 @@
         "react-bootstrap": "^1.0.0-beta.16",
         "react-hot-loader": "^4.12.18",
         "react-modal": "^3.11.1",
-        "react-router-dom": "^5.1.2"
+        "react-router-dom": "^5.1.2",
+        "validate.js": "^0.13.1"
     }
 }

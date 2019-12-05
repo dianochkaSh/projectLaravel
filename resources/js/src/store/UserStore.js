@@ -123,6 +123,16 @@ class UserStore {
                }
             });
     }
+    @action editUser(data) {
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+        axios.post('api/user/editUser', data, {headers: headers} )
+            .then((response) => {
+                console.log(response);
+            })
+
+    }
 }
  const userStore = new UserStore();
  export default userStore;
