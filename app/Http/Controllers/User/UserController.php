@@ -21,6 +21,7 @@ class UserController extends Controller {
         $dataUser = [
           'name'    => $user->getAttribute('name'),
           'email'   => $user->getAttribute('email'),
+          'id'      => $user->getAttribute('id'),
           'photo'   => $fullPath
         ];
         return response()->json($dataUser, 200);
@@ -55,7 +56,18 @@ class UserController extends Controller {
 
     }
 
-    public function edit() {
-        $d = 2;
+    public function edit(Request $request) {
+        $dataUser = [
+            'name'  => $request->get('username'),
+            'email' => $request->get('email')
+        ];
+        $userRepo = new UserRepository(new User);
+        $updateUserData = $userRepo->updateUser($request->get('id'), $dataUser);
+        if ($updateUserData) {
+            return response()->json(['success' => 'Data of user has updated.' ], 200);
+        } else {
+            return response()->json(['error' => 'Data of user has not updated.' ], 400);
+        }
+
     }
 }

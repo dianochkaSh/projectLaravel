@@ -1,6 +1,9 @@
 export default {
-    name: {
-        presence: { message: 'must not be empty' },
+    username: {
+        presence: {
+            message: 'must not be empty',
+            allowEmpty: false
+        },
     },
     email: {
         presence: { message: 'must not be empty' },

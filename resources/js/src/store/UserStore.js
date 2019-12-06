@@ -3,6 +3,7 @@ import axios from 'axios';
 import { CLIENT_ID, CLIENT_SECRET } from '../constants/costants';
 class UserStore {
     @observable errorMessage = null;
+    @observable message = null;
     @observable tokenAuth = null;
     @observable username = null;
     @observable user = {};
@@ -93,6 +94,7 @@ class UserStore {
                     this.user.name = response.data.name;
                     this.user.email = response.data.email;
                     this.user.photo = response.data.photo;
+                    this.user.id = response.data.id;
                     localStorage.setItem('username', response.data.name);
                 }
             });
@@ -127,11 +129,17 @@ class UserStore {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
-        axios.post('api/user/editUser', data, {headers: headers} )
+        data.id = this.user.id;
+        axios.put('api/user/editUser', data, {headers: headers} )
             .then((response) => {
-                console.log(response);
-            })
-
+                if (response.status === 200) {
+                    this.message  = response.data.success;
+                    this.getDataAboutUser();
+                }
+            });
+    }
+    @action setMessage(error) {
+        this.message = error;
     }
 }
  const userStore = new UserStore();

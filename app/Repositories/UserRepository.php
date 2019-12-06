@@ -37,5 +37,18 @@ class UserRepository extends BaseRepository {
       return $user->save();
     }
 
+    /**
+     * update data of user
+     * @param $idUser
+     * @param $data
+     * @return mixed
+     */
+    public function updateUser ($idUser, $data) {
+        $user = User::find($idUser);
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        return $user->save();
+    }
+
 }
 

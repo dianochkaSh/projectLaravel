@@ -16,7 +16,7 @@ inject('userStore');
 class editProfileUser extends Component{
     @observable validation = {};
     @observable email = '';
-    @observable name = '';
+    @observable username = '';
     constructor(props) {
         super(props);
         this.closeModal = this.closeModal.bind(this);
@@ -28,25 +28,31 @@ class editProfileUser extends Component{
         });
     }
     closeModal = () => {
+        userStore.setMessage(null);
         this.props.closeWindow(false);
     };
     handlerFieldValue = (key, value) => {
+        if (userStore.message !== null) {
+            userStore.setMessage(null);
+        }
+        this.validation = {};
         this[key] = value;
     };
     handlerEditUser = () => {
         let data = {
             email: this.email,
-            name: this.name
+            username: this.username
         };
 
         let valid = validate(data, editFormValidation);
-        console.log(valid);
         if (valid === undefined) {
             userStore.editUser(data);
+        } else {
+            this.validation = valid;
         }
     };
     setUserData = () => {
-       this.name = this.props.user.name;
+       this.username = this.props.user.name;
        this.email = this.props.user.email;
     };
     render() {
@@ -61,7 +67,6 @@ class editProfileUser extends Component{
                 width                 :  '47%'
             }
         };
-
         return (
             <div>
                 <Modal
@@ -70,15 +75,20 @@ class editProfileUser extends Component{
                 >
                     <div className="edit-profile-container">
                         <img className="close" src={require('../../../assets/img/close.png')} onClick={this.closeModal}/>
-                        <div>
+                        <div className="edit-profile-content">
                             <InputElement
                                 typeFiled='text'
-                                nameField='name'
+                                nameField='username'
                                 titleField='Name'
                                 IdInput='NameInput'
-                                valueField={this.name}
+                                valueField={this.username}
                                 handlerFiled={this.handlerFieldValue}
                             />
+                            { this.validation !== undefined && this.validation.username !== undefined &&
+                                <div className="alert alert-danger" role="alert">
+                                    {this.validation.username[0]}
+                                </div>
+                            }
                             <InputElement
                                 typeFiled='text'
                                 nameField='email'
@@ -87,8 +97,19 @@ class editProfileUser extends Component{
                                 valueField={this.email}
                                 handlerFiled={this.handlerFieldValue}
                             />
+                            { this.validation !== undefined && this.validation.email &&
+                                <div className="alert alert-danger" role="alert">
+                                    {this.validation.email[0]}
+                                </div>
+                            }
+
                             <button className="btn btn-primary" onClick={this.handlerEditUser}>Edit</button>
                         </div>
+                        {userStore.message !== null &&
+                            <div className="alert alert-primary" role="alert">
+                                {userStore.message}
+                            </div>
+                        }
                     </div>
                 </Modal>
             </div>
