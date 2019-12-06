@@ -1,0 +1,41 @@
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    border: none;
+    color: rgba(0,0,0,.9);
+    padding: 14px 16px;
+    background-color: inherit;
+    font-size: 1.25rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    min-width: 160px;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.singOut {
+    float: right;
+    margin-left: 80%;
+    text-align: right;
+}
+nav a:hover {
+    background-color: #d2d9df;
+}

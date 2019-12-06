@@ -141,6 +141,11 @@ class UserStore {
     @action setMessage(error) {
         this.message = error;
     }
+    @action changePasswordUser(data) {
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+    }
 }
  const userStore = new UserStore();
  export default userStore;
