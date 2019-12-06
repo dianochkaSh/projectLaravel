@@ -13,8 +13,7 @@ class UserController extends Controller {
     public function get(Request $request) {
         $user = $accessToken = auth()->guard('api')->user();
         if (!empty($user->getAttribute('photo'))) {
-            $path = Storage::url($user->getAttribute('photo'));
-            $fullPath = 'http://'.request()->getHttpHost() . $path;
+            $fullPath = Storage::disk('public')->url($user->getAttribute('photo'));
         } else {
             $fullPath = undefined;
         }
@@ -32,13 +31,12 @@ class UserController extends Controller {
         $file = $request->file('file');
         $ext = $file->extension();
         $name = Str::random().'.'.$ext ;
-        $path = $request->file('file')->storeAs('public/uploads',$name);
+        $file = $request->file('file');
+        $path = Storage::disk('public')->putFileAs('uploads', $file, $name);
         if ($path) {
             $userRepo = new UserRepository(new User);
-            $path = substr( stristr($path, '/'), 1, strlen($path));
             $uploadPhoto = $userRepo->updatePhoto($user->getAttribute('id'), $path);
-            $newPath = Storage::url($path);
-            $fullPath = 'http://'.request()->getHttpHost() . $newPath;
+            $fullPath = Storage::disk('public')->url($path);
             return response()->json(['photo' => $fullPath ], 200);
         } else {
             return response()->json(['error' => 'File has not upload.' ], 400);
