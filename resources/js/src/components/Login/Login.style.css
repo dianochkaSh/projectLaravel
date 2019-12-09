@@ -1,4 +1,16 @@
-.login-container{
+.login-container {
     width: 40%;
     padding: 10px 10px;
+    margin: 0 auto;
+}
+.login-social-network h4 {
+    text-align: center;
+}
+.login-social-network .login-social-network-content {
+    margin: 0 auto;
+    width: 20%;
+}
+.login-social-network .login-social-network-content img {
+   margin: 10px;
+   cursor: pointer;
 }

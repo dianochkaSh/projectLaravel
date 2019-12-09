@@ -36,7 +36,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login-container">
-                <p>Login</p>
+                <h4>Login</h4>
                 <div>
                     <InputField
                         typeFiled='text'
@@ -63,6 +63,12 @@ class Login extends Component {
                     </button>
                 </div>
                 <p>{userStore.errorMessage}</p>
+                <div className='login-social-network'>
+                    <h4>Or log in using social networks </h4>
+                    <div className='login-social-network-content'>
+                        <img  alt="google" className="" src={require('../../assets/img/iconGoogle.png')}/>
+                        <img alt="facebook" className="" src={require('../../assets/img/iconFB.png')}/>
+                    </div>                </div>
             </div>
         );
     }

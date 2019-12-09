@@ -37,7 +37,7 @@ class SignUp extends Component {
     render() {
         return (
             <div className="login-container">
-                <p>Sign Up</p>
+                <h4>Sign Up</h4>
                 <div>
                     <InputField
                         typeFiled='text'
