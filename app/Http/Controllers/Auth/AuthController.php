@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller {
 
@@ -48,6 +49,20 @@ class AuthController extends Controller {
 
         $accessToken->revoke();
         return response()->json(null, 204);
+    }
+
+    public function changePassword(Request $request) {
+        $validateFields = Validator::make($request->all(), [
+            'oldPassword'  => ['required', 'string', 'min:6'],
+            'newPassword'  => ['required', 'string', 'min:6'],
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json(['error' => $validateFields->errors()->getMessages() ], 400);
+        }
+        $user = auth()->guard('api')->user();
+        $user->password = Hash::make($request->get('newPassword'));
+        $user->save();
+        return response()->json(['success' => 'Password has changed.' ], 200);
     }
 
 }

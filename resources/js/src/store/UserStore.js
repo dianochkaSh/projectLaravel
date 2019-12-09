@@ -145,6 +145,20 @@ class UserStore {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
+        let params = {
+            oldPassword: data.password,
+            newPassword: data.passwordNew,
+            grant_type: 'password',
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+            scope: ''
+        };
+        axios.post('api/user/changePassword', params , {headers: headers})
+            .then((response) => {
+                if (response.status === 200) {
+                    this.message  = response.data.success;
+                }
+            })
     }
 }
  const userStore = new UserStore();

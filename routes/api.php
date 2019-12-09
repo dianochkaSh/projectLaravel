@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function() {
         Route::post('uploadPhoto', 'User\UserController@uploadPhoto');
         Route::get('deletePhoto', 'User\UserController@deletePhoto');
         Route::put('editUser', 'User\UserController@edit');
+        Route::post('changePassword', 'Auth\AuthController@changePassword');
     });
 });
 

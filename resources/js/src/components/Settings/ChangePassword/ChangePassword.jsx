@@ -24,6 +24,10 @@ class changePassword extends Component {
         super(props);
         this.handlerField = this.handlerField.bind(this);
         this.handlerChangePassword = this.handlerChangePassword.bind(this);
+        this.setZeroUserValue = this.setZeroUserValue.bind(this);
+        reaction(() => userStore.message, () => {
+            this.setZeroUserValue();
+        });
     }
     handlerField = (key, value) => {
         if (userStore.message !== null) {
@@ -45,12 +49,16 @@ class changePassword extends Component {
         } else {
             this.validate = valid;
         }
-
+    };
+    setZeroUserValue = () => {
+        this.password = '';
+        this.passwordNew = '';
+        this.passwordConfirm = '';
     };
     render() {
         return (
             <div className='change-password-container'>
-                <div>
+                <div className='change-password-content'>
                     <h2>Change password</h2>
                     <InputElement
                         typeFiled='password'
@@ -92,7 +100,11 @@ class changePassword extends Component {
                         </div>
                     }
                     <button onClick={this.handlerChangePassword} className="btn btn-primary">Change password</button>
-
+                </div>
+                <div>
+                    {(userStore.message !== undefined && userStore.message !== null) &&
+                        <div className="alert alert-primary" role="alert">{userStore.message}</div>
+                    }
                 </div>
 
             </div>

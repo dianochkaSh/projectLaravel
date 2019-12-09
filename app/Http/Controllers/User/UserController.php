@@ -66,6 +66,9 @@ class UserController extends Controller {
         } else {
             return response()->json(['error' => 'Data of user has not updated.' ], 400);
         }
-
     }
+
+
+
+
 }
