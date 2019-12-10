@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 /* Components */
 import InputField from '../FormElements/InputField/InputField';
@@ -27,6 +28,7 @@ class Login extends Component {
         this.signIn = this.signIn.bind(this);
         this.handlerSuccessGoogle = this.handlerSuccessGoogle.bind(this);
         this.handlerFailureGoogle = this.handlerFailureGoogle.bind(this);
+        this.handlerSuccessFacebook = this.handlerSuccessFacebook.bind(this);
     }
     handlerFieldValue (key, value) {
         if (userStore.errorMessage !== null) {
@@ -45,6 +47,9 @@ class Login extends Component {
     }
     handlerFailureGoogle () {
 
+    }
+    handlerSuccessFacebook (response) {
+        console.log(response);
     }
     render() {
         return (
@@ -85,6 +90,15 @@ class Login extends Component {
                             buttonText=""
                             onSuccess={this.handlerSuccessGoogle}
                             onFailure={this.handlerFailureGoogle}
+                        />
+
+                        <FacebookLogin
+                            appId=""
+                            fields="name,email,picture"
+                            callback={this.handlerSuccessFacebook}
+                            icon="fa-facebook"
+                            textButton=""
+                            size="small"
                         />
                     </div>
                 </div>
