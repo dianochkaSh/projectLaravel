@@ -18,10 +18,12 @@ class UserRepository extends BaseRepository {
      */
     public function createUser ($data) {
         return User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-            'photo'    => ''
+            'name'          => $data['name'],
+            'email'         => $data['email'],
+            'password'      => Hash::make($data['password']),
+            'photo'         => $data['photo'],
+            'provider'      => $data['provider'],
+            'provider_id'   => $data['provider_id']
         ]);
     }
 
@@ -48,6 +50,15 @@ class UserRepository extends BaseRepository {
         $user->name = $data['name'];
         $user->email = $data['email'];
         return $user->save();
+    }
+
+    /**
+     * check exist user, by provider id
+     * @param $providerId
+     * @return mixed
+     */
+    public function getUserByProviderId($providerId) {
+       return User::where('provider_id', $providerId)->exists();
     }
 
 }

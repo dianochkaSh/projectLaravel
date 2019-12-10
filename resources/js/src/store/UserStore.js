@@ -160,6 +160,24 @@ class UserStore {
                 }
             })
     }
+    @action loginWithGoogle(data) {
+        const params = {
+            email : data.profileObj.email,
+            name : data.profileObj.name,
+            provider: 'google',
+            provider_id: data.profileObj.googleId,
+            photo : data.profileObj.imageUrl,
+            grant_type: 'password',
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+        };
+        axios.post('/api/auth/google/login', params)
+            .then((response) => {
+                this.setDataAfterEntering(response.data);
+                window.location.href= '/profile';
+            });
+
+    }
 }
  const userStore = new UserStore();
  export default userStore;

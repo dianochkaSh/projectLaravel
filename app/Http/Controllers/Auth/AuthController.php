@@ -26,9 +26,12 @@ class AuthController extends Controller {
         }
 
         $data = [
-          'name' => $request->get('name'),
-          'email' => $request->get('email'),
-          'password' => $request->get('password')
+            'name'          => $request->get('name'),
+            'email'         => $request->get('email'),
+            'password'      => $request->get('password'),
+            'provider'      => '',
+            'provider_id'   => '',
+            'photo'         => ''
         ];
         $userRepo = new UserRepository(new User);
         $user = $userRepo->createUser($data);
@@ -63,6 +66,28 @@ class AuthController extends Controller {
         $user->password = Hash::make($request->get('newPassword'));
         $user->save();
         return response()->json(['success' => 'Password has changed.' ], 200);
+    }
+
+
+    public function signInGoogle (Request $request) {
+        $request->request->add([
+            'username'      => $request->get('email'),
+            'password'      => '',
+        ]);
+        $userRepo = new UserRepository(new User);
+        $existUser = $userRepo->getUserByProviderId($request->get('provider_id'));
+        if (!$existUser) {
+            $data = [
+                'name'          => $request->get('name'),
+                'email'         => $request->get('email'),
+                'provider'      => $request->get('provider'),
+                'provider_id'   => $request->get('provider_id'),
+                'password'      => '',
+                'photo'         => $request->get('photo'),
+            ];
+            $userRepo->createUser($data);
+        }
+        return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
     }
 
 }

@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('auth/registration','Auth\AuthController@registration');
 Route::post('auth/login', 'Auth\AuthController@login');
+Route::post('auth/google/login', 'Auth\AuthController@signInGoogle');
 
 Route::post('auth/token', 'Api\Auth\DefaultController@authenticate');
 Route::post('auth/refresh', 'Api\Auth\DefaultController@refreshToken');

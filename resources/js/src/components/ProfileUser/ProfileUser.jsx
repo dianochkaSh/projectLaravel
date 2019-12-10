@@ -40,7 +40,7 @@ class ProfileUser extends Component {
                 <div className='profile-container'>
                     <p className='profile-user-title'>Profile user</p>
                     <div className='profile-content-left'>
-                        { userStore.user.photo === undefined
+                        { userStore.user.photo === null
                             ? <img src={require('../../assets/img/userPlaceholder.png')} width="200" height="200"/>
                             : <img src={userStore.user.photo} width="200" height="200"/>
                         }
