@@ -10,7 +10,7 @@ import InputField from '../FormElements/InputField/InputField';
 import './Login.style.css';
 
 /* config */
-import { GOOGLE_CLIENT_ID } from '../../constants/costants';
+import { GOOGLE_CLIENT_ID, FACEBOOK_ID } from '../../constants/costants';
 
 /* store */
 import userStore from '../../../src/store/UserStore';
@@ -42,15 +42,16 @@ class Login extends Component {
         userStore.login(this.state.email, this.state.password);
     }
 
-    handlerSuccessGoogle(response) {
+    handlerSuccessGoogle = (response) => {
+        console.log(response);
         userStore.loginWithGoogle(response);
-    }
+    };
     handlerFailureGoogle () {
 
     }
-    handlerSuccessFacebook (response) {
-        console.log(response);
-    }
+    handlerSuccessFacebook = (response) => {
+        userStore.loginWithFacebook(response);
+    };
     render() {
         return (
             <div className="login-container">
@@ -93,7 +94,7 @@ class Login extends Component {
                         />
 
                         <FacebookLogin
-                            appId=""
+                            appId={FACEBOOK_ID}
                             fields="name,email,picture"
                             callback={this.handlerSuccessFacebook}
                             icon="fa-facebook"

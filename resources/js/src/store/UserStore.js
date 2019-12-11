@@ -178,6 +178,24 @@ class UserStore {
             });
 
     }
+    @action loginWithFacebook (data) {
+        const params = {
+            email : data.email,
+            name : data.name,
+            provider: 'facebook',
+            provider_id: data.id,
+            photo : data.picture.data.url,
+            grant_type: 'password',
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+        };
+        axios.post('/api/auth/facebook/login', params)
+            .then((response) => {
+                this.setDataAfterEntering(response.data);
+                window.location.href= '/profile';
+            });
+    }
+
 }
  const userStore = new UserStore();
  export default userStore;

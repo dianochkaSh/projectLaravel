@@ -69,7 +69,7 @@ class AuthController extends Controller {
     }
 
 
-    public function signInGoogle (Request $request) {
+    public function signInSocialNetwork (Request $request) {
         $request->request->add([
             'username'      => $request->get('email'),
             'password'      => '',
@@ -89,5 +89,4 @@ class AuthController extends Controller {
         }
         return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
     }
-
 }
