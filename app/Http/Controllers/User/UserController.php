@@ -12,10 +12,12 @@ class UserController extends Controller {
 
     public function get(Request $request) {
         $user = $accessToken = auth()->guard('api')->user();
-        if (!empty($user->getAttribute('provider'))) {
-            $fullPath = $user->getAttribute('photo');
-        } else if (!empty($user->getAttribute('photo')) && ($user->getAttribute('provider') == null) ) {
-            $fullPath = Storage::disk('public')->url($user->getAttribute('photo'));
+        if (!empty($user->getAttribute('photo'))) {
+            if (strpos($user->getAttribute('photo'), 'http') === 0) {
+                $fullPath = $user->getAttribute('photo');
+            } else {
+                $fullPath = Storage::disk('public')->url($user->getAttribute('photo'));
+            }
         } else {
             $fullPath = null;
         }
