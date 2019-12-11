@@ -46,7 +46,7 @@ class ProfileUser extends Component {
                         }
 
 
-                        { userStore.user.photo === undefined
+                        { userStore.user.photo === null
                             ?
                             <div>
                                 <label htmlFor="file-upload" className="custom-file-upload">

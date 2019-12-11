@@ -66,6 +66,7 @@ class UserStore {
                 localStorage.removeItem('accessToken');
                 localStorage.removeItem('expiresIn');
                 localStorage.removeItem('refreshToken');
+                localStorage.removeItem('username');
                 window.location.href= '/';
             });
     }
@@ -121,7 +122,7 @@ class UserStore {
         axios.get('/api/user/deletePhoto',{ headers: headers })
             .then((response)=> {
                if (response.status === 200) {
-                   this.user.photo = undefined;
+                   this.user.photo = null;
                }
             });
     }

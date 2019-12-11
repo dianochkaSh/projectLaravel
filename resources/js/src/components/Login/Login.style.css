@@ -14,3 +14,8 @@
    margin: 10px;
    cursor: pointer;
 }
+.login-social-network-content .googleBt  button{
+    width: 52px;
+    height: 49px;
+    margin-right: 10px;
+}

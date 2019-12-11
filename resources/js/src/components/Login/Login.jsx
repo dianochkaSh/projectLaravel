@@ -85,14 +85,14 @@ class Login extends Component {
                 <div className='login-social-network'>
                     <h4>Or log in using social networks </h4>
                     <div className='login-social-network-content'>
-
-                        <GoogleLogin
-                            clientId={GOOGLE_CLIENT_ID}
-                            buttonText=""
-                            onSuccess={this.handlerSuccessGoogle}
-                            onFailure={this.handlerFailureGoogle}
-                        />
-
+                        <span className='googleBt'>
+                            <GoogleLogin
+                                clientId={GOOGLE_CLIENT_ID}
+                                buttonText=""
+                                onSuccess={this.handlerSuccessGoogle}
+                                onFailure={this.handlerFailureGoogle}
+                            />
+                        </span>
                         <FacebookLogin
                             appId={FACEBOOK_ID}
                             fields="name,email,picture"
