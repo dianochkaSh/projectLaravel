@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import { Link } from 'react-router-dom';
 
 /* Components */
 import InputField from '../FormElements/InputField/InputField';
@@ -82,6 +83,9 @@ class Login extends Component {
                     </button>
                 </div>
                 <p>{userStore.errorMessage}</p>
+                <div className='link-forget-pass'>
+                    <Link to="/forgetPassword"> Forgot password? </Link>
+                </div>
                 <div className='login-social-network'>
                     <h4>Or log in using social networks </h4>
                     <div className='login-social-network-content'>

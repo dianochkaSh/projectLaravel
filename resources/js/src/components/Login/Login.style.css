@@ -19,3 +19,9 @@
     height: 49px;
     margin-right: 10px;
 }
+.login-container .link-forget-pass {
+    overflow: hidden;
+}
+.login-container .link-forget-pass a {
+    float: right;
+}
