@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailtrapUserNotification;
 
 class AuthController extends Controller {
 
@@ -38,7 +40,7 @@ class AuthController extends Controller {
         $request->request->add([
             'username'      => $request->get('email'),
         ]);
-
+        $this->sendMailUser('Congratulation','Thank you for joining us.', $request->get('email'), $request->get('name'));
         return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
     }
 
@@ -88,5 +90,10 @@ class AuthController extends Controller {
             $userRepo->createUser($data);
         }
         return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
+    }
+
+    public function sendMailUser($subject, $content, $addressToo, $name) {
+        Mail::to($addressToo)->send(new MailtrapUserNotification($subject, $content, 'dianochkad@yandex.ru', $name));
+        return view('mail.notification');
     }
 }

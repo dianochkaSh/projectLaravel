@@ -55,7 +55,6 @@ class UserController extends Controller {
         if ($deletePhoto) {
             return response()->json(['message' => 'User Photo deleted.' ], 200);
         }
-
     }
 
     public function edit(Request $request) {
