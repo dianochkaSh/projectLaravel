@@ -20,6 +20,10 @@ class NewPassword extends Component {
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
         this.handlerResetPassword = this.handlerResetPassword.bind(this);
     }
+    componentDidMount() {
+        console.log(this.props.params.token);
+    }
+
     handlerFieldValue = () => {
 
     };

@@ -23,12 +23,12 @@ const App = () => (
                 <Menu />
                 <Switch>
                     <Route  exact={true} path="/" component={Home}/>
-                    <Route  exact={true} path="/login" component={Login}/>
-                    <Route  exact={true} path="/signup" component={SignUp}/>
-                    <Route  exact={true} path="/profile" component={ProfileUser}/>
-                    <Route  exact={true} path="/changePassword" component={ChangePassword}/>
-                    <Route  exact={true} path="/forgetPassword" component={ForgetPassword}/>
-                    <Route  exact={true} path="/newPassword/:token/:email" component={NewPassword}/>
+                    <Route  path="/login" component={Login}/>
+                    <Route  path="/signup" component={SignUp}/>
+                    <Route  path="/profile" component={ProfileUser}/>
+                    <Route  path="/changePassword" component={ChangePassword}/>
+                    <Route  path="/forgetPassword" component={ForgetPassword}/>
+                    <Route  path="/newPassword/:token/:email" component={NewPassword}/>
                 </Switch>
             </div>
         </Router>
