@@ -196,6 +196,14 @@ class UserStore {
                 window.location.href= '/profile';
             });
     }
+    @action sendLetterForChangePassword(email) {
+        axios.get('api/auth/chanSendLetterForChangePass/'+ email )
+            .then((response) => {
+                if (response.status === 200) {
+                    this.message = response.data.success;
+                }
+            });
+    }
 
 }
  const userStore = new UserStore();

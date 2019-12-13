@@ -13,41 +13,44 @@ import './ForgetPassword.style.css';
 inject('userStore');
 @observer
  class ForgetPassword extends Component {
-    @observable passwordNew = null;
-    @observable passwordConfirmation = null;
+    @observable email = null;
     constructor(){
         super();
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
-        this.handlerResetPassword = this.handlerResetPassword.bind(this);
+        this.handlerSendLetter = this.handlerSendLetter.bind(this);
     }
-    handlerFieldValue = () => {
+    componentDidMount() {
+        userStore.setMessage(null);
+    }
 
+    handlerFieldValue = (key, value) => {
+        userStore.setMessage(null);
+        this.email = value
     };
-    handlerResetPassword = () => {
-
+    handlerSendLetter = () => {
+        userStore.sendLetterForChangePassword(this.email);
     };
      render() {
          return (
              <div>
                  <div className="forget-password-container">
                      <h4>Forget password</h4>
-                     <InputField
-                         typeField='password'
-                         nameFeild='passwordNew'
-                         titleField='New password'
-                         IdInput="PasswordNew"
-                         valueField={this.passwordNew}
-                         handlerFiled={this.handlerFieldValue}
-                     />
-                     <InputField
-                         typeField='password'
-                         nameFeild='passwordConfirm'
-                         titleField='Confirm password'
-                         IdInput="PasswordConfirm"
-                         valueField={this.passwordConfirmation}
-                         handlerFiled={this.handlerFieldValue}
-                     />
-                     <button type="button" className="btn btn-primary" onClick={this.handlerResetPassword}>Reset Password</button>
+                     <div className="forget-password-content">
+                         <InputField
+                             typeField='text'
+                             nameFeild='email'
+                             titleField='E-mail'
+                             IdInput="Email"
+                             valueField={this.email}
+                             handlerFiled={this.handlerFieldValue}
+                         />
+                         <button type="button" className="btn btn-primary" onClick={this.handlerSendLetter}>Send Letter</button>
+                     </div>
+                     {userStore.message !== null &&
+                         <div className="alert alert-primary" role="alert">
+                             {userStore.message}
+                         </div>
+                     }
                  </div>
              </div>
          )

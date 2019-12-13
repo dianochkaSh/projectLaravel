@@ -21,6 +21,7 @@ Route::post('auth/registration','Auth\AuthController@registration');
 Route::post('auth/login', 'Auth\AuthController@login');
 Route::post('auth/google/login', 'Auth\AuthController@signInSocialNetwork');
 Route::post('auth/facebook/login', 'Auth\AuthController@signInSocialNetwork');
+Route::get('auth/chanSendLetterForChangePass/{email}', 'Auth\AuthController@sendLetterForChangePassword');
 
 Route::post('auth/token', 'Api\Auth\DefaultController@authenticate');
 Route::post('auth/refresh', 'Api\Auth\DefaultController@refreshToken');

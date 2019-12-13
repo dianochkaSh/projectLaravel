@@ -14,6 +14,7 @@ import SignUp from './src/components/SignUp/SignUp';
 import ProfileUser from './src/components/ProfileUser/ProfileUser';
 import ChangePassword from './src/components/Settings/ChangePassword/ChangePassword';
 import ForgetPassword from './src/components/ForgetPassword/ForgetPassword';
+import NewPassword from './src/components/ForgetPassword/NewPassword';
 const history = createHistory.createBrowserHistory();
 const App = () => (
     <Provider{...storesProvider}>
@@ -27,6 +28,7 @@ const App = () => (
                     <Route  exact={true} path="/profile" component={ProfileUser}/>
                     <Route  exact={true} path="/changePassword" component={ChangePassword}/>
                     <Route  exact={true} path="/forgetPassword" component={ForgetPassword}/>
+                    <Route  exact={true} path="/newPassword/:token/:email" component={NewPassword}/>
                 </Switch>
             </div>
         </Router>

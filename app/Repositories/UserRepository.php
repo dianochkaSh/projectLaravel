@@ -61,5 +61,14 @@ class UserRepository extends BaseRepository {
        return User::where('provider_id', $providerId)->exists();
     }
 
+    /**
+     * get user by email
+     * @param $email
+     * @return mixed
+     */
+    public function getUserByEmail ($email) {
+        return User::where('email', $email)->get();
+    }
+
 }
 

@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\MailtrapUserNotification;
+use App\Mail\MailtrapUserRegistration;
+use App\Mail\MailtrapUserChangePassword;
+use Illuminate\Notifications\Notification;
 
 class AuthController extends Controller {
 
@@ -40,7 +42,7 @@ class AuthController extends Controller {
         $request->request->add([
             'username'      => $request->get('email'),
         ]);
-        $this->sendMailUser('Congratulation','Thank you for joining us.', $request->get('email'), $request->get('name'));
+        Mail::to($request->get('email'))->send(new MailtrapUserRegistration($request->get('name')));
         return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
     }
 
@@ -92,8 +94,19 @@ class AuthController extends Controller {
         return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
     }
 
-    public function sendMailUser($subject, $content, $addressToo, $name) {
-        Mail::to($addressToo)->send(new MailtrapUserNotification($subject, $content, 'dianochkad@yandex.ru', $name));
-        return view('mail.notification');
+
+    public function sendLetterForChangePassword(Request $request) {
+        $email = $request->email;
+        $userRepo = new UserRepository(new User);
+        $user = $userRepo->getUserByEmail($email);
+        if ( count($user) > 0) {
+            $token = openssl_random_pseudo_bytes(16);
+            $token = bin2hex($token);
+            $link = 'https://' . request()->getHost() . '/newPassword/' . $token . '/' . $email;
+            Mail::to($email)->send(new MailtrapUserChangePassword($link, $user[0]->getAttribute('name')));
+            return response()->json(['success' => 'The letter was sent. Please check mail. ' ], 200);
+        } else {
+            return response()->json(['success' => 'Email is not exists. Please check email.' ], 400);
+        }
     }
 }
