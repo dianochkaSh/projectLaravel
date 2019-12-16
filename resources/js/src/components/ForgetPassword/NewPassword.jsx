@@ -21,7 +21,7 @@ class NewPassword extends Component {
         this.handlerResetPassword = this.handlerResetPassword.bind(this);
     }
     componentDidMount() {
-        console.log(this.props.params.token);
+        userStore.checkTokenUser(this.props.match.params);
     }
 
     handlerFieldValue = () => {

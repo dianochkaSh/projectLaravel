@@ -67,7 +67,7 @@ class UserRepository extends BaseRepository {
      * @return mixed
      */
     public function getUserByEmail ($email) {
-        return User::where('email', $email)->get();
+        return User::where('email', $email)->first();
     }
 
 }

@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailtrapUserRegistration;
 use App\Mail\MailtrapUserChangePassword;
-use Illuminate\Notifications\Notification;
+use App\Repositories\AccessTokenRepository;
+use App\Models\OauthAccessToken;
+use App\Models\OauthRefreshToken;
+use App\Repositories\RefreshTokenRepository;
 
 class AuthController extends Controller {
 
@@ -100,13 +103,47 @@ class AuthController extends Controller {
         $userRepo = new UserRepository(new User);
         $user = $userRepo->getUserByEmail($email);
         if ( count($user) > 0) {
-            $token = openssl_random_pseudo_bytes(16);
-            $token = bin2hex($token);
-            $link = 'https://' . request()->getHost() . '/newPassword/' . $token . '/' . $email;
-            Mail::to($email)->send(new MailtrapUserChangePassword($link, $user[0]->getAttribute('name')));
+            $tokenRepo = new AccessTokenRepository(new OauthAccessToken);
+            $oauthToken = $tokenRepo->getTokenByUserId($user->getAttribute('id'));
+
+            $tokenNew = openssl_random_pseudo_bytes(60);
+           // $tokenNew = bin2hex($tokenNew);
+            $tokenNew = hash('sha256',$tokenNew);
+
+            $tokenOld = $oauthToken->id;
+            $tokenRepo->updateOauthAccessToken($tokenOld, $tokenNew);
+
+            $refreshTokenRepo = new RefreshTokenRepository(new OauthRefreshToken);
+            $refreshTokenRepo->updateRefreshToken($tokenOld, $tokenNew);
+
+            $link = 'https://' . request()->getHost() . '/newPassword/' . $tokenNew . '/' . $email;
+            Mail::to($email)->send(new MailtrapUserChangePassword($link, $user->getAttribute('name')));
             return response()->json(['success' => 'The letter was sent. Please check mail. ' ], 200);
         } else {
-            return response()->json(['success' => 'Email is not exists. Please check email.' ], 400);
+            return response()->json(['error' => 'Email is not exists. Please check email.' ], 400);
+        }
+    }
+
+    public function checkTokenUser(Request $request) {
+        $email = $request->get('email');
+        $token = $request->get('token');
+        $userRepo = new UserRepository(new User);
+        $user = $userRepo->getUserByEmail($email);
+        if ( count($user) > 0) {
+
+            $tokenRepo = new AccessTokenRepository(new OauthAccessToken);
+            $oauthToken = $tokenRepo->getTokenByUserIdAndToken($user->getAttribute('id'), $token);
+            $tokenTime = $oauthToken->getAttribute('created_at');
+            $timeToken = Strtotime($tokenTime);
+            $currentTime = time();
+            $delta = $currentTime - $timeToken ;
+            $k = 1 / (1000 * 60);
+            $hour = round(abs($delta * $k),2);
+            if ($hour > 30) {
+                return response()->json(['error' => 'The token is not valid.' ], 400);
+            } else {
+                return response()->json(['success' => 'The token is valid.' ], 200);
+            }
         }
     }
 }

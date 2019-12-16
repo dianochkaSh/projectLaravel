@@ -204,6 +204,16 @@ class UserStore {
                 }
             });
     }
+    @action checkTokenUser(params) {
+        let data = {
+            email: params.email,
+            token: params.token
+        };
+        axios.post('/api/auth/checkTokenUser', data)
+            .then((response) => {
+                console.log(response);
+            })
+    }
 
 }
  const userStore = new UserStore();
