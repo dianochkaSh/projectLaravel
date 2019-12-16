@@ -14,15 +14,6 @@ class RefreshTokenRepository extends BaseRepository {
         parent::__construct($refreshToken);
     }
 
-
-//    public function insertRefreshToken($tokenNew) {
-//        $refreshToken =  new OauthRefreshToken;
-//        $refreshToken->access_token_id = $tokenNew;
-//        $refreshToken->revoked = false;
-//        $refreshToken->expires_at = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
-//        return $refreshToken->save();
-//    }
-
     public function updateRefreshToken ($tokenOld, $tokenNew ) {
         OauthRefreshToken::where('access_token_id', $tokenOld)->update(
             array(
