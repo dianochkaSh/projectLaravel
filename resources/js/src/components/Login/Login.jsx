@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { Link } from 'react-router-dom';
+import validate from 'validate.js';
 
 /* Components */
 import InputField from '../FormElements/InputField/InputField';
@@ -16,35 +17,49 @@ import { GOOGLE_CLIENT_ID, FACEBOOK_ID } from '../../constants/costants';
 /* store */
 import userStore from '../../../src/store/UserStore';
 
+/* validation */
+import LoginValidation from '../validation/LoginValidation';
+import { observable } from 'mobx';
+
 inject('userStore');
 @observer
 class Login extends Component {
+    @observable email = '';
+    @observable password = '';
+    @observable validateLogin = {};
     constructor() {
         super();
-        this.state = {
-            email: '',
-            password: ''
-        };
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
         this.signIn = this.signIn.bind(this);
         this.handlerSuccessGoogle = this.handlerSuccessGoogle.bind(this);
         this.handlerFailureGoogle = this.handlerFailureGoogle.bind(this);
         this.handlerSuccessFacebook = this.handlerSuccessFacebook.bind(this);
     }
+    componentDidMount() {
+        userStore.setErrorMessage(null);
+    }
+
     handlerFieldValue (key, value) {
         if (userStore.errorMessage !== null) {
             userStore.setErrorMessage(null);
         }
-        this.setState({
-            [key]: value
-        });
+        this[key] = value;
+        this.validateLogin = {};
     };
     signIn () {
-        userStore.login(this.state.email, this.state.password);
+        let data = {
+          email: this.email,
+          password: this.password
+        };
+        let valid = validate(data, LoginValidation);
+        if (valid === undefined) {
+            userStore.login(this.email, this.password);
+        } else {
+            this.validateLogin = valid;
+        }
     }
 
     handlerSuccessGoogle = (response) => {
-        console.log(response);
         userStore.loginWithGoogle(response);
     };
     handlerFailureGoogle () {
@@ -63,17 +78,25 @@ class Login extends Component {
                         nameField='email'
                         titleField='E-mail'
                         IdInput='EmailInput'
-                        valueField = {this.state.email}
+                        valueField = {this.email}
                         handlerFiled = {this.handlerFieldValue}
                     />
+                    {
+                        this.validateLogin !== undefined && this.validateLogin.email !== undefined &&
+                        <div className="alert alert-danger" role="alert">{this.validateLogin.email}</div>
+                    }
                     <InputField
                         typeFiled='password'
                         nameField='password'
                         titleField='Password'
                         IdInput='PasswordInput'
-                        valueField = {this.state.password}
+                        valueField = {this.password}
                         handlerFiled = {this.handlerFieldValue}
                     />
+                    {
+                        this.validateLogin !== undefined && this.validateLogin.password !== undefined &&
+                        <div className="alert alert-danger" role="alert">{this.validateLogin.password}</div>
+                    }
                     <button
                         type="button"
                         className="btn btn-primary"
@@ -82,7 +105,11 @@ class Login extends Component {
                         Sign In
                     </button>
                 </div>
-                <p>{userStore.errorMessage}</p>
+                {
+                    userStore.errorMessage !== null &&
+                    <div className="alert alert-danger" role="alert">{userStore.errorMessage}</div>
+                }
+
                 <div className='link-forget-pass'>
                     <Link to="/forgetPassword"> Forgot password? </Link>
                 </div>
