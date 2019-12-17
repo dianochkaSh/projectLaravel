@@ -15,8 +15,9 @@ inject('userStore');
 @observer
 class editProfileUser extends Component{
     @observable validation = {};
-    @observable email = '';
-    @observable username = '';
+    @observable email = null;
+    @observable username = null;
+    @observable provider = null;
     constructor(props) {
         super(props);
         this.closeModal = this.closeModal.bind(this);
@@ -89,20 +90,21 @@ class editProfileUser extends Component{
                                     {this.validation.username[0]}
                                 </div>
                             }
-                            <InputElement
-                                typeFiled='text'
-                                nameField='email'
-                                titleField='E-mail'
-                                IdInput='EmailInput'
-                                valueField={this.email}
-                                handlerFiled={this.handlerFieldValue}
-                            />
-                            { this.validation !== undefined && this.validation.email &&
-                                <div className="alert alert-danger" role="alert">
-                                    {this.validation.email[0]}
+                            { this.props.user.provider === null &&
+                                <div>
+                                    <InputElement
+                                        typeFiled='text'
+                                        nameField='email'
+                                        titleField='E-mail'
+                                        IdInput='EmailInput'
+                                        valueField={this.email}
+                                        handlerFiled={this.handlerFieldValue}
+                                    />
+                                    { this.validation !== undefined && this.validation.email &&
+                                        <div className="alert alert-danger" role="alert">{this.validation.email[0]}</div>
+                                    }
                                 </div>
                             }
-
                             <button className="btn btn-primary" onClick={this.handlerEditUser}>Edit</button>
                         </div>
                         {userStore.message !== null &&

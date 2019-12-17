@@ -22,10 +22,11 @@ class UserController extends Controller {
             $fullPath = null;
         }
         $dataUser = [
-          'name'    => $user->getAttribute('name'),
-          'email'   => $user->getAttribute('email'),
-          'id'      => $user->getAttribute('id'),
-          'photo'   => $fullPath
+            'name'      => $user->getAttribute('name'),
+            'email'     => $user->getAttribute('email'),
+            'id'        => $user->getAttribute('id'),
+            'provider'  => $user->getAttribute('provider'),
+            'photo'     => $fullPath
         ];
         return response()->json($dataUser, 200);
     }

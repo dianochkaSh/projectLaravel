@@ -98,6 +98,7 @@ class UserStore {
                     this.user.email = response.data.email;
                     this.user.photo = response.data.photo;
                     this.user.id = response.data.id;
+                    this.user.provider = response.data.provider;
                     localStorage.setItem('username', response.data.name);
                 }
             });
