@@ -70,5 +70,9 @@ class UserRepository extends BaseRepository {
         return User::where('email', $email)->first();
     }
 
+    public function updatePassword ($id, $password) {
+        return User::find($id)->update(array('password' => $password));
+    }
+
 }
 

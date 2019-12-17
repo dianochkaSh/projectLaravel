@@ -134,16 +134,28 @@ class AuthController extends Controller {
             $tokenRepo = new AccessTokenRepository(new OauthAccessToken);
             $oauthToken = $tokenRepo->getTokenByUserIdAndToken($user->getAttribute('id'), $token);
             $tokenTime = $oauthToken->getAttribute('created_at');
-            $timeToken = Strtotime($tokenTime);
-            $currentTime = time();
+            $timeToken = strtotime($tokenTime);
+            $currentTime = strtotime(date('Y-m-d H:i:s'));
             $delta = $currentTime - $timeToken ;
-            $k = 1 / (1000 * 60);
-            $hour = round(abs($delta * $k),2);
+            $seconds = abs($delta);
+            $hour = floor($seconds / 60);
             if ($hour > 30) {
                 return response()->json(['error' => 'The token is not valid.' ], 400);
             } else {
                 return response()->json(['success' => 'The token is valid.' ], 200);
             }
         }
+    }
+
+    public function newPassword(Request $request){
+        $userRepo = new UserRepository(new User);
+        $user = $userRepo->getUserByEmail($request->get('email'));
+        if (count($user) > 0) {
+            $userRepo->updatePassword($user->getAttribute('id'), Hash::make($request->get('password')));
+            return response()->json(['success' => 'The Password is changed. Please, go to ' ], 200);
+        } else {
+            return response()->json(['error' => 'Error. The password is not changed.' ], 400);
+        }
+
     }
 }

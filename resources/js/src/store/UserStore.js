@@ -7,6 +7,7 @@ class UserStore {
     @observable tokenAuth = null;
     @observable username = null;
     @observable user = {};
+    @observable tokenIsValid = false;
     @action registration(name, email, password) {
         const url = '/api/auth/registration';
         const params = {
@@ -93,6 +94,7 @@ class UserStore {
                 if (response.status === 200) {
                     console.log(response.data);
                     this.user.name = response.data.name;
+                    this.username = response.data.name;
                     this.user.email = response.data.email;
                     this.user.photo = response.data.photo;
                     this.user.id = response.data.id;
@@ -212,6 +214,21 @@ class UserStore {
         axios.post('/api/auth/checkTokenUser', data)
             .then((response) => {
                 console.log(response);
+                if (response.status === 200) {
+                    this.tokenIsValid = true;
+                }
+            })
+    }
+    @action newPassword(email, password) {
+        let data = {
+          email:    email,
+          password: password
+        };
+        axios.post('/api/auth/newPassword', data)
+            .then((response) => {
+              if (response.status === 200) {
+                  this.message = response.data.success;
+              }
             })
     }
 
