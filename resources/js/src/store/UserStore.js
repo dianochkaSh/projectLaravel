@@ -47,7 +47,6 @@ class UserStore {
         };
         axios.post(url, params)
             .then((response) => {
-                console.log(response);
                 this.setDataAfterEntering(response.data);
                 window.location.href= '/profile';
             })
@@ -92,7 +91,6 @@ class UserStore {
         axios.get('/api/user/getUser', { headers: headers })
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response.data);
                     this.user.name = response.data.name;
                     this.username = response.data.name;
                     this.user.email = response.data.email;
@@ -111,7 +109,6 @@ class UserStore {
         };
         axios.post('/api/user/uploadPhoto', data, { headers: headers })
             .then((response) => {
-               console.log(response);
                if (response.status === 200) {
                    this.user.photo = response.data.photo;
                }
@@ -214,7 +211,6 @@ class UserStore {
         };
         axios.post('/api/auth/checkTokenUser', data)
             .then((response) => {
-                console.log(response);
                 if (response.status === 200) {
                     this.tokenIsValid = true;
                 }
