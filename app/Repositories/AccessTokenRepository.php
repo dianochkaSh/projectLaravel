@@ -10,8 +10,8 @@ class AccessTokenRepository extends BaseRepository {
     }
 
     /**
-     * get token by user id
-     * @param $idUser
+     * Get token by user id
+     * @param integer $idUser
      * @return mixed
      */
     public function getTokenByUserId ($idUser) {
@@ -19,9 +19,9 @@ class AccessTokenRepository extends BaseRepository {
     }
 
     /**
-     * update token
-     * @param $id
-     * @param $token
+     * Update token
+     * @param integer $id
+     * @param string $token
      * @return mixed
      */
     public function updateOauthAccessToken($id, $token) {
@@ -33,7 +33,13 @@ class AccessTokenRepository extends BaseRepository {
         return $oauthToken->save();
     }
 
-    public function getTokenByUserIdAndToken($userId, $token) {
+    /**
+     * Get access token user by userId and token
+     * @param integer $userId
+     * @param string $token
+     * @return mixed
+     */
+    public function getAccessTokenByUserIdAndToken($userId, $token) {
         return OauthAccessToken::where('user_id', $userId)->where('id', $token)->first();
     }
 }

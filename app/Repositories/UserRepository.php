@@ -13,7 +13,7 @@ class UserRepository extends BaseRepository {
 
     /**
      * Create user
-     * @param $data, array data of user(name, email, password)
+     * @param array $data, data of user(name, email, password)
      * @return mixed
      */
     public function createUser ($data) {
@@ -29,8 +29,8 @@ class UserRepository extends BaseRepository {
 
     /**
      * Update photo user
-     * @param $idUser - id user
-     * @param $urlPhoto - path photo user
+     * @param integer $idUser - id user
+     * @param string $urlPhoto - path photo user
      * @return mixed
      */
     public function updatePhoto($idUser, $urlPhoto) {
@@ -40,9 +40,9 @@ class UserRepository extends BaseRepository {
     }
 
     /**
-     * update data of user
-     * @param $idUser
-     * @param $data
+     * Update data of user
+     * @param integer $idUser
+     * @param array $data
      * @return mixed
      */
     public function updateUser ($idUser, $data) {
@@ -53,7 +53,7 @@ class UserRepository extends BaseRepository {
     }
 
     /**
-     * check exist user, by provider id
+     * Check exist user, by provider id
      * @param $providerId
      * @return mixed
      */
@@ -62,8 +62,8 @@ class UserRepository extends BaseRepository {
     }
 
     /**
-     * get user by email
-     * @param $email
+     * Get user by email
+     * @param string $email
      * @return mixed
      */
     public function getUserByEmail ($email) {

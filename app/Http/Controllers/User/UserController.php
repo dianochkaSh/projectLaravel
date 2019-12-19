@@ -7,9 +7,39 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Storage;
+use OpenApi\Annotations as OA;
 
+
+/**
+ * Class UserController
+ */
 class UserController extends Controller {
 
+     /**
+     *
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Get(
+     *      path="/getUser",
+     *      tags={"User"},
+     *      summary="Get information about user",
+     *      description="Get information about user",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\Schema(
+     *              type="object",
+     *              allOf={@OA\Schema(ref="#definitions/ApiResponse")},
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/definitions/User",
+     *              )
+     *          )
+     *      ),
+     *      security={{"auth": {}}}
+     * )
+     */
     public function get(Request $request) {
         $user = $accessToken = auth()->guard('api')->user();
         if (!empty($user->getAttribute('photo'))) {
@@ -31,6 +61,45 @@ class UserController extends Controller {
         return response()->json($dataUser, 200);
     }
 
+
+    /**
+     *
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Post(
+     *      path="/uploadPhoto",
+     *      tags={"User"},
+     *      summary="Upload photo user",
+     *      description="Upload photo user",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="file",
+     *                      description="Upload photo",
+     *                      type="string",
+     *                  ),
+     *              ),
+     *           ),
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\Schema(
+     *              type="object",
+     *              allOf={@OA\Schema(ref="#definitions/ApiResponse")},
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/definitions/User",
+     *              )
+     *          )
+     *      ),
+     *      security={{"auth": {}}}
+     * )
+     */
     public function uploadPhoto(Request $request) {
         $user = $accessToken = auth()->guard('api')->user();
         $file = $request->file('file');
@@ -49,15 +118,62 @@ class UserController extends Controller {
 
     }
 
-    public function deletePhoto() {
-        $user = $accessToken = auth()->guard('api')->user();
-        $userRepo = new UserRepository(new User);
-        $deletePhoto = $userRepo->updatePhoto($user->getAttribute('id'), '');
-        if ($deletePhoto) {
-            return response()->json(['message' => 'User Photo deleted.' ], 200);
-        }
-    }
+//    public function deletePhoto() {
+//        $user = $accessToken = auth()->guard('api')->user();
+//        $userRepo = new UserRepository(new User);
+//        $deletePhoto = $userRepo->updatePhoto($user->getAttribute('id'), '');
+//        if ($deletePhoto) {
+//            return response()->json(['message' => 'User Photo deleted.' ], 200);
+//        }
+//    }
 
+    /**
+     *
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Post(
+     *      path="/edit",
+     *      tags={"User"},
+     *      summary="Edit user",
+     *      description="Edit user",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="name",
+     *                      description="Name user",
+     *                      type="string",
+     *                  ),
+     *                  @OA\Property(
+     *                      property="email",
+     *                      description="E-mail user",
+     *                      type="string",
+     *                  ),
+     *              ),
+     *           ),
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\Schema(
+     *              type="object",
+     *              allOf={@OA\Schema(ref="#definitions/ApiResponse")},
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/definitions/User",
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=400,
+     *         description="Data of user has not updated",
+     *     ),
+     *      security={{"auth": {}}}
+     * )
+     */
     public function edit(Request $request) {
         $dataUser = [
             'name'  => $request->get('username'),
@@ -71,8 +187,4 @@ class UserController extends Controller {
             return response()->json(['error' => 'Data of user has not updated.' ], 400);
         }
     }
-
-
-
-
 }

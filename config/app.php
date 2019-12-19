@@ -162,6 +162,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Jsdecena\Baserepo\BaseRepositoryProvider::class,
+        L5Swagger\L5SwaggerServiceProvider::class,
+//        \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
 
         /*
          * Package Service Providers...

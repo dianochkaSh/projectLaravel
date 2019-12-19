@@ -14,6 +14,11 @@ class RefreshTokenRepository extends BaseRepository {
         parent::__construct($refreshToken);
     }
 
+    /**
+     * Update refresh token
+     * @param string $tokenOld
+     * @param string $tokenNew
+     */
     public function updateRefreshToken ($tokenOld, $tokenNew ) {
         OauthRefreshToken::where('access_token_id', $tokenOld)->update(
             array(
