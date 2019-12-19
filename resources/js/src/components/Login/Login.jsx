@@ -39,14 +39,15 @@ class Login extends Component {
         userStore.setErrorMessage(null);
     }
 
-    handlerFieldValue (key, value) {
+
+    handlerFieldValue = (key, value) => {
         if (userStore.errorMessage !== null) {
             userStore.setErrorMessage(null);
         }
         this[key] = value;
         this.validateLogin = {};
     };
-    signIn () {
+    signIn = () => {
         let data = {
           email: this.email,
           password: this.password
@@ -54,10 +55,11 @@ class Login extends Component {
         let valid = validate(data, LoginValidation);
         if (valid === undefined) {
             userStore.login(this.email, this.password);
+            this.password = null;
         } else {
             this.validateLogin = valid;
         }
-    }
+    };
 
     handlerSuccessGoogle = (response) => {
         userStore.loginWithGoogle(response);
@@ -69,6 +71,9 @@ class Login extends Component {
         userStore.loginWithFacebook(response);
     };
     render() {
+        if (userStore.isAuthorization === true) {
+           this.props.history.push('/profile')
+        }
         return (
             <div className="login-container">
                 <h4>Login</h4>

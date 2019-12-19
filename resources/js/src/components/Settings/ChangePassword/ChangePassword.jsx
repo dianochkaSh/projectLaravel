@@ -56,6 +56,9 @@ class changePassword extends Component {
         this.passwordConfirm = '';
     };
     render() {
+        if (userStore.isAuthorization === false || userStore.isAuthorization === undefined ) {
+            this.props.history.push('/login');
+        }
         return (
             <div className='change-password-container'>
                 <div className='change-password-content'>

@@ -24,17 +24,20 @@ class ProfileUser extends Component {
         userStore.getDataAboutUser();
     }
 
-    handlerUploadPhoto() {
+    handlerUploadPhoto = () => {
        userStore.uploadPhotoUser(event.target.files[0]);
-    }
-    handlerDeletePhoto() {
+    };
+    handlerDeletePhoto = () => {
         userStore.deletePhotoUser();
-    }
+    };
 
-    handlerModalWindow(param) {
+    handlerModalWindow = (param) => {
         this.isOpenModal = param;
-    }
+    };
     render() {
+        if (userStore.isAuthorization === false) {
+            this.props.history.push('/login');
+        }
         return(
             <div className='profile-block'>
                 <div className='profile-container'>

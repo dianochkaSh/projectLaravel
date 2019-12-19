@@ -35,6 +35,9 @@ class SignUp extends Component {
         userStore.registration(this.state.name, this.state.email, this.state.password, this.state.confirmPassword);
     }
     render() {
+        if (userStore.isAuthorization === true) {
+            this.props.history.push('/profile')
+        }
         return (
             <div className="login-container">
                 <h4>Sign Up</h4>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { CLIENT_ID, CLIENT_SECRET } from '../constants/costants';
 class UserStore {
     @observable errorMessage = null;
+    @observable isAuthorization = undefined;
     @observable message = null;
     @observable tokenAuth = null;
     @observable username = null;
@@ -22,7 +23,7 @@ class UserStore {
         axios.post(url, params)
             .then((response) => {
                 this.setDataAfterEntering(response.data);
-                window.location.href= '/profile';
+                this.isAuthorization = true;
             })
             .catch((error)=> {
                 let errors = [];
@@ -48,7 +49,8 @@ class UserStore {
         axios.post(url, params)
             .then((response) => {
                 this.setDataAfterEntering(response.data);
-                window.location.href= '/profile';
+                this.isAuthorization = true;
+                //window.location.href= '/profile';
             })
             .catch(error => {
                 this.setErrorMessage(error.response.data.error);
@@ -67,6 +69,7 @@ class UserStore {
                 localStorage.removeItem('expiresIn');
                 localStorage.removeItem('refreshToken');
                 localStorage.removeItem('username');
+                this.isAuthorization = false;
                 window.location.href= '/';
             });
     }
@@ -99,7 +102,10 @@ class UserStore {
                     this.user.provider = response.data.provider;
                     localStorage.setItem('username', response.data.name);
                 }
-            });
+            })
+            .catch((error)=> {
+                this.isAuthorization = false;
+            })
     }
     @action uploadPhotoUser (file) {
          const data = new FormData();
@@ -175,7 +181,7 @@ class UserStore {
         axios.post('/api/auth/google/login', params)
             .then((response) => {
                 this.setDataAfterEntering(response.data);
-                window.location.href= '/profile';
+                this.isAuthorization = true;
             });
 
     }
@@ -193,7 +199,7 @@ class UserStore {
         axios.post('/api/auth/facebook/login', params)
             .then((response) => {
                 this.setDataAfterEntering(response.data);
-                window.location.href= '/profile';
+                this.isAuthorization = true;
             });
     }
     @action sendLetterForChangePassword(email) {
