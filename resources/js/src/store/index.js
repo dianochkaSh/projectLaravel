@@ -1,5 +1,7 @@
 import UserStore  from './UserStore';
+import ProductStore from './ProductStore';
 const stores = {
-    UserStore
+    UserStore,
+    ProductStore
 };
 export  default stores;

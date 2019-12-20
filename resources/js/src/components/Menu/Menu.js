@@ -33,6 +33,7 @@ class Menu extends Component {
                     />
                     : <LogOutMenu/>
                 }
+
             </div>
         );
     }

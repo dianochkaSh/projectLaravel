@@ -50,7 +50,6 @@ class UserStore {
             .then((response) => {
                 this.setDataAfterEntering(response.data);
                 this.isAuthorization = true;
-                //window.location.href= '/profile';
             })
             .catch(error => {
                 this.setErrorMessage(error.response.data.error);

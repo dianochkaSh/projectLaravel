@@ -8,6 +8,7 @@ const LogOutMenu  = () => {
                 <Link to='login' className="navbar-brand">Login </Link>
                 <Link to='signup' className="navbar-brand">Sign Up </Link>
                 <Link to='/' className="navbar-brand">Home </Link>
+                <Link to='/products' className="navbar-brand">Products</Link>
             </nav>
         </div>
     )

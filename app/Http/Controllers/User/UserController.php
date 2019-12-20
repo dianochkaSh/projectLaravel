@@ -118,14 +118,15 @@ class UserController extends Controller {
 
     }
 
-//    public function deletePhoto() {
-//        $user = $accessToken = auth()->guard('api')->user();
-//        $userRepo = new UserRepository(new User);
-//        $deletePhoto = $userRepo->updatePhoto($user->getAttribute('id'), '');
-//        if ($deletePhoto) {
-//            return response()->json(['message' => 'User Photo deleted.' ], 200);
-//        }
-//    }
+
+    public function deletePhoto() {
+        $user = $accessToken = auth()->guard('api')->user();
+        $userRepo = new UserRepository(new User);
+        $deletePhoto = $userRepo->updatePhoto($user->getAttribute('id'), '');
+        if ($deletePhoto) {
+            return response()->json(['message' => 'User Photo deleted.' ], 200);
+        }
+    }
 
     /**
      *

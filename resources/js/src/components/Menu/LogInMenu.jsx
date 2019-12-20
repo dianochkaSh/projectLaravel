@@ -30,6 +30,7 @@ class LogInMenu extends Component{
                             <Link to='changePassword'>Changed password</Link>
                         </div>
                     </div>
+                    <Link to='/products' className="navbar-brand">Products</Link>
                     <a href="#" onClick={this.signOut} className="navbar-brand singOut">Sign Out </a>
                 </nav>
             </div>
