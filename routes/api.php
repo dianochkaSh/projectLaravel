@@ -30,16 +30,20 @@ Route::post('auth/refresh', 'Api\Auth\DefaultController@refreshToken');
 
 Route::middleware('auth:api')->group(function() {
     Route::group(['prefix' => 'user'], function() {
-        Route::get('getUser', 'User\UserController@get');
-        Route::post('uploadPhoto', 'User\UserController@uploadPhoto');
-        Route::get('deletePhoto', 'User\UserController@deletePhoto');
-        Route::put('editUser', 'User\UserController@edit');
-        Route::post('changePassword', 'Auth\AuthController@changePassword');
+        Route::get('getUser', 'API\UserController@get');
+        Route::post('uploadPhoto', 'API\UserController@uploadPhoto');
+        Route::get('deletePhoto', 'API\UserController@deletePhoto');
+        Route::put('editUser', 'API\UserController@edit');
+        Route::post('changePassword', 'API\AuthController@changePassword');
     });
 });
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
+});
+
+Route::group(['prefix' => 'product'], function() {
+    Route::get('list', 'API\ProductController@get');
 });
 
 
