@@ -1,0 +1,33 @@
+.container-product-one {
+    overflow: hidden;
+    margin: 0 auto;
+    width: 80%;
+}
+    .container-product-one .content-img {
+        float: left;
+    }
+        .container-product-one .content {
+            margin-left: 20%;
+        }
+            .container-product-one .content .about {
+                overflow: hidden;
+            }
+                .container-product-one .content .content-title {
+                    float: left;
+                    width: 20%;
+                }
+                    .container-product-one .content .content-title p {
+                        font-weight: 600;
+                        color: #343a40;
+                    }
+
+                .container-product-one .content .content-text{
+                    margin-left: 20%;
+                }
+
+            .container-product-one .content .description {
+                display: inline-block;
+            }
+                .container-product-one .content .description p {
+                     text-align: justify;
+                 }

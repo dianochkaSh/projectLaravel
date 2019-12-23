@@ -18,6 +18,9 @@
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 300px);
         }
+        .product-list-container .content .content-one-product .one-item{
+            cursor: pointer;
+        }
         .one-item .price {
             color: #f91f61;
             font-weight: 600;

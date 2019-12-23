@@ -18,4 +18,13 @@ class ProductRepository extends BaseRepository {
     public function getProductList() {
         return Product::all();
     }
+
+    /**
+     * Get one product by id
+     * @param $id
+     * @return mixed
+     */
+    public function getOneProductById($id) {
+        return Product::find((int)$id);
+    }
 }

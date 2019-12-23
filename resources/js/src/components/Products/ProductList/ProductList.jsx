@@ -15,13 +15,17 @@ inject('productStore');
 class ProductsList extends Component {
     constructor(props) {
         super(props);
+        this.handlerOpenProduct = this.handlerOpenProduct.bind(this);
     }
     componentDidMount() {
         productStore.getProductList();
     }
 
+    handlerOpenProduct = (id) => {
+        this.props.history.push('/product/oneProduct/'+id);
+    };
+
     render() {
-        console.log(productStore);
         return(
             <div className='product-list-container'>
                 <h4 className="title-page">List of products</h4>
@@ -31,8 +35,13 @@ class ProductsList extends Component {
                 <div className="content">
                 { (productStore.products) &&
                     <div className="content-one-product">
-                        {   productStore.products.map(product =>
-                                <ProductItem product={product} /> )
+                        {   productStore.products.map((product, i)=>
+                                <ProductItem
+                                    key={i}
+                                    product={product}
+                                    openOneProduct={this.handlerOpenProduct}
+                                />
+                            )
                         }
                     </div>
                 }

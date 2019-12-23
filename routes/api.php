@@ -44,6 +44,8 @@ Route::middleware('auth:api')->group(function () {
 
 Route::group(['prefix' => 'product'], function() {
     Route::get('list', 'API\ProductController@get');
+    Route::get('getOneProduct/{id}', 'API\ProductController@getOneProduct');
+
 });
 
 
