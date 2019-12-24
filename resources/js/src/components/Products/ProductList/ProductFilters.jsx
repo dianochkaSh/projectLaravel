@@ -15,26 +15,37 @@ class ProductFilters extends Component {
     @observable filters = {
         priceStart: null,
         priceEnd: null,
-        category: null
+        category: null,
+        author: null
 
     };
     constructor(props) {
         super(props);
         this.handlerSelectCategory = this.handlerSelectCategory.bind(this);
+        this.handlerSelectAuthor = this.handlerSelectAuthor.bind(this);
+        this.handlerClearFilter = this.handlerClearFilter.bind(this);
     }
     componentDidMount() {
         productStore.getCategories();
+        productStore.getAuthors();
     }
     handlerSelectCategory = (id) => {
         this.filters.category = id;
     };
-
+    handlerSelectAuthor = (id) => {
+        this.filters.author = id;
+        console.log(this.filters);
+    };
+    handlerClearFilter = () => {
+      this.filters = {};
+    };
     render() {
         return (
             <div className="container-filters">
-                <h4>Filters</h4>
+                <h4 className="title-filters">Filters</h4>
+                <a href="#" onClick={this.handlerClearFilter} className="clear-filters">Очистить</a>
                 <div className="content-price">
-                    <label>Price:</label>
+                    <label><b>Price:</b></label>
                     <InputField
                         typeFiled='text'
                         nameField='priceStart'
@@ -53,22 +64,34 @@ class ProductFilters extends Component {
                     />
                 </div>
                 <div>
-                    <label>Categories:</label>
-                    <div className="list-categories">
+                    <label><b>Categories:</b></label>
+                    <div className="list-filters">
                         { productStore.categories !== undefined &&
                             productStore.categories.map((category, i)=>
                                 <FilterItem
                                     key={i}
                                     id={category.id}
                                     title={category.name}
-                                    selectCategory={this.handlerSelectCategory}
+                                    selectFilters={this.handlerSelectCategory}
                                 />
                             )
                         }
                     </div>
                 </div>
 
-                <div>Author:</div>
+                <div><b>Author:</b></div>
+                <div className="list-filters">
+                    {productStore.authors !== undefined &&
+                        productStore.authors.map((author, i) =>
+                            <FilterItem
+                                key={i}
+                                id={author.id}
+                                title={author.author}
+                                selectFilters={this.handlerSelectAuthor}
+                            />
+                        )
+                    }
+                </div>
                 <div>
                     <button className="btn btn-primary" >Apply filters</button>
                 </div>

@@ -4,6 +4,7 @@ class ProductStore {
     @observable products = [];
     @observable productOne = {};
     @observable categories = [];
+    @observable authors = [];
 
     @action getProductList() {
         axios.get('/api/product/list')
@@ -34,6 +35,14 @@ class ProductStore {
                     this.categories = response.data;
                 }
 
+            })
+    }
+    @action getAuthors() {
+        axios.get('api/product/allAuthor')
+            .then((response) => {
+                if (response.status === 200 ) {
+                    this.authors = response.data;
+                }
             })
     }
 

@@ -46,6 +46,7 @@ Route::group(['prefix' => 'product'], function() {
     Route::get('list', 'API\ProductController@get');
     Route::get('getOneProduct/{id}', 'API\ProductController@getOneProduct');
     Route::get('allCategories', 'API\ProductController@getAllCategories');
+    Route::get('allAuthor', 'API\ProductController@getAllAuthors');
 
 });
 

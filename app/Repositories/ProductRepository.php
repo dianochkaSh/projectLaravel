@@ -28,9 +28,11 @@ class ProductRepository extends BaseRepository {
      */
     public function getOneProductById($id) {
         return DB::table('products as p')
-                    ->select('p.id', 'p.title', 'p.description', 'p.image', 'p.category_id','p.author', 'c.name')
+                    ->select('p.id', 'p.title', 'p.description', 'p.image', 'p.category_id','p.author_id', 'c.name', 'a.author')
                     ->join('categories as c', 'c.id', '=', 'p.category_id')
+                    ->join('authors as a', 'a.id', '=', 'p.author_id')
                     ->where('p.id', '=', $id)
+                    ->where('p._author_id', '<>', 0)
                     ->get();
     }
 }

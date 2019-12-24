@@ -9,6 +9,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
+use App\Models\Author;
+use App\Repositories\AuthorRepository;
 
 
 class ProductController extends Controller
@@ -109,5 +111,36 @@ class ProductController extends Controller
         $categoryRepo = new CategoryRepository(new Category);
         $categories = $categoryRepo->getAllCategory();
         return response()->json($categories, 200);
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Get(
+     *      path="/product/allAuthor",
+     *      tags={"Product"},
+     *      summary="Get all authors",
+     *      description="Get all authors",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\Schema(
+     *              type="object",
+     *              allOf={@OA\Schema(ref="#definitions/ApiResponse")},
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Product",
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getAllAuthors(Request $request) {
+        $authorRepo = new AuthorRepository(new Author);
+        $authors = $authorRepo->getAllAuthors();
+        return response()->json($authors, 200);
+
     }
 }
