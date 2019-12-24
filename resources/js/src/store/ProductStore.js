@@ -3,6 +3,7 @@ import axios from 'axios';
 class ProductStore {
     @observable products = [];
     @observable productOne = {};
+    @observable categories = [];
 
     @action getProductList() {
         axios.get('/api/product/list')
@@ -25,6 +26,15 @@ class ProductStore {
                    this.productOne.category = response.data.name;
                }
             });
+    }
+    @action getCategories() {
+        axios.get('/api/product/allCategories')
+            .then((response) => {
+                if (response.status === 200) {
+                    this.categories = response.data;
+                }
+
+            })
     }
 
 }
