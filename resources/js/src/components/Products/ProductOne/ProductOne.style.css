@@ -2,6 +2,7 @@
     overflow: hidden;
     margin: 0 auto;
     width: 80%;
+    padding-top: 19px;
 }
     .container-product-one .content-img {
         float: left;

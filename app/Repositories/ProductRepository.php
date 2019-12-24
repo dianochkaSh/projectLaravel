@@ -3,6 +3,8 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Jsdecena\Baserepo\BaseRepository;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository {
 
@@ -25,6 +27,10 @@ class ProductRepository extends BaseRepository {
      * @return mixed
      */
     public function getOneProductById($id) {
-        return Product::find((int)$id);
+        return DB::table('products as p')
+                    ->select('p.id', 'p.title', 'p.description', 'p.image', 'p.category_id','p.author', 'c.name')
+                    ->join('categories as c', 'c.id', '=', 'p.category_id')
+                    ->where('p.id', '=', $id)
+                    ->get();
     }
 }

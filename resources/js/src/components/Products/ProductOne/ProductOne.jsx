@@ -8,11 +8,11 @@ function ProductOne (props) {
     ProductStore.getOneProduct(props.match.params.id);
     return(
         <div className="container-product-one">
-            {   ProductStore.productOne !== undefined && ProductStore.productOne.name !== undefined &&
+            {   ProductStore.productOne !== undefined && ProductStore.productOne.title !== undefined &&
                 <div>
-                    <h4>{ProductStore.productOne.name}</h4>
+                    <h4>{ProductStore.productOne.title}</h4>
                     <div className="content-img">
-                        <img src={require('../../../assets/img/userPlaceholder.png')} width="200" height="200"/>
+                        <img src={ProductStore.productOne.image} width="200" height="250"/>
                     </div>
                     <div className="content">
                         <div className="about">

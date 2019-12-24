@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -36,6 +37,11 @@ class ProductController extends Controller
     public function get() {
         $productRepo = new ProductRepository(new Product);
         $products = $productRepo->getProductList();
+        // $fullPath = Storage::disk('public')->url($user->getAttribute('photo'));
+        foreach ($products as $product) {
+            $image = Storage::disk('public')->url($product->getAttribute('image'));
+            $product->setAttribute('image', $image);
+        }
         return response()->json($products, 200);
     }
 
@@ -67,6 +73,8 @@ class ProductController extends Controller
     public function getOneProduct(Request $request) {
         $productRepo = new ProductRepository(new Product);
         $product = $productRepo->getOneProductById($request->id);
-        return response()->json($product, 200);
+        $image = Storage::disk('public')->url($product[0]->image);
+        $product[0]->image = $image;
+        return response()->json($product[0], 200);
     }
 }

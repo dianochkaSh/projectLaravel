@@ -7,13 +7,13 @@ const ProductItem = (props) => {
     const handlerOpenItem = (id) => {
         props.openOneProduct(id);
     };
-
+//require('../../../assets/img/userPlaceholder.png')
     return(
         <div className="one-item" key={props.product.id} onClick={() => handlerOpenItem(props.product.id)}>
-            <img src={require('../../../assets/img/userPlaceholder.png')} width="200" height="200"/>
+            <img src={props.product.image} width="200" height="250"/>
             <div className="item">
                 <p className="price">{props.product.price}&thinsp;₽</p>
-                <p className="item-title">{props.product.name}</p>
+                <p className="item-title">{props.product.title}</p>
             </div>
         </div>
     )
