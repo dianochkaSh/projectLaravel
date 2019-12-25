@@ -18,6 +18,10 @@ class ProductController extends Controller
     /**
      *
      * @param Request $request
+     * @param $priceMin
+     * @param $priceMax
+     * @param $categories
+     * @param $author
      * @return Response
      *
      * @OA\Get(
@@ -39,10 +43,9 @@ class ProductController extends Controller
      *      )
      * )
      */
-    public function get() {
+    public function get($priceMin = 0, $priceMax= 0, $categories = 0,  $author= 0, Request $request) {
         $productRepo = new ProductRepository(new Product);
-        $products = $productRepo->getProductList();
-        // $fullPath = Storage::disk('public')->url($user->getAttribute('photo'));
+        $products = $productRepo->getProductList($priceMin, $priceMax, $categories, $author);
         foreach ($products as $product) {
             $image = Storage::disk('public')->url($product->getAttribute('image'));
             $product->setAttribute('image', $image);
@@ -78,9 +81,14 @@ class ProductController extends Controller
     public function getOneProduct(Request $request) {
         $productRepo = new ProductRepository(new Product);
         $product = $productRepo->getOneProductById($request->id);
-        $image = Storage::disk('public')->url($product[0]->image);
-        $product[0]->image = $image;
-        return response()->json($product[0], 200);
+        if (count($product) > 0) {
+            $image = Storage::disk('public')->url($product[0]->image);
+            $product[0]->image = $image;
+            return response()->json($product[0], 200);
+        } else {
+            return response()->json(['error' => 'The Book do not find.' ], 400);
+        }
+
     }
 
     /**

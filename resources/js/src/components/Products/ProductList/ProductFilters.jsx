@@ -24,6 +24,8 @@ class ProductFilters extends Component {
         this.handlerSelectCategory = this.handlerSelectCategory.bind(this);
         this.handlerSelectAuthor = this.handlerSelectAuthor.bind(this);
         this.handlerClearFilter = this.handlerClearFilter.bind(this);
+        this.handlerFilters = this.handlerFilters.bind(this);
+        this.handlerFieldValue = this.handlerFieldValue.bind(this);
     }
     componentDidMount() {
         productStore.getCategories();
@@ -39,6 +41,12 @@ class ProductFilters extends Component {
     handlerClearFilter = () => {
       this.filters = {};
     };
+    handlerFieldValue = (key, value) => {
+        this.filters[key] = value;
+    };
+    handlerFilters = () => {
+        productStore.getProductList(this.filters);
+    };
     render() {
         return (
             <div className="container-filters">
@@ -47,19 +55,19 @@ class ProductFilters extends Component {
                 <div className="content-price">
                     <label><b>Price:</b></label>
                     <InputField
-                        typeFiled='text'
+                        typeFiled='number'
                         nameField='priceStart'
                         titleField=''
                         IdInput='priceStart'
-                        valueField={this.priceStart}
+                        valueField={this.filters.priceStart}
                         handlerFiled={this.handlerFieldValue}
                     />
                     <InputField
-                        typeFiled='text'
+                        typeFiled='number'
                         nameField='priceEnd'
                         titleField=''
                         IdInput='priceEnd'
-                        valueField={this.priceEnd}
+                        valueField={this.filters.priceEnd}
                         handlerFiled={this.handlerFieldValue}
                     />
                 </div>
@@ -93,7 +101,7 @@ class ProductFilters extends Component {
                     }
                 </div>
                 <div>
-                    <button className="btn btn-primary" >Apply filters</button>
+                    <button className="btn btn-primary" onClick={this.handlerFilters}>Apply filters</button>
                 </div>
             </div>
         )

@@ -41,6 +41,12 @@
     .container-filters .content-price div:nth-of-type(1) {
         margin-right: 30px;
     }
+
+    .container-filters .content-price input::-webkit-outer-spin-button,
+    .container-filters .content-price  input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
     .container-filters .list-filters {
         margin-left: 17px;
         cursor: pointer;

@@ -6,8 +6,16 @@ class ProductStore {
     @observable categories = [];
     @observable authors = [];
 
-    @action getProductList() {
-        axios.get('/api/product/list')
+    @action getProductList(params) {
+        console.log(params);
+        let uri;
+        if (params === undefined) {
+            uri = '/api/product/list';
+        } else {
+            uri='/api/product/list/' + params.priceStart + '/' + params.priceEnd + '/' + params.category + '/' + params.author;
+        }
+        console.log(uri);
+        axios.get(uri)
             .then((response) => {
                if (response.status === 200) {
                    this.products = response.data;
