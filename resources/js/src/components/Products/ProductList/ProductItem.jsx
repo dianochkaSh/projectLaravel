@@ -7,7 +7,6 @@ const ProductItem = (props) => {
     const handlerOpenItem = (id) => {
         props.openOneProduct(id);
     };
-//require('../../../assets/img/userPlaceholder.png')
     return(
         <div className="one-item" key={props.product.id} onClick={() => handlerOpenItem(props.product.id)}>
             <img src={props.product.image} width="200" height="250"/>
