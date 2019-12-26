@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class OauthAccessToken
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property $increment
  * @property $timestamps
  */
-class OauthAccessToken extends Authenticatable {
+class OauthAccessToken extends Model {
     public $incrementing = false;
     public $timestamps = false;
 

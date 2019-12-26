@@ -38,21 +38,6 @@ class ProductRepository extends BaseRepository {
      */
     public function getOneProductById($id)
     {
-        $product = Product::find($id);
-        if ($product->getAttribute('author_id') == 0) {
-            return DB::table('products as p')
-                ->select('p.id', 'p.title', 'p.description', 'p.image', 'p.category_id', 'c.name')
-                ->join('categories as c', 'c.id', '=', 'p.category_id')
-                ->where('p.id', '=', $id)
-                ->get();
-        } else {
-            return DB::table('products as p')
-                ->select('p.id', 'p.title', 'p.description', 'p.image', 'p.category_id', 'p.author_id', 'c.name', 'a.author')
-                ->join('categories as c', 'c.id', '=', 'p.category_id')
-                ->leftJoin('authors as a', 'a.id', '=', 'p.author_id')
-                ->where('p.id', '=', $id)
-                ->where('p.author_id', '<>', 0)
-                ->get();
-        }
+       return Product::with('category', 'author')->find($id);
     }
 }

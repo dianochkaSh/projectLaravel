@@ -32,7 +32,7 @@ class ProductStore {
                    this.productOne.author = response.data.author;
                    this.productOne.price = response.data.price;
                    this.productOne.image = response.data.image;
-                   this.productOne.category = response.data.name;
+                   this.productOne.category = response.data.category;
                }
             });
     }

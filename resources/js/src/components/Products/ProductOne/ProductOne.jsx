@@ -21,8 +21,14 @@ function ProductOne (props) {
                                 <p><label>Категория:</label></p>
                             </div>
                             <div className="content-text">
-                                <p><label>{ProductStore.productOne.author}</label></p>
-                                <p><label>{ProductStore.productOne.category}</label></p>
+                                { ProductStore.productOne.author !== undefined && ProductStore.productOne.author !== null &&
+                                    <p><label>{  ProductStore.productOne.author.author}</label></p>
+                                }
+                                {
+                                    ProductStore.productOne.category !== undefined &&
+                                    <p><label>{ProductStore.productOne.category.name}</label></p>
+                                }
+
                             </div>
                         </div>
                         <div className="description">

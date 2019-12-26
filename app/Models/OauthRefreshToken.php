@@ -1,6 +1,6 @@
 <?php
 namespace  App\Models;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class OauthRefreshToken
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property $increment
  * @property $timestamps
  */
-class OauthRefreshToken extends Authenticatable {
+class OauthRefreshToken extends Model {
     public $timestamps = false;
     public $incrementing = false;
 

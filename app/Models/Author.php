@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Author extends Authenticatable {
+class Author extends Model {
 
 }

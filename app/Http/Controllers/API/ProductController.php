@@ -81,10 +81,10 @@ class ProductController extends Controller
     public function getOneProduct(Request $request) {
         $productRepo = new ProductRepository(new Product);
         $product = $productRepo->getOneProductById($request->id);
-        if (count($product) > 0) {
-            $image = Storage::disk('public')->url($product[0]->image);
-            $product[0]->image = $image;
-            return response()->json($product[0], 200);
+        if ($product) {
+            $image = Storage::disk('public')->url($product->image);
+            $product->image = $image;
+            return response()->json($product, 200);
         } else {
             return response()->json(['error' => 'The Book do not find.' ], 400);
         }
