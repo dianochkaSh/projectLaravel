@@ -43,7 +43,7 @@ class ProductController extends Controller
      *      )
      * )
      */
-    public function get($priceMin = 0, $priceMax= 0, $categories = 0,  $author= 0, Request $request) {
+    public function get($priceMin = 0, $priceMax = 0, $categories = 0,  $author = 0, Request $request) {
         $productRepo = new ProductRepository(new Product);
         $products = $productRepo->getProductList($priceMin, $priceMax, $categories, $author);
         foreach ($products as $product) {

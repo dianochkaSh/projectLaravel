@@ -7,14 +7,19 @@ class ProductStore {
     @observable authors = [];
 
     @action getProductList(params) {
-        console.log(params);
+        let authorParam = null;
+        let categoryParam = null;
+        if (params !== undefined) {
+            authorParam = params.author.length > 0 ? params.author.toString() : 0;
+            categoryParam = params.category.length > 0 ? params.category.toString(): 0;
+        }
+
         let uri;
         if (params === undefined) {
             uri = '/api/product/list';
         } else {
-            uri='/api/product/list/' + params.priceStart + '/' + params.priceEnd + '/' + params.category + '/' + params.author;
+            uri='/api/product/list/' + params.priceStart + '/' + params.priceEnd + '/' + categoryParam + '/' + authorParam;
         }
-        console.log(uri);
         axios.get(uri)
             .then((response) => {
                if (response.status === 200) {

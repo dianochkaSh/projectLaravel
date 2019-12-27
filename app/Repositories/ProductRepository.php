@@ -18,15 +18,23 @@ class ProductRepository extends BaseRepository {
      * @return Product[]|\Illuminate\Database\Eloquent\Collection
      */
     public function getProductList($priceMin, $priceMax, $categories, $author) {
-        $query = Product::query();
-        if ($author !== 0) {
-            $query->leftJoin('authors as a', 'a.id', '=', 'products.author_id' );
-            $query->where('products.author_id', $author);
+        $author = !empty($author) ? explode(",", $author) : '';
+        $categories = !empty($categories) ? explode(",", $categories) : '';
+        $query = Product::with('author', 'category');
+
+        if (is_array($author) && count($author) > 0) {
+            $query->whereIn('products.author_id', $author);
         }
-        if ($categories !== 0) {
-            $query->leftJoin('categories as c', 'c.id', '=', 'products.category_id' );
-            $query->where('products.category_id','=',1);
+        if ( is_array($categories) && count($categories) > 0) {
+            $query->whereIn('products.category_id', $categories);
         }
+
+        if (!empty($priceMin)) {
+            $query->where('product.price', '<', $priceMin );
+        } else if (!empty($priceMax)) {
+            $query->where('product.price', '>', $priceMin );
+        }
+
 
         return $query->get();
     }

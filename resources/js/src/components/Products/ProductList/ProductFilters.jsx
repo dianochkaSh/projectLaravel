@@ -13,8 +13,8 @@ inject(productStore);
 @observer
 class ProductFilters extends Component {
     @observable filters = {
-        priceStart: null,
-        priceEnd: null,
+        priceStart: 0,
+        priceEnd: 0,
         category: [],
         author: []
 
@@ -41,16 +41,20 @@ class ProductFilters extends Component {
             this.filters[selectedItem] = [];
             this.filters[selectedItem] = newArrayItems;
         }
-        console.log(this.filters);
     };
     handlerClearFilter = () => {
-      this.filters = {};
+        this.filters = {
+            priceStart: 0,
+            priceEnd: 0,
+            category: [],
+            author: []
+        }
     };
     handlerFieldValue = (key, value) => {
         this.filters[key] = value;
     };
     handlerFilters = () => {
-        productStore.getProductList(this.filters);
+      productStore.getProductList(this.filters);
     };
     render() {
         return (
