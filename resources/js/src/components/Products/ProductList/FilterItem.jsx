@@ -10,13 +10,16 @@ class FilterItem extends Component{
         this.selectCurrentCategory = this.selectCurrentCategory.bind(this);
     }
     selectCurrentCategory = (id) => {
+        let actionItem = null;
         if ( this.selected === id) {
             this.selected = null;
+            actionItem = 'remove';
         } else {
             this.selected = id;
+            actionItem = 'add';
         }
 
-        this.props.selectFilters(id);
+        this.props.selectFilters(this.props.selectedItem, actionItem, id);
     };
     render() {
         return (

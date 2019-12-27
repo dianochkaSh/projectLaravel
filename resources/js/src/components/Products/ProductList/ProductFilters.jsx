@@ -15,14 +15,13 @@ class ProductFilters extends Component {
     @observable filters = {
         priceStart: null,
         priceEnd: null,
-        category: null,
-        author: null
+        category: [],
+        author: []
 
     };
     constructor(props) {
         super(props);
-        this.handlerSelectCategory = this.handlerSelectCategory.bind(this);
-        this.handlerSelectAuthor = this.handlerSelectAuthor.bind(this);
+        this.handlerSelectItem = this.handlerSelectItem.bind(this);
         this.handlerClearFilter = this.handlerClearFilter.bind(this);
         this.handlerFilters = this.handlerFilters.bind(this);
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
@@ -31,11 +30,17 @@ class ProductFilters extends Component {
         productStore.getCategories();
         productStore.getAuthors();
     }
-    handlerSelectCategory = (id) => {
-        this.filters.category = id;
-    };
-    handlerSelectAuthor = (id) => {
-        this.filters.author = id;
+
+    handlerSelectItem = (selectedItem, actionItem, id) => {
+        if (actionItem === 'add') {
+            this.filters[selectedItem].push(id);
+        } else if(actionItem === 'remove') {
+            let newArrayItems = this.filters[selectedItem].filter(function(e) {
+                return e !== id
+            });
+            this.filters[selectedItem] = [];
+            this.filters[selectedItem] = newArrayItems;
+        }
         console.log(this.filters);
     };
     handlerClearFilter = () => {
@@ -77,10 +82,11 @@ class ProductFilters extends Component {
                         { productStore.categories !== undefined &&
                             productStore.categories.map((category, i)=>
                                 <FilterItem
+                                    selectedItem='category'
                                     key={i}
                                     id={category.id}
                                     title={category.name}
-                                    selectFilters={this.handlerSelectCategory}
+                                    selectFilters={this.handlerSelectItem}
                                 />
                             )
                         }
@@ -92,10 +98,11 @@ class ProductFilters extends Component {
                     {productStore.authors !== undefined &&
                         productStore.authors.map((author, i) =>
                             <FilterItem
+                                selectedItem='author'
                                 key={i}
                                 id={author.id}
                                 title={author.author}
-                                selectFilters={this.handlerSelectAuthor}
+                                selectFilters={this.handlerSelectItem}
                             />
                         )
                     }
