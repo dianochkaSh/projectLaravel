@@ -2,6 +2,7 @@ import React from 'react';
 /* store */
 import ProductStore from '../../../store/ProductStore';
 import { inject, observer } from 'mobx-react';
+import ImageGallery from 'react-image-gallery';
 import './ProductOne.style.css';
 
 function ProductOne (props) {
@@ -10,10 +11,19 @@ function ProductOne (props) {
         <div className="container-product-one">
             {   ProductStore.productOne !== undefined && ProductStore.productOne.title !== undefined &&
                 <div>
-                    <h4>{ProductStore.productOne.title}</h4>
                     <div className="content-img">
-                        <img src={ProductStore.productOne.image} width="200" height="250"/>
+                        {ProductStore.productOne.images !== undefined &&
+                        <ImageGallery
+                            items={ProductStore.productOne.images}
+                            lazyLoad={false}
+                            thumbnailPosition='left'
+                            additionalClass="app-image-gallery"
+                        />
+                        }
+                        {/*<img src={ProductStore.productOne.image} width="200" height="250"/>*/}
                     </div>
+                    <h4>{ProductStore.productOne.title}</h4>
+
                     <div className="content">
                         <div className="about">
                             <div className="content-title">

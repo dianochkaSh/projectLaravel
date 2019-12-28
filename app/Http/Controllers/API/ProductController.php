@@ -84,6 +84,9 @@ class ProductController extends Controller
         if ($product) {
             $image = Storage::disk('public')->url($product->image);
             $product->image = $image;
+            foreach ($product->images as $image) {
+                $image->original = Storage::disk('public')->url($image->original);
+            }
             return response()->json($product, 200);
         } else {
             return response()->json(['error' => 'The Book do not find.' ], 400);

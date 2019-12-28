@@ -47,6 +47,6 @@ class ProductRepository extends BaseRepository {
      */
     public function getOneProductById($id)
     {
-       return Product::with('category', 'author')->find($id);
+       return Product::with('category', 'author', 'images')->find($id);
     }
 }

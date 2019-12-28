@@ -31,6 +31,7 @@ class ProductStore {
         axios.get('/api/product/getOneProduct/'+ id )
             .then((response) => {
                if (response.status === 200) {
+                   console.log(response.data);
                    this.productOne.title = response.data.title;
                    this.productOne.id = response.data.id;
                    this.productOne.description = response.data.description;
@@ -38,6 +39,7 @@ class ProductStore {
                    this.productOne.price = response.data.price;
                    this.productOne.image = response.data.image;
                    this.productOne.category = response.data.category;
+                   this.productOne.images = response.data.images;
                }
             });
     }
