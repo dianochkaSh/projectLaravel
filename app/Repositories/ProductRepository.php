@@ -30,9 +30,10 @@ class ProductRepository extends BaseRepository {
         }
 
         if (!empty($priceMin)) {
-            $query->where('product.price', '<', $priceMin );
-        } else if (!empty($priceMax)) {
-            $query->where('product.price', '>', $priceMin );
+            $query->where('products.price', '>', $priceMin );
+        }
+        if (!empty($priceMax)) {
+            $query->where('products.price', '<', $priceMax );
         }
 
 

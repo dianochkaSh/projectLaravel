@@ -48,7 +48,14 @@ class ProductFilters extends Component {
             priceEnd: 0,
             category: [],
             author: []
+        };
+        let selectedElements = document.getElementsByClassName('list-filters');
+        for(let j = 0; j < selectedElements.length; j++ ) {
+            for (let i = 0; i < selectedElements[j].childNodes.length; i++) {
+                selectedElements[j].childNodes[i].classList.remove("selected")
+            }
         }
+        productStore.getProductList(this.filters);
     };
     handlerFieldValue = (key, value) => {
         this.filters[key] = value;
