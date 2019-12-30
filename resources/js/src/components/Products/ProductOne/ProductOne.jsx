@@ -35,13 +35,13 @@ class ProductOne extends Component {
                                   direction='next'
                                   onSelect={this.handleSelect}
                                   indicators='false'
-                                  interval='2'
+                                  interval={2}
                                   slide='tru'
                                   wrap='true'
                                   width="400px"
                                   pauseOnHover='true'>
-                            {ProductStore.productOne.images.map(image => (
-                                <div>
+                            {ProductStore.productOne.images.map((image, i) => (
+                                <div key={i}>
                                     <img src={image.original}/>
                                 </div>
                             ))}

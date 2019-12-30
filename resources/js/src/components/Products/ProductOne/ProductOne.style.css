@@ -32,3 +32,6 @@
                 .container-product-one .content .description p {
                      text-align: justify;
                  }
+.carousel .slide {
+    background: none !important;
+}
