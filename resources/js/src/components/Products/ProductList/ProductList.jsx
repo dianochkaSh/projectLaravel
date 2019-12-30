@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { observable } from 'mobx';
+import {observable, reaction} from 'mobx';
 import productStore from '../../../store/ProductStore';
 
 /* components */
 import ProductItem from './ProductItem';
 import ProductFilters from './ProductFilters';
+import LoaderElement from '../../Loader/LoaderElement';
 
 /* styles */
 import './Product.styles.css';
@@ -13,9 +14,13 @@ import './Product.styles.css';
 inject('productStore');
 @observer
 class ProductsList extends Component {
+    @observable isLoaded = true;
     constructor(props) {
         super(props);
         this.handlerOpenProduct = this.handlerOpenProduct.bind(this);
+        reaction(() => productStore.products, () => {
+            this.isLoaded = false
+        });
     }
     componentDidMount() {
         productStore.getProductList();
@@ -29,23 +34,30 @@ class ProductsList extends Component {
         return(
             <div className='product-list-container'>
                 <h4 className="title-page">List of products</h4>
-                <div className="filters">
-                    <ProductFilters />
-                </div>
-                <div className="content">
-                { (productStore.products) &&
-                    <div className="content-one-product">
-                        {   productStore.products.map((product, i)=>
-                                <ProductItem
-                                    key={i}
-                                    product={product}
-                                    openOneProduct={this.handlerOpenProduct}
-                                />
-                            )
-                        }
+                {this.isLoaded
+                    ? <div>
+                        <LoaderElement load={this.isLoaded}/>
+                    </div>
+                    : <div>
+                        <div className="filters">
+                            <ProductFilters/>
+                        </div>
+                        <div className="content">
+                            {(productStore.products) &&
+                            <div className="content-one-product">
+                                {productStore.products.map((product, i) =>
+                                    <ProductItem
+                                        key={i}
+                                        product={product}
+                                        openOneProduct={this.handlerOpenProduct}
+                                    />
+                                )
+                                }
+                            </div>
+                            }
+                        </div>
                     </div>
                 }
-                </div>
             </div>
         )
     }
