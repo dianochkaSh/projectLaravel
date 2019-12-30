@@ -5,6 +5,7 @@ use Jsdecena\Baserepo\BaseRepository;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductRepository extends BaseRepository {
 
@@ -20,7 +21,11 @@ class ProductRepository extends BaseRepository {
     public function getProductList($priceMin, $priceMax, $categories, $author) {
         $author = !empty($author) ? explode(",", $author) : '';
         $categories = !empty($categories) ? explode(",", $categories) : '';
-        $query = Product::with('author', 'category');
+        $query = Product::with(['author',
+            'category',
+            'images' => function (HasMany $query) {
+                        $query->where('order', '=', 1);
+            }]);
 
         if (is_array($author) && count($author) > 0) {
             $query->whereIn('products.author_id', $author);
@@ -47,6 +52,14 @@ class ProductRepository extends BaseRepository {
      */
     public function getOneProductById($id)
     {
-       return Product::with('category', 'author', 'images')->find($id);
+        return Product::with([
+                    'category',
+                    'author',
+                    'images' => function (HasMany $query) {
+                        $query->where('image_type', 'like', "%gallery%");
+                        $query->orderBy('order', 'asc');
+                    }
+                ])
+            ->find($id);
     }
 }

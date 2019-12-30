@@ -47,8 +47,8 @@ class ProductController extends Controller
         $productRepo = new ProductRepository(new Product);
         $products = $productRepo->getProductList($priceMin, $priceMax, $categories, $author);
         foreach ($products as $product) {
-            $image = Storage::disk('public')->url($product->getAttribute('image'));
-            $product->setAttribute('image', $image);
+            $image = Storage::disk('public')->url($product->images[0]->original);
+            $product->images[0]->original =  $image;
         }
         return response()->json($products, 200);
     }

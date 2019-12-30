@@ -9,7 +9,7 @@ const ProductItem = (props) => {
     };
     return(
         <div className="one-item" key={props.product.id} onClick={() => handlerOpenItem(props.product.id)}>
-            <img src={props.product.image} width="200" height="250"/>
+            <img src={props.product.images[0].original} width="200" height="250"/>
             <div className="item">
                 <p className="price">{props.product.price}&thinsp;₽</p>
                 <p className="item-title">{props.product.title}</p>
