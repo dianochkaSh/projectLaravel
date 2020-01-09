@@ -62,4 +62,23 @@ class ProductRepository extends BaseRepository {
                 ])
             ->find($id);
     }
+
+    /**
+     * get products by array id`s product
+     * @param $ids array id products
+     * @return Product|\Illuminate\Database\Eloquent\Builder
+     */
+    public function getProductsByArrayIds($ids) {
+        return Product::with([
+            'category',
+            'author',
+            'images' => function (HasMany $query) {
+                $query->where('image_type', 'like', "%thumbnail%");
+                $query->orderBy('order', 'asc');
+            }
+        ])
+            ->whereIn('id', $ids)
+            ->get();
+
+    }
 }

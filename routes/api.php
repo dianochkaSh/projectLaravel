@@ -35,6 +35,7 @@ Route::middleware('auth:api')->group(function() {
         Route::get('deletePhoto', 'API\UserController@deletePhoto');
         Route::put('editUser', 'API\UserController@edit');
         Route::post('changePassword', 'API\AuthController@changePassword');
+        Route::get('cart/{id}', 'API\UserController@getAllCart');
     });
 });
 

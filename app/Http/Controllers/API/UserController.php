@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Storage;
 use OpenApi\Annotations as OA;
+use App\Models\Product;
+use App\Repositories\ProductRepository;
 
 
 /**
@@ -187,5 +189,43 @@ class UserController extends Controller {
         } else {
             return response()->json(['error' => 'Data of user has not updated.' ], 400);
         }
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Get(
+     *      path="user/cart/",
+     *      tags={"User"},
+     *      summary="Get cart user",
+     *      description="Get cart user",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\Schema(
+     *              type="object",
+     *              allOf={@OA\Schema(ref="#definitions/ApiResponse")},
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Product",
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getAllCart(Request $request) {
+        $ids = $request->id;
+        $idsArray = explode(',', $ids);
+        $productRep = new ProductRepository(new Product);
+        $products = $productRep->getProductsByArrayIds($idsArray);
+        foreach ($products as $product) {
+            if (!$product->images->isEmpty()) {
+                $image = Storage::disk('public')->url($product->images[0]->original);
+                $product->images[0]->original =  $image;
+            }
+        }
+        return response()->json($products, 200);
     }
 }

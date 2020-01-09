@@ -1,0 +1,9 @@
+.cart-container {
+    margin: 0 auto;
+    width: 80%;
+    border: 1px solid #f2f2f2;
+    padding: 15px 7px 12px 15px;
+}
+.cart-container img {
+    margin-right: 20px;
+}

@@ -10,6 +10,8 @@ class UserStore {
     @observable user = {};
     @observable tokenIsValid = false;
     @observable cartUser = [];
+    @observable cart = [];
+
     @action registration(name, email, password) {
         const url = '/api/auth/registration';
         const params = {
@@ -236,6 +238,19 @@ class UserStore {
     }
     @action addProductToCart(id){
         this.cartUser.push(id);
+    }
+    @action getCartProduct() {
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+        let idProducts = this.cartUser.length > 0 ? this.cartUser.toString() : 0;
+        axios.get('/api/user/cart/' + idProducts, { headers: headers } )
+            .then((response) => {
+                if( response.status === 200 ) {
+                    this.cart = response.data;
+                    console.log(this.cart);
+                }
+            });
     }
 
 }
