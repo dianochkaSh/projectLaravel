@@ -90,6 +90,7 @@ class ProductOne extends Component {
                                     <b>О книге:</b>
                                     <p>{ProductStore.productOne.description}</p>
                                 </div>
+                                <div><button className="btn btn-primary">Add to cart</button></div>
                             </div>
                         </div>
                         }

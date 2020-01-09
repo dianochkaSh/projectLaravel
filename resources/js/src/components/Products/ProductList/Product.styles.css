@@ -16,7 +16,10 @@
         .product-list-container .content .content-one-product {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 370px);
+            grid-template-rows: repeat(3, 426px);
+            width: 100%;
+            padding-left: 5%;
+            padding-right: 5%;
         }
         .product-list-container .content .content-one-product .one-item{
             cursor: pointer;

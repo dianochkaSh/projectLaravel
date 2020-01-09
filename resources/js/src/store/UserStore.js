@@ -9,6 +9,7 @@ class UserStore {
     @observable username = null;
     @observable user = {};
     @observable tokenIsValid = false;
+    @observable cartUser = [];
     @action registration(name, email, password) {
         const url = '/api/auth/registration';
         const params = {
@@ -232,6 +233,9 @@ class UserStore {
                   this.message = response.data.success;
               }
             })
+    }
+    @action addProductToCart(id){
+        this.cartUser.push(id);
     }
 
 }

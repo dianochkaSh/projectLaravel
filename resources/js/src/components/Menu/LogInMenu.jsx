@@ -31,6 +31,7 @@ class LogInMenu extends Component{
                         </div>
                     </div>
                     <Link to='/products' className="navbar-brand">Products</Link>
+                    <Link to='/cart'> <img src={require('../../assets/img/cart.png')}/><sub className="count-product-in-cart">{userStore.cartUser.length}</sub> </Link>
                     <a href="#" onClick={this.signOut} className="navbar-brand singOut">Sign Out </a>
                 </nav>
             </div>

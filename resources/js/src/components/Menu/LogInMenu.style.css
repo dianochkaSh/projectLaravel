@@ -39,3 +39,10 @@
 nav a:hover {
     background-color: #d2d9df;
 }
+.count-product-in-cart {
+    position: relative;
+    left: -4px;
+    top: 11px;
+    color: #ff4d4d;
+    font-weight: 600;
+}

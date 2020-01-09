@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import {observable, reaction} from 'mobx';
 import productStore from '../../../store/ProductStore';
+import userStore from '../../../store/UserStore';
 
 /* components */
 import ProductItem from './ProductItem';
@@ -11,7 +12,7 @@ import LoaderElement from '../../Loader/LoaderElement';
 /* styles */
 import './Product.styles.css';
 
-inject('productStore');
+inject('productStore', 'userStore');
 @observer
 class ProductsList extends Component {
     @observable isLoaded = true;
@@ -21,6 +22,7 @@ class ProductsList extends Component {
         reaction(() => productStore.products, () => {
             this.isLoaded = false
         });
+        this.handlerAddToCart = this.handlerAddToCart.bind(this);
     }
     componentDidMount() {
         productStore.getProductList();
@@ -28,6 +30,9 @@ class ProductsList extends Component {
 
     handlerOpenProduct = (id) => {
         this.props.history.push('/product/oneProduct/'+id);
+    };
+    handlerAddToCart = (id) => {
+        userStore.addProductToCart(id);
     };
 
     render() {
@@ -50,6 +55,7 @@ class ProductsList extends Component {
                                         key={i}
                                         product={product}
                                         openOneProduct={this.handlerOpenProduct}
+                                        addToCart={this.handlerAddToCart}
                                     />
                                 )
                                 }
