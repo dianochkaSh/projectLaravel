@@ -31,7 +31,6 @@ class ProductStore {
         axios.get('/api/product/getOneProduct/'+ id )
             .then((response) => {
                if (response.status === 200) {
-                   console.log(response.data);
                    this.productOne.title = response.data.title;
                    this.productOne.id = response.data.id;
                    this.productOne.description = response.data.description;
@@ -59,6 +58,9 @@ class ProductStore {
                     this.authors = response.data;
                 }
             })
+    }
+    @action setOneProduct() {
+        this.productOne = {};
     }
 
 }

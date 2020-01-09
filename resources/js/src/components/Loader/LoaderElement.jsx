@@ -3,7 +3,6 @@ import Loader from 'react-loader-spinner'
 import './LoaderElements.style.css';
 
 const LoaderElement = (props) => {
-    console.log(props);
     return(
         <div className="loader-content">
             <Loader
