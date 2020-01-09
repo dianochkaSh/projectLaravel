@@ -39,7 +39,6 @@ class NewPassword extends Component {
             passwordNew: this.passwordNew,
             passwordConfirm: this.passwordConfirm
         };
-        console.log(data);
         let valid = validate(data, ForgetPasswordValidation);
         if (valid === undefined) {
             userStore.newPassword(this.props.match.params.email, this.passwordNew);

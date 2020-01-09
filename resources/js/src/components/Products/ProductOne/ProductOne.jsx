@@ -35,9 +35,6 @@ class ProductOne extends Component {
     }
 
     render() {
-        console.log(ProductStore.productOne);
-        console.log(this.isLoad);
-        console.log(ProductStore.productOne);
         return (
             <div className="container-product-one">
                 {this.isLoad
