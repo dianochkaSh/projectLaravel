@@ -259,6 +259,9 @@ class UserStore {
         this.cartUser = newCart;
         this.getCartProduct();
     }
+    @action showOrder(){
+
+    }
 
 }
  const userStore = new UserStore();

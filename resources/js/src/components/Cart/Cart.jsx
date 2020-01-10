@@ -13,6 +13,7 @@ class Cart extends Component {
     constructor(props){
         super(props);
         this.handlerDeleteProduct = this.handlerDeleteProduct.bind(this);
+        this.handlerOpenOrder = this.handlerOpenOrder.bind(this);
     }
     componentDidMount() {
         if( userStore.cartUser.length > 0 ) {
@@ -22,33 +23,40 @@ class Cart extends Component {
     handlerDeleteProduct(id) {
         userStore.deleteProductFromCart(id);
     }
+    handlerOpenOrder = () => {
+        this.props.history.push('/order');
+    };
 
     render() {
         return (
             <div>
                 <h4>Cart</h4>
-                {   userStore.cart &&
-                <div className="cart-container">
-                    <div className="div-table">
-                        <div className="div-table-row">
-                            <div className="div-table-col"> № </div>
-                            <div className="div-table-col">Product</div>
-                            <div className="div-table-col">Price</div>
-                            <div className="div-table-col">Quantity</div>
-                            <div className="div-table-col">Total</div>
+                {   userStore.cart.length > 0
+                ? <div className="cart">
+                        <div className="cart-container">
+                            <div className="div-table">
+                                <div className="div-table-row">
+                                    <div className="div-table-col"> №</div>
+                                    <div className="div-table-col">Product</div>
+                                    <div className="div-table-col">Price</div>
+                                    <div className="div-table-col">Quantity</div>
+                                    <div className="div-table-col">Total</div>
+                                </div>
+
+                                {userStore.cart.map((product, i) =>
+                                    <CartItem
+                                        product={product}
+                                        key={i}
+                                        deleteProduct={this.handlerDeleteProduct}
+                                    />
+                                )
+                                }
+                            </div>
                         </div>
+                    <button className="btn btn-primary btn-to-order" onClick={this.handlerOpenOrder}>Proceed to checkout</button>
 
-                        {   userStore.cart.map(( product, i ) =>
-                                <CartItem
-                                    product={product}
-                                    key={i}
-                                    deleteProduct={this.handlerDeleteProduct}
-                                />
-                            )
-                        }
-                    </div>
-
-                    </div>
+                </div>
+                    : <div>Cart is empty</div>
 
                 }
             </div>

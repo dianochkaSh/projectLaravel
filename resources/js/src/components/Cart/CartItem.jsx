@@ -2,7 +2,6 @@ import React from 'react';
 import './Cart.style.css';
 
 const CartItem = (props) => {
-    console.log(props);
     const handlerDelete = (id) => {
       props.deleteProduct(id);
     };
@@ -17,7 +16,7 @@ const CartItem = (props) => {
           </div>
           <div className="div-table-col title">{props.product.title}</div>
           <div className="div-table-col">{props.product.price}</div>
-          <div className="div-table-col">0</div>
+          <div className="div-table-col">1</div>
           <div className="div-table-col">{props.product.price}</div>
       </div>
   )

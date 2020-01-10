@@ -18,6 +18,7 @@ import NewPassword from './src/components/ForgetPassword/NewPassword';
 import ProductList from './src/components/Products/ProductList/ProductList';
 import ProductOne from './src/components/Products/ProductOne/ProductOne';
 import Cart from './src/components/Cart/Cart';
+import Order from './src/components/Order/Order';
 const history = createHistory.createBrowserHistory();
 const App = () => (
     <Provider{...storesProvider}>
@@ -35,6 +36,7 @@ const App = () => (
                     <Route  path="/products" component={ProductList}/>
                     <Route  path="/product/oneProduct/:id" component={ProductOne}/>
                     <Route  path="/cart" component={Cart}/>
+                    <Route  path="/order" component={Order}/>
                 </Switch>
             </div>
         </Router>
