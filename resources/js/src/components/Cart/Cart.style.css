@@ -1,6 +1,6 @@
 .cart-container {
     margin: 0 auto;
-    width: 80%;
+    width: 60%;
     border: 1px solid #f2f2f2;
     padding: 15px 7px 12px 15px;
 }
@@ -9,18 +9,30 @@
 }
 
 
-.div-table {
+.cart-container .div-table {
     display: table;
     width: auto;
     border-spacing: 5px; /* cellspacing:poor IE support for  this */
 }
-.div-table-row {
+.cart-container .div-table-row {
     display: table-row;
     width: auto;
     clear: both;
+    height: 60px;
 }
-.div-table-col {
+.cart-container .div-table-col {
     float: left; /* fix for  buggy browsers */
     display: table-column;
     width: 200px;
+}
+.cart-container .title{
+    font-size: 14px;
+    line-height: 15px;
+}
+.cart-container .div-table-col .bt-delete-product {
+    border: none;
+    background: none;
+}
+.cart-container .div-table-col .bt-delete-product img{
+    width: 14px;
 }

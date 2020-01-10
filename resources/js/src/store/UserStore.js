@@ -253,6 +253,13 @@ class UserStore {
             });
     }
 
+    @action deleteProductFromCart(id){
+        let newCart = this.cartUser.filter(function(e) { return e !== id });
+        this.cartUser = [];
+        this.cartUser = newCart;
+        this.getCartProduct();
+    }
+
 }
  const userStore = new UserStore();
  export default userStore;
