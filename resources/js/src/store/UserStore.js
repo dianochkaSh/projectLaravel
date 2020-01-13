@@ -238,25 +238,32 @@ class UserStore {
     }
     @action addProductToCart(id){
         this.cartUser.push(id);
+        localStorage.setItem('cartIds', this.cartUser);
     }
     @action getCartProduct() {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
-        let idProducts = this.cartUser.length > 0 ? this.cartUser.toString() : 0;
+
+        let idProducts = this.cartUser.length > 0 ? this.cartUser.toString() : localStorage.getItem('cartIds');
+        this.cartUser = localStorage.getItem('cartIds').split(",");
         axios.get('/api/user/cart/' + idProducts, { headers: headers } )
             .then((response) => {
                 if( response.status === 200 ) {
                     this.cart = response.data;
-                    console.log(this.cart);
                 }
             });
     }
 
     @action deleteProductFromCart(id){
-        let newCart = this.cartUser.filter(function(e) { return e !== id });
+        if ( this.cartUser.length === 0 ) {
+            this.cartUser = localStorage.getItem('cartIds');
+        }
+        let newCart = this.cartUser.filter(function(e) { return  parseInt(e) !== parseInt(id) });
         this.cartUser = [];
         this.cartUser = newCart;
+        localStorage.removeItem('cartIds');
+        localStorage.setItem('cartIds', this.cartUser);
         this.getCartProduct();
     }
     @action showOrder(){

@@ -16,9 +16,7 @@ class Cart extends Component {
         this.handlerOpenOrder = this.handlerOpenOrder.bind(this);
     }
     componentDidMount() {
-        if( userStore.cartUser.length > 0 ) {
-            userStore.getCartProduct();
-        }
+        userStore.getCartProduct();
     }
     handlerDeleteProduct(id) {
         userStore.deleteProductFromCart(id);

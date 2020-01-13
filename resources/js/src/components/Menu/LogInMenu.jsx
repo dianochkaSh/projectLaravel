@@ -17,6 +17,14 @@ class LogInMenu extends Component{
       this.props.handlerLogOut();
     };
     render() {
+        let countProductInCart = 0;
+        if  (userStore.cartUser.length === 0) {
+            let cartIds = localStorage.getItem('cartIds');
+            let cartIdsArray = cartIds.split(",");
+            countProductInCart = cartIdsArray.length;
+        } else {
+            countProductInCart = userStore.cartUser.length;
+        }
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +39,7 @@ class LogInMenu extends Component{
                         </div>
                     </div>
                     <Link to='/products' className="navbar-brand">Products</Link>
-                    <Link to='/cart'> <img src={require('../../assets/img/cart.png')}/><sub className="count-product-in-cart">{userStore.cartUser.length}</sub> </Link>
+                    <Link to='/cart'> <img src={require('../../assets/img/cart.png')}/><sub className="count-product-in-cart">{countProductInCart}</sub> </Link>
                     <a href="#" onClick={this.signOut} className="navbar-brand singOut">Sign Out </a>
                 </nav>
             </div>
