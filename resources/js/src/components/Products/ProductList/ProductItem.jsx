@@ -20,8 +20,11 @@ class ProductItem extends Component {
     }
     componentDidMount() {
         let id = this.props.product.id;
-        if( userStore.cartUser.length > 0 ) {
-            if( userStore.cartUser.find(el => el === id)) {
+        if (userStore.cartIdsProduct.length === 0 ) {
+            userStore.setCartIds();
+        }
+        if( userStore.cartIdsProduct.length > 0 ) {
+            if( userStore.cartIdsProduct.find(el => parseInt(el) === parseInt(id))) {
                 this.changeTitleBt();
             }
         }

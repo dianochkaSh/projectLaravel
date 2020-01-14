@@ -7,25 +7,42 @@ import './ProductOne.style.css';
 
 /* store */
 import ProductStore from '../../../store/ProductStore';
+import userStore from '../../../store/UserStore';
 
 /*components*/
 import LoaderElement from '../../Loader/LoaderElement';
 
 
-inject('ProductStore');
+
+inject('userStore', 'ProductStore');
 @observer
 class ProductOne extends Component {
     @observable isLoad = true;
+    @observable titleBt = 'Add to cart';
+    @observable classBtCart = 'btn btn-primary';
     constructor(props) {
         super(props);
         this.handleSelect = this.handleSelect.bind(this);
+        this.handlerAddToCart = this.handlerAddToCart.bind(this);
+        this.handlerChangeBt = this.handlerChangeBt.bind(this);
         reaction(() => ProductStore.productOne.title, () => {
             this.isLoad = false
         });
     }
     componentDidMount() {
         ProductStore.getOneProduct(this.props.match.params.id);
+        if (userStore.cartIdsProduct.length === 0 ) {
+            userStore.setCartIds();
+        }
+        if( userStore.cartIdsProduct.find(el => parseInt(el) === parseInt(this.props.match.params.id))) {
+            this.handlerChangeBt();
+        }
     }
+
+    handlerChangeBt = () => {
+        this.titleBt = 'In Cart';
+        this.classBtCart = 'btn btn-light';
+    };
     componentWillUnmount() {
         ProductStore.setOneProduct();
     }
@@ -33,6 +50,10 @@ class ProductOne extends Component {
     handleSelect() {
 
     }
+    handlerAddToCart = () => {
+        userStore.addProductToCart(ProductStore.productOne.id);
+        this.handlerChangeBt();
+    };
 
     render() {
         return (
@@ -42,7 +63,7 @@ class ProductOne extends Component {
                         <LoaderElement load={this.isLoad}/>
                     </div>
                     : <div>
-                        {ProductStore.productOne !== undefined && ProductStore.productOne.title !== undefined &&
+                        { ProductStore.productOne !== undefined && ProductStore.productOne.title !== undefined &&
                         <div>
 
                             <h4>{ProductStore.productOne.title}</h4>
@@ -90,7 +111,14 @@ class ProductOne extends Component {
                                     <b>О книге:</b>
                                     <p>{ProductStore.productOne.description}</p>
                                 </div>
-                                <div><button className="btn btn-primary">Add to cart</button></div>
+                                <div>
+                                    <button
+                                        onClick={()=> this.handlerAddToCart()}
+                                        className={this.classBtCart}
+                                    >
+                                        {this.titleBt}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         }

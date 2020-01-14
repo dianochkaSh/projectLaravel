@@ -9,7 +9,7 @@ class UserStore {
     @observable username = null;
     @observable user = {};
     @observable tokenIsValid = false;
-    @observable cartUser = [];
+    @observable cartIdsProduct = [];
     @observable cart = [];
 
     @action registration(name, email, password) {
@@ -237,16 +237,16 @@ class UserStore {
             })
     }
     @action addProductToCart(id){
-        this.cartUser.push(id);
-        localStorage.setItem('cartIds', this.cartUser);
+        this.cartIdsProduct.push(id);
+        localStorage.setItem('cartIds', this.cartIdsProduct);
     }
     @action getCartProduct() {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
 
-        let idProducts = this.cartUser.length > 0 ? this.cartUser.toString() : localStorage.getItem('cartIds');
-        this.cartUser = localStorage.getItem('cartIds').split(",");
+        let idProducts = this.cartIdsProduct.length > 0 ? this.cartIdsProduct.toString() : localStorage.getItem('cartIds');
+        this.cartIdsProduct = localStorage.getItem('cartIds').split(",");
         axios.get('/api/user/cart/' + idProducts, { headers: headers } )
             .then((response) => {
                 if( response.status === 200 ) {
@@ -255,19 +255,23 @@ class UserStore {
             });
     }
 
-    @action deleteProductFromCart(id){
-        if ( this.cartUser.length === 0 ) {
-            this.cartUser = localStorage.getItem('cartIds');
+    @action deleteProductFromCart(id) {
+        if ( this.cartIdsProduct.length === 0 ) {
+            this.cartIdsProduct = localStorage.getItem('cartIds');
         }
-        let newCart = this.cartUser.filter(function(e) { return  parseInt(e) !== parseInt(id) });
-        this.cartUser = [];
-        this.cartUser = newCart;
+        let newCart = this.cartIdsProduct.filter(function(e) { return  parseInt(e) !== parseInt(id) });
+        this.cartIdsProduct = [];
+        this.cartIdsProduct = newCart;
         localStorage.removeItem('cartIds');
-        localStorage.setItem('cartIds', this.cartUser);
+        localStorage.setItem('cartIds', this.cartIdsProduct);
         this.getCartProduct();
     }
     @action showOrder(){
 
+    }
+    @action setCartIds () {
+        let cartIds =  localStorage.getItem('cartIds');
+        this.cartIdsProduct = cartIds.split(',');
     }
 
 }

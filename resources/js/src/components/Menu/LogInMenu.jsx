@@ -18,12 +18,12 @@ class LogInMenu extends Component{
     };
     render() {
         let countProductInCart = 0;
-        if  (userStore.cartUser.length === 0) {
+        if  (userStore.cartIdsProduct.length === 0) {
             let cartIds = localStorage.getItem('cartIds');
             let cartIdsArray = cartIds.split(",");
             countProductInCart = cartIdsArray.length;
         } else {
-            countProductInCart = userStore.cartUser.length;
+            countProductInCart = userStore.cartIdsProduct.length;
         }
         return (
             <div>

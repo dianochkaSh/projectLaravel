@@ -24,12 +24,12 @@ class CartItem extends Component {
         this.total = this.quantity * this.props.product.price;
     };
     render() {
-        console.log(this.quantity);
         return (
             <div className="div-table-row">
                 <div className="div-table-col">
-                    <button className="bt-delete-product" onClick={() => this.handlerDelete(this.props.product.id)}><img
-                        src={require('../../assets/img/close-red.png')}/></button>
+                    <button className="bt-delete-product" onClick={() => this.handlerDelete(this.props.product.id)}>
+                        <img src={require('../../assets/img/close-red.png')}/>
+                    </button>
                     {this.props.product.images.length > 0
                         ? <img alt="" src={this.props.product.images[0].original} height="50" width="50"/>
                         : <img height="50" width="50" src={require('../../assets/img/userPlaceholder.png')}/>
