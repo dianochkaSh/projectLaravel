@@ -17,14 +17,7 @@ class LogInMenu extends Component{
       this.props.handlerLogOut();
     };
     render() {
-        let countProductInCart = 0;
-        if  (userStore.cartIdsProduct.length === 0) {
-            let cartIds = localStorage.getItem('cartIds');
-            let cartIdsArray = cartIds.split(",");
-            countProductInCart = cartIdsArray.length;
-        } else {
-            countProductInCart = userStore.cartIdsProduct.length;
-        }
+        let countProductInCart = userStore.cartIdsProduct.length;
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">

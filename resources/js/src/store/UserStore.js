@@ -71,6 +71,7 @@ class UserStore {
                 localStorage.removeItem('expiresIn');
                 localStorage.removeItem('refreshToken');
                 localStorage.removeItem('username');
+                localStorage.removeItem('cartIds');
                 this.isAuthorization = false;
                 window.location.href= '/';
             });
@@ -245,14 +246,22 @@ class UserStore {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
 
+        if ( this.cartIdsProduct.length === 0 && localStorage.getItem('cartIds') !== '' ) {
+            this.cartIdsProduct = localStorage.getItem('cartIds').split(",");
+        }
+
         let idProducts = this.cartIdsProduct.length > 0 ? this.cartIdsProduct.toString() : localStorage.getItem('cartIds');
-        this.cartIdsProduct = localStorage.getItem('cartIds').split(",");
-        axios.get('/api/user/cart/' + idProducts, { headers: headers } )
-            .then((response) => {
-                if( response.status === 200 ) {
-                    this.cart = response.data;
-                }
-            });
+        if (idProducts !== '') {
+            axios.get('/api/user/cart/' + idProducts, { headers: headers } )
+                .then((response) => {
+                    if( response.status === 200 ) {
+                        this.cart = response.data;
+                    }
+                });
+        } else {
+            this.cartIdsProduct = [];
+            this.cart = [];
+        }
     }
 
     @action deleteProductFromCart(id) {
@@ -271,7 +280,7 @@ class UserStore {
     }
     @action setCartIds () {
         let cartIds =  localStorage.getItem('cartIds');
-        this.cartIdsProduct = cartIds.split(',');
+        this.cartIdsProduct = (cartIds!== null && cartIds.length > 0) ? cartIds.split(','): [] ;
     }
 
 }
