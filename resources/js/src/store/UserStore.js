@@ -269,7 +269,6 @@ class UserStore {
             this.cartIdsProduct = localStorage.getItem('cartIds');
         }
         let newCart = this.cartIdsProduct.filter(function(e) { return  parseInt(e) !== parseInt(id) });
-        this.cartIdsProduct = [];
         this.cartIdsProduct = newCart;
         localStorage.removeItem('cartIds');
         localStorage.setItem('cartIds', this.cartIdsProduct);
@@ -283,6 +282,18 @@ class UserStore {
         this.cartIdsProduct = (cartIds!== null && cartIds.length > 0) ? cartIds.split(','): [] ;
     }
 
+    @action changeCartIds (quantity, id) {
+        if ( this.cartIdsProduct.length > 0 ) {
+            this.cartIdsProduct = this.cartIdsProduct.filter((el) => parseInt(el) !== id  );
+            if (quantity > 0) {
+                for( let i = 0; i < quantity; i ++) {
+                    this.cartIdsProduct.push(id);
+                }
+            }
+            localStorage.removeItem('cartIds');
+            localStorage.setItem('cartIds', this.cartIdsProduct );
+        }
+    }
 }
  const userStore = new UserStore();
  export default userStore;

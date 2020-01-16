@@ -53,7 +53,7 @@ class Cart extends Component {
                                         <div className="div-table-col">Total</div>
                                     </div>
 
-                                    {userStore.cart.map((product, i) =>
+                                    { userStore.cart.map((product, i) =>
                                         <CartItem
                                             product={product}
                                             key={i}
