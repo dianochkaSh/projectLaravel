@@ -28,6 +28,10 @@ class ProductItem extends Component {
                 this.changeTitleBt();
             }
         }
+        if (userStore.isAuthorization === undefined && localStorage.getItem('isAutorization') !== null) {
+            userStore.isAuthorization = localStorage.getItem('isAutorization');
+        }
+
     }
 
     handlerOpenItem = (id) => {
@@ -52,12 +56,14 @@ class ProductItem extends Component {
                         <p className="item-title">{this.props.product.title}</p>
                     </div>
                 </div>
-                <button
-                    className={this.classBtCart}
-                    onClick={() => this.handlerAddToCart(this.props.product.id)}
-                >
-                    {this.titleBt}
-                </button>
+                { userStore.isAuthorization &&
+                    <button
+                        className={this.classBtCart}
+                        onClick={() => this.handlerAddToCart(this.props.product.id)}
+                    >
+                        {this.titleBt}
+                    </button>
+                }
             </div>
         )
     }

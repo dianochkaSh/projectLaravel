@@ -27,6 +27,7 @@ class UserStore {
             .then((response) => {
                 this.setDataAfterEntering(response.data);
                 this.isAuthorization = true;
+                localStorage.setItem('isAutorization', true);
             })
             .catch((error)=> {
                 let errors = [];
@@ -53,6 +54,7 @@ class UserStore {
             .then((response) => {
                 this.setDataAfterEntering(response.data);
                 this.isAuthorization = true;
+                localStorage.setItem('isAutorization', true);
             })
             .catch(error => {
                 this.setErrorMessage(error.response.data.error);
@@ -73,6 +75,7 @@ class UserStore {
                 localStorage.removeItem('username');
                 localStorage.removeItem('cartIds');
                 this.isAuthorization = false;
+                localStorage.setItem('isAutorization', false);
                 window.location.href= '/';
             });
     }
