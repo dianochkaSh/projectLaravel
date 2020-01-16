@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NumericInput from 'react-numeric-input';
-import { observable } from 'mobx';
+import { observable, reaction } from 'mobx';
 
 import './Cart.style.css';
 import { observer } from 'mobx-react';
@@ -8,26 +8,32 @@ import userStore from '../../store/UserStore';
 
 @observer
 class CartItem extends Component {
-   @observable quantity = 1;
-   @observable total = this.quantity * this.props.product.price;
+    @observable quantity = 1;
+    @observable count = 0;
+    @observable total = this.quantity * this.props.product.price;
     constructor(props){
         super(props);
         this.handlerDelete = this.handlerDelete.bind(this);
         this.handlerQuantity = this.handlerQuantity.bind(this);
-
     }
     componentDidMount() {
-        let count = 0;
-        userStore.cartIdsProduct.map( (el) => parseInt(el) ===  parseInt(this.props.product.id) ? count++ : 0);
-        this.quantity = (count);
+        userStore.cartIdsProduct.map( (el) => parseInt(el) ===  parseInt(this.props.product.id) ? this.count++ : 0);
+        this.quantity = (this.count);
+        userStore.totalSumCart +=  this.quantity * this.props.product.price;
     }
 
     handlerDelete = (id) => {
         this.props.deleteProduct(id);
     };
+
     handlerQuantity = (val) => {
         this.quantity = val;
         userStore.changeCartIds(val, this.props.product.id);
+        if (  this.quantity > this.count ) {
+            userStore.totalSumCart += (this.quantity - this.count) * this.props.product.price;
+        } else {
+            userStore.totalSumCart -=  (this.count - this.quantity) * this.props.product.price;
+        }
 
     };
     render() {

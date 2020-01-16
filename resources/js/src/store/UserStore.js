@@ -11,6 +11,7 @@ class UserStore {
     @observable tokenIsValid = false;
     @observable cartIdsProduct = [];
     @observable cart = [];
+    @observable totalSumCart = 0;
 
     @action registration(name, email, password) {
         const url = '/api/auth/registration';

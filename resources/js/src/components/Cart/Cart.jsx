@@ -33,6 +33,7 @@ class Cart extends Component {
     };
 
     render() {
+        console.log(userStore.cart);
         return (
             <div className="cart">
                 <h4>Cart</h4>
@@ -62,6 +63,10 @@ class Cart extends Component {
                                         )
                                     }
                                 </div>
+
+                            </div>
+                            <div className="content-cart-total">
+                                <p><b>Total:</b> <span>{userStore.totalSumCart}</span> </p>
                             </div>
                             <button
                                 className="btn btn-primary btn-to-order"
