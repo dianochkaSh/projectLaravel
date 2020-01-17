@@ -241,24 +241,15 @@ class UserStore {
             })
     }
     @action addProductToCart(id, title, price){
-        this.cartIdsProduct.push(id);
-        localStorage.setItem('cartIds', this.cartIdsProduct);
+
         if (this.cart.length > 0) {
             this.cart.map((cart) => {
-                if (parseInt(cart.id) !== parseInt(id) ) {
+                if (parseInt(cart.id) === parseInt(id) ) {
                     cart.quantity += 1;
-                } else {
-                    let newProductInCart = {
-                        id: id,
-                        title: title,
-                        quantity: 1,
-                        price: price
-                    };
-                    console.log(newProductInCart);
-                    this.cart.push(newProductInCart);
                 }
             })
-        } else {
+        }
+        if( !this.cart.find(el => parseInt(el.id) === parseInt(id))) {
             let newProductInCart = {
                 id: id,
                 title: title,
@@ -267,7 +258,9 @@ class UserStore {
             };
             this.cart.push(newProductInCart);
         }
-        console.log(this.cart);
+
+        this.cartIdsProduct.push(id);
+        localStorage.setItem('cartIds', this.cartIdsProduct);
     }
 
 
