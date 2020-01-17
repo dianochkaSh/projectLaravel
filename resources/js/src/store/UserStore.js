@@ -261,6 +261,7 @@ class UserStore {
 
         this.cartIdsProduct.push(id);
         localStorage.setItem('cartIds', this.cartIdsProduct);
+        localStorage.setItem('cart', JSON.stringify(this.cart));
     }
 
 
@@ -276,6 +277,7 @@ class UserStore {
         if (this.cart.length > 0) {
             this.cart = this.cart.filter((cart) => cart.id !== id );
         }
+        localStorage.setItem('cart', JSON.stringify(this.cart));
     }
     @action showOrder(){
 
@@ -299,7 +301,14 @@ class UserStore {
                 if (cart.id === id) {
                     cart.quantity = quantity;
                 }
-            })
+            });
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+        }
+    }
+    @action getCart() {
+        if ( this.cartIdsProduct.length > 0 ) {
+            const cart = localStorage.getItem('cart');
+            this.cart = JSON.parse(cart);
         }
     }
 }

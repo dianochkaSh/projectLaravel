@@ -22,15 +22,24 @@ class Cart extends Component {
             this.isLoaded = false;
         });
     }
-
-    handlerDeleteProduct(id) {
-        userStore.deleteProductFromCart(id);
+    componentDidMount() {
+        if (userStore.cartIdsProduct.length === 0) {
+            userStore.setCartIds();
+        }
     }
+
+    handlerDeleteProduct = (id) => {
+        userStore.deleteProductFromCart(id);
+    };
+
     handlerOpenOrder = () => {
         this.props.history.push('/order');
     };
 
     render() {
+        if (userStore.cart.length === 0) {
+           userStore.getCart();
+        }
         let totalCart = userStore.cart.length > 0 ? userStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0 ) :0;
         return (
             <div className="cart">
