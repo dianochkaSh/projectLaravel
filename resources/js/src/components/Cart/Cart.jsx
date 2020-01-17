@@ -22,9 +22,7 @@ class Cart extends Component {
             this.isLoaded = false;
         });
     }
-    componentDidMount() {
-        userStore.getCartProduct();
-    }
+
     handlerDeleteProduct(id) {
         userStore.deleteProductFromCart(id);
     }
@@ -33,7 +31,7 @@ class Cart extends Component {
     };
 
     render() {
-        console.log(userStore.cart);
+        let totalCart = userStore.cart.length > 0 ? userStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0 ) :0;
         return (
             <div className="cart">
                 <h4>Cart</h4>
@@ -66,7 +64,7 @@ class Cart extends Component {
 
                             </div>
                             <div className="content-cart-total">
-                                <p><b>Total:</b> <span>{userStore.totalSumCart}</span> </p>
+                                <p><b>Total:</b> <span>{ totalCart }</span> </p>
                             </div>
                             <button
                                 className="btn btn-primary btn-to-order"

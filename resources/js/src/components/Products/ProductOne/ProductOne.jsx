@@ -51,7 +51,7 @@ class ProductOne extends Component {
 
     }
     handlerAddToCart = () => {
-        userStore.addProductToCart(ProductStore.productOne.id);
+       // userStore.addProductToCart(ProductStore.productOne.id);
         this.handlerChangeBt();
     };
 

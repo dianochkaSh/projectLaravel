@@ -37,8 +37,8 @@ class ProductItem extends Component {
     handlerOpenItem = (id) => {
         this.props.openOneProduct(id);
     };
-    handlerAddToCart = (id) => {
-      this.props.addToCart(id);
+    handlerAddToCart = (id, title, price) => {
+      this.props.addToCart(id,title, price);
       this.changeTitleBt();
 
     };
@@ -59,7 +59,7 @@ class ProductItem extends Component {
                 { userStore.isAuthorization &&
                     <button
                         className={this.classBtCart}
-                        onClick={() => this.handlerAddToCart(this.props.product.id)}
+                        onClick={() => this.handlerAddToCart(this.props.product.id, this.props.product.title, this.props.product.price)}
                     >
                         {this.titleBt}
                     </button>

@@ -11,7 +11,6 @@ class UserStore {
     @observable tokenIsValid = false;
     @observable cartIdsProduct = [];
     @observable cart = [];
-    @observable totalSumCart = 0;
 
     @action registration(name, email, password) {
         const url = '/api/auth/registration';
@@ -241,42 +240,49 @@ class UserStore {
               }
             })
     }
-    @action addProductToCart(id){
+    @action addProductToCart(id, title, price){
         this.cartIdsProduct.push(id);
         localStorage.setItem('cartIds', this.cartIdsProduct);
-    }
-    @action getCartProduct() {
-        const headers = {
-            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-        };
-
-        if ( this.cartIdsProduct.length === 0 && localStorage.getItem('cartIds') !== '' ) {
-            this.cartIdsProduct = localStorage.getItem('cartIds').split(",");
-        }
-
-        let idProducts = this.cartIdsProduct.length > 0 ? this.cartIdsProduct.toString() : localStorage.getItem('cartIds');
-        if (idProducts !== '') {
-            axios.get('/api/user/cart/' + idProducts, { headers: headers } )
-                .then((response) => {
-                    if( response.status === 200 ) {
-                        this.cart = response.data;
-                    }
-                });
+        if (this.cart.length > 0) {
+            this.cart.map((cart) => {
+                if (parseInt(cart.id) !== parseInt(id) ) {
+                    cart.quantity += 1;
+                } else {
+                    let newProductInCart = {
+                        id: id,
+                        title: title,
+                        quantity: 1,
+                        price: price
+                    };
+                    console.log(newProductInCart);
+                    this.cart.push(newProductInCart);
+                }
+            })
         } else {
-            this.cartIdsProduct = [];
-            this.cart = [];
+            let newProductInCart = {
+                id: id,
+                title: title,
+                quantity: 1,
+                price: price
+            };
+            this.cart.push(newProductInCart);
         }
+        console.log(this.cart);
     }
+
 
     @action deleteProductFromCart(id) {
         if ( this.cartIdsProduct.length === 0 ) {
             this.cartIdsProduct = localStorage.getItem('cartIds');
         }
+
         let newCart = this.cartIdsProduct.filter(function(e) { return  parseInt(e) !== parseInt(id) });
         this.cartIdsProduct = newCart;
         localStorage.removeItem('cartIds');
         localStorage.setItem('cartIds', this.cartIdsProduct);
-        this.getCartProduct();
+        if (this.cart.length > 0) {
+            this.cart = this.cart.filter((cart) => cart.id !== id );
+        }
     }
     @action showOrder(){
 
@@ -296,6 +302,11 @@ class UserStore {
             }
             localStorage.removeItem('cartIds');
             localStorage.setItem('cartIds', this.cartIdsProduct );
+            this.cart.map((cart) => {
+                if (cart.id === id) {
+                    cart.quantity = quantity;
+                }
+            })
         }
     }
 }
