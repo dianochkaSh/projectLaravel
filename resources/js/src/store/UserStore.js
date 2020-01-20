@@ -311,6 +311,40 @@ class UserStore {
             this.cart = JSON.parse(cart);
         }
     }
+    @action getOrder() {
+        if (this.cartIdsProduct.length === 0) {
+            this.setCartIds();
+
+        }
+        this.getCart();
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+       // console.log(this.cartIdsProduct);
+
+        let idsProduct = this.cartIdsProduct.toString();
+        //console.log(idsProduct);
+
+        // axios.get('/api/user/cart/'+ idsProduct, { headers: headers })
+        //     .then((response) => {
+        //         console.log(response);
+        //     });
+    }
+
+    @action getSubmitOrder (total) {
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        };
+        let data = {
+            totalSum: total,
+            cart: JSON.stringify(this.cart),
+            username: this.username === null ?  localStorage.getItem('username') : this.username
+        };
+        axios.post('/api/totalOrder', data, {headers: headers })
+            .then((response) => {
+                console.log(response);
+            })
+    }
 }
  const userStore = new UserStore();
  export default userStore;

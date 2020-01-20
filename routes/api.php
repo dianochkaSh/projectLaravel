@@ -36,6 +36,7 @@ Route::middleware('auth:api')->group(function() {
         Route::put('editUser', 'API\UserController@edit');
         Route::post('changePassword', 'API\AuthController@changePassword');
         Route::get('cart/{id}', 'API\UserController@getAllCart');
+        Route::post('totalOrder', 'API\UserController@totalOrder');
     });
 });
 
@@ -48,6 +49,10 @@ Route::group(['prefix' => 'product'], function() {
     Route::get('getOneProduct/{id}', 'API\ProductController@getOneProduct');
     Route::get('allCategories', 'API\ProductController@getAllCategories');
     Route::get('allAuthor', 'API\ProductController@getAllAuthors');
+});
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('totalOrder', 'API\OrderController@createOrder');
 });
 
 

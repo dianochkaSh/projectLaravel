@@ -1,0 +1,14 @@
+.payment-content .input-card {
+    display: block;
+    width: 50%;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.payment-content .input-fields {
+    padding: 4px 8.2px;
+    margin-top: -1px;
+    margin-right: -1px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
