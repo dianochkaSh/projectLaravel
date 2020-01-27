@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Test project</title>
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <div id="app"></div>

@@ -320,29 +320,27 @@ class UserStore {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
-       // console.log(this.cartIdsProduct);
 
         let idsProduct = this.cartIdsProduct.toString();
-        //console.log(idsProduct);
-
-        // axios.get('/api/user/cart/'+ idsProduct, { headers: headers })
-        //     .then((response) => {
-        //         console.log(response);
-        //     });
     }
 
-    @action getSubmitOrder (total) {
+    @action getSubmitOrder (total, idToken) {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
         let data = {
             totalSum: total,
-            cart: JSON.stringify(this.cart),
+            token: idToken,
             username: this.username === null ?  localStorage.getItem('username') : this.username
         };
         axios.post('/api/totalOrder', data, {headers: headers })
             .then((response) => {
-                console.log(response);
+                if (response.status === 200) {
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('cartIds');
+                    this.cartIdsProduct = [];
+                    this.cart = [];
+                }
             })
     }
 }

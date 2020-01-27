@@ -10,21 +10,19 @@ class OrderController extends Controller {
 
     public function createOrder(Request $request) {
 
-        $s = 2;
-        $this->payment();
+        $result = $this->payment($request->get('totalSum'), $request->get('token'));
+       // send mail
     }
 
-    public function payment() {
-//        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-//        Stripe\Charge::create ([
-//            "amount" => 100 * 100,
-//            "currency" => "usd",
-//            "source" => $request->stripeToken,
-//            "description" => "Test payment from itsolutionstuff.com."
-//        ]);
-//
-//
-//
-//        return back();
+    public function payment($total, $token) {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $charge = Stripe\Charge::create ([
+            "amount" => round(($total / 62 ))* 100,
+            "currency" => "usd",
+            "source" => $token,
+            "description" => "test payment"
+        ]);
+
+        return $charge;
     }
 }

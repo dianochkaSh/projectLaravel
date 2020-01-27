@@ -52,11 +52,8 @@ class Order extends Component {
                                  </div>
                              </div>
                              <div className="payment-part">
-                                 <PaymentForm/>
+                                 <PaymentForm total={sum}/>
                              </div>
-                         </div>
-                         <div className="content-btn-order-submit">
-                             <button onClick={() => this.handlerOrder(sum)} className="btn btn-primary"> Submit Order</button>
                          </div>
                      </div>
                      }
