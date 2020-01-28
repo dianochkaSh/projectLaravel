@@ -5,7 +5,7 @@ import NumericInput from 'react-numeric-input';
 import './Cart.style.css';
 
 /* store */
-import userStore from '../../store/UserStore';
+import cartStore from '../../store/CartStore';
 
 const CartItem  = (props) => {
     const handlerDelete = (id) => {
@@ -13,8 +13,9 @@ const CartItem  = (props) => {
     };
 
     const handlerQuantity = (val) => {
-        userStore.changeCartIds(val, props.product.id);
+        cartStore.changeCartIds(val, props.product.id);
     };
+    console.log(props.product);
     return (
         <div className="div-table-row">
             <div className="div-table-col">

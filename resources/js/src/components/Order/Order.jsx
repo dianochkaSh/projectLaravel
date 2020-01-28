@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import userStore from '../../store/UserStore';
+import cartStore from '../../store/CartStore';
 
 /* components */
 import OrderItem from './OrderItem';
@@ -12,20 +12,20 @@ import './Order.style.css';
 
 const Order = observer(() => {
     useEffect(() =>
-            userStore.getOrder()
+            cartStore.getOrder()
         , []);
 
     const handlerOrder = (sum) => {
-        userStore.getSubmitOrder(sum);
+        cartStore.getSubmitOrder(sum);
     };
 
     let sum = 0;
-    sum = userStore.cart.length > 0 ? userStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0) : 0;
+    sum = cartStore.cart.length > 0 ? cartStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0) : 0;
     return (
         <div>
             <div className="order-container">
                 <h4>Your order</h4>
-                {userStore.cart.length > 0 &&
+                {cartStore.cart.length > 0 &&
                 <div>
                     <div className="order-content">
                         <div className="div-table">
@@ -33,7 +33,7 @@ const Order = observer(() => {
                                 <div className="div-table-col">Product</div>
                                 <div className="div-table-col">Total</div>
                             </div>
-                            {userStore.cart.map((product, i) =>
+                            {cartStore.cart.map((product, i) =>
                                 <OrderItem product={product} key={i}/>
                             )
                             }

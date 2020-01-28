@@ -3,12 +3,13 @@ import { inject, observer } from 'mobx-react';
 import { reaction, observable } from 'mobx';
 
 /* store */
-import userStore from '../../../store/UserStore';
+import cartStore from '../../../store/CartStore';
+import userStore from '../../../store/UserStore'
 
 /* styles */
 import './Product.styles.css';
 
-inject('userStore');
+inject('cartStore, userStore');
 @observer
 class ProductItem extends Component {
     @observable titleBt = 'Add to Cart';
@@ -22,11 +23,11 @@ class ProductItem extends Component {
     }
     componentDidMount() {
         let id = this.props.product.id;
-        if (userStore.cartIdsProduct.length === 0 ) {
-            userStore.setCartIds();
+        if (cartStore.cartIdsProduct.length === 0 ) {
+            cartStore.setCartIds();
         }
-        if( userStore.cartIdsProduct.length > 0 ) {
-            if( userStore.cartIdsProduct.find(el => parseInt(el) === parseInt(id))) {
+        if( cartStore.cartIdsProduct.length > 0 ) {
+            if( cartStore.cartIdsProduct.find(el => parseInt(el) === parseInt(id))) {
                 this.changeTitleBt();
             }
         }

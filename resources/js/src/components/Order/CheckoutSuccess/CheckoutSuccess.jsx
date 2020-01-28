@@ -1,5 +1,8 @@
 import React from 'react';
 
+/* style */
+import './CheckoutSuccess.style.css'
+
 const CheckoutSuccess = () => {
     return(
         <div className="checkout-success-container">

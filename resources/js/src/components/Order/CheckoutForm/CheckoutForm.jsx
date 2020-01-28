@@ -3,12 +3,12 @@ import { inject, observer } from 'mobx-react';
 import { CardNumberElement, injectStripe, CardExpiryElement, CardElement, CardCVCElement } from 'react-stripe-elements';
 
 /* store */
-import userStore from '../../../store/UserStore';
+import cartStore from '../../../store/CartStore';
 
 /* style */
 import './CheckoutForm.style.css';
 
-inject('userStore');
+inject('cartStore');
 @observer
 class CheckoutForm extends Component {
     constructor(props){
@@ -17,8 +17,8 @@ class CheckoutForm extends Component {
     }
 
     async handlerOrder () {
-        let {token} = await this.props.stripe.createToken({name: "test"});
-        userStore.getSubmitOrder(this.props.total, token.id);
+        let {token} = await this.props.stripe.createToken({name: 'test'});
+        cartStore.getSubmitOrder(this.props.total, token.id);
 
     };
     render() {

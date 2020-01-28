@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { observable, reaction } from 'mobx';
 
 /* store */
-import userStore from '../../store/UserStore';
+import cartStore from '../../store/CartStore';
 
 /* components */
 import CartItem from './CartItem';
@@ -12,7 +12,7 @@ import Loader from '../Loader/LoaderElement';
 /* style */
 import './Cart.style.css';
 
-inject('userStore');
+inject('cartStore');
 @observer
 class Cart extends Component {
     @observable isLoaded = true;
@@ -20,18 +20,18 @@ class Cart extends Component {
         super(props);
         this.handlerDeleteProduct = this.handlerDeleteProduct.bind(this);
         this.handlerOpenOrder = this.handlerOpenOrder.bind(this);
-        reaction(() => userStore.cart  , () => {
+        reaction(() => cartStore.cart  , () => {
             this.isLoaded = false;
         });
     }
     componentDidMount() {
-        if (userStore.cartIdsProduct.length === 0) {
-            userStore.setCartIds();
+        if (cartStore.cartIdsProduct.length === 0) {
+            cartStore.setCartIds();
         }
     }
 
     handlerDeleteProduct = (id) => {
-        userStore.deleteProductFromCart(id);
+        cartStore.deleteProductFromCart(id);
     };
 
     handlerOpenOrder = () => {
@@ -39,19 +39,19 @@ class Cart extends Component {
     };
 
     render() {
-        if (userStore.cart.length === 0) {
-           userStore.getCart();
+        if (cartStore.cart.length === 0) {
+            cartStore.getCart();
         }
-        let totalCart = userStore.cart.length > 0 ? userStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0 ) :0;
+        let totalCart = cartStore.cart.length > 0 ? cartStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0 ) :0;
         return (
             <div className="cart">
                 <h4>Cart</h4>
-                {  userStore.cartIdsProduct.length === 0  && <div> Cart is empty </div> }
-                { (userStore.cart.length === 0 && userStore.cartIdsProduct.length > 0 )
+                {  cartStore.cartIdsProduct.length === 0  && <div> Cart is empty </div> }
+                { (cartStore.cart.length === 0 && cartStore.cartIdsProduct.length > 0 )
                     ? <Loader load={this.isLoaded}/>
 
                     : <div>
-                        {userStore.cart.length > 0 &&
+                        {cartStore.cart.length > 0 &&
                         <div>
                             <div className="cart-container">
                                 <div className="div-table">
@@ -63,7 +63,7 @@ class Cart extends Component {
                                         <div className="div-table-col">Total</div>
                                     </div>
 
-                                    { userStore.cart.map((product, i) =>
+                                    { cartStore.cart.map((product, i) =>
                                         <CartItem
                                             product={product}
                                             key={i}
@@ -81,8 +81,7 @@ class Cart extends Component {
                                 className="btn btn-primary btn-to-order"
                                 onClick={this.handlerOpenOrder}
                             >
-                                Proceed to
-                                checkout
+                                Proceed to checkout
                             </button>
                         </div>
                         }

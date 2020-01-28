@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
 /* store */
+import cartStore from '../../store/CartStore';
 import userStore from '../../store/UserStore';
 
 /* style */
 import './LogInMenu.style.css';
 
-inject('userStore');
+inject('cartStore, userStore');
 @observer
 class LogInMenu extends Component{
     constructor(props) {
@@ -20,7 +21,7 @@ class LogInMenu extends Component{
       this.props.handlerLogOut();
     };
     render() {
-        let countProductInCart = userStore.cartIdsProduct.length;
+        let countProductInCart = cartStore.cartIdsProduct.length;
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">

@@ -4,7 +4,7 @@ import { observable, reaction } from 'mobx';
 
 /* store */
 import productStore from '../../../store/ProductStore';
-import userStore from '../../../store/UserStore';
+import cartStore from '../../../store/CartStore';
 
 /* components */
 import ProductItem from './ProductItem';
@@ -14,7 +14,7 @@ import LoaderElement from '../../Loader/LoaderElement';
 /* styles */
 import './Product.styles.css';
 
-inject('productStore', 'userStore');
+inject('productStore', 'cartStore');
 @observer
 class ProductsList extends Component {
     @observable isLoaded = true;
@@ -34,7 +34,7 @@ class ProductsList extends Component {
         this.props.history.push('/product/oneProduct/'+id);
     };
     handlerAddToCart = (id, title, price) => {
-        userStore.addProductToCart(id, title, price);
+        cartStore.addProductToCart(id, title, price);
     };
 
     render() {
