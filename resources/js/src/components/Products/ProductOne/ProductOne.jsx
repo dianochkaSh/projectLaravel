@@ -9,12 +9,12 @@ import './ProductOne.style.css';
 
 /* store */
 import ProductStore from '../../../store/ProductStore';
-import userStore from '../../../store/UserStore';
+import cartStore from '../../../store/CartStore';
 
 /*components*/
 import LoaderElement from '../../Loader/LoaderElement';
 
-inject('userStore', 'ProductStore');
+inject('cartStore', 'ProductStore');
 @observer
 class ProductOne extends Component {
     @observable isLoad = true;
@@ -31,10 +31,10 @@ class ProductOne extends Component {
     }
     componentDidMount() {
         ProductStore.getOneProduct(this.props.match.params.id);
-        if (userStore.cartIdsProduct.length === 0 ) {
-            userStore.setCartIds();
+        if (cartStore.cartIdsProduct.length === 0 ) {
+            cartStore.setCartIds();
         }
-        if( userStore.cartIdsProduct.find(el => parseInt(el) === parseInt(this.props.match.params.id))) {
+        if( cartStore.cartIdsProduct.find(el => parseInt(el) === parseInt(this.props.match.params.id))) {
             this.handlerChangeBt();
         }
     }
