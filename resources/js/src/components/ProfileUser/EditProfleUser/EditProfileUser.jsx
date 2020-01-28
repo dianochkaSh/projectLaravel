@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
+import { observable, reaction } from 'mobx';
 import Modal from 'react-modal';
 import validate from 'validate.js';
+
+/* style */
 import './EditProfile.style.css';
 
 /* components */
 import InputElement from '../../FormElements/InputField/InputField';
 /* validation */
 import editFormValidation from '../../validation/EditFormValidation';
+
+/* store */
 import userStore from '../../../store/UserStore';
-import { inject, observer } from 'mobx-react';
-import { observable, reaction } from 'mobx';
 
 inject('userStore');
 @observer
-class editProfileUser extends Component{
+class editProfileUser extends Component {
     @observable validation = {};
     @observable email = null;
     @observable username = null;
@@ -120,3 +124,4 @@ class editProfileUser extends Component{
 
 };
 export default editProfileUser;
+

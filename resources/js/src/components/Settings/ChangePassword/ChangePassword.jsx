@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { observable, reaction } from 'mobx';
-import userStore from '../../../store/UserStore';
 import validate from 'validate.js';
+
+/* store */
+import userStore from '../../../store/UserStore';
 
 /* components */
 import InputElement from '../../FormElements/InputField/InputField';

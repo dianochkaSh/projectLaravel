@@ -1,6 +1,5 @@
-import React, { Component, useEffect, useState } from 'react';
-import { observable } from 'mobx';
-import { inject, observer } from 'mobx-react';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react';
 import userStore from '../../store/UserStore';
 
 /* components */

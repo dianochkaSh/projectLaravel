@@ -1,5 +1,7 @@
 import React from 'react';
 import Loader from 'react-loader-spinner'
+
+/* style */
 import './LoaderElements.style.css';
 
 const LoaderElement = (props) => {

@@ -342,7 +342,7 @@ class UserStore {
                     this.cart = [];
                     window.location.href = '/checkoutSuccess'
                 }
-            })
+            });
     }
 }
  const userStore = new UserStore();

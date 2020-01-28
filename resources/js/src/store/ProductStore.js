@@ -48,8 +48,7 @@ class ProductStore {
                 if (response.status === 200) {
                     this.categories = response.data;
                 }
-
-            })
+            });
     }
     @action getAuthors() {
         axios.get('api/product/allAuthor')
@@ -57,7 +56,7 @@ class ProductStore {
                 if (response.status === 200 ) {
                     this.authors = response.data;
                 }
-            })
+            });
     }
     @action setOneProduct() {
         this.productOne = {};

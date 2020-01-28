@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import {observable, reaction} from 'mobx';
+import { observable, reaction } from 'mobx';
+
+/* store */
 import productStore from '../../../store/ProductStore';
 import userStore from '../../../store/UserStore';
 

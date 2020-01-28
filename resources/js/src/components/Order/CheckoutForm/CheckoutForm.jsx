@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { CardNumberElement, injectStripe, CardExpiryElement, CardElement, CardCVCElement  } from 'react-stripe-elements';
+import { CardNumberElement, injectStripe, CardExpiryElement, CardElement, CardCVCElement } from 'react-stripe-elements';
 
 /* store */
 import userStore from '../../../store/UserStore';
+
 /* style */
 import './CheckoutForm.style.css';
 
-/* components */
 inject('userStore');
 @observer
 class CheckoutForm extends Component {

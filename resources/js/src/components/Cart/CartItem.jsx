@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NumericInput from 'react-numeric-input';
-import { observable, reaction } from 'mobx';
 
+/* style */
 import './Cart.style.css';
-import { observer } from 'mobx-react';
+
+/* store */
 import userStore from '../../store/UserStore';
 
 const CartItem  = (props) => {
-
     const handlerDelete = (id) => {
         props.deleteProduct(id);
     };

@@ -1,9 +1,12 @@
 import * as React from 'react';
 import  { Component } from 'react';
 import { Link } from 'react-router-dom';
-import userStore from '../../store/UserStore';
 import { inject, observer } from 'mobx-react';
 
+/* store */
+import userStore from '../../store/UserStore';
+
+/* style */
 import './LogInMenu.style.css';
 
 inject('userStore');

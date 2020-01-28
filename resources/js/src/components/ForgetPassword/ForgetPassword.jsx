@@ -8,6 +8,7 @@ import InputField from '../FormElements/InputField/InputField';
 /* store */
 import userStore from '../../store/UserStore';
 
+/* style */
 import './ForgetPassword.style.css';
 
 inject('userStore');

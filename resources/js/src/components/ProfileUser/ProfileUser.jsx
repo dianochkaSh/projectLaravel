@@ -15,8 +15,8 @@ inject('userStore');
 @observer
 class ProfileUser extends Component {
     @observable isOpenModal = false;
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handlerUploadPhoto = this.handlerUploadPhoto.bind(this);
         this.handlerModalWindow = this.handlerModalWindow.bind(this);
     }

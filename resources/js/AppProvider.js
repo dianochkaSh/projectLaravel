@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'mobx-react';
 import { hot } from 'react-hot-loader';
 import storesProvider from './src/store/index';
-import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import * as createHistory from 'history';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
+
+/* store */
 import productStore from '../../../store/ProductStore';
 
 /* components */
 import InputField from '../../FormElements/InputField/InputField';
 import FilterItem  from './FilterItem';
-
-
 
 inject(productStore);
 @observer

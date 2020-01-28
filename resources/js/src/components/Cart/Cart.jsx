@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import {observable, reaction} from 'mobx';
+import { observable, reaction } from 'mobx';
 
 /* store */
 import userStore from '../../store/UserStore';
@@ -8,6 +8,8 @@ import userStore from '../../store/UserStore';
 /* components */
 import CartItem from './CartItem';
 import Loader from '../Loader/LoaderElement';
+
+/* style */
 import './Cart.style.css';
 
 inject('userStore');

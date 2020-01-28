@@ -10,7 +10,7 @@ export default {
         },
         length: {
             minimum: 6,
-            message: "must be at least 6 characters"
+            message: 'must be at least 6 characters'
         }
     },
 };

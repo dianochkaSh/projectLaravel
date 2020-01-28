@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Carousel } from 'react-responsive-carousel';
-import {observable, reaction} from 'mobx';
+import { observable, reaction } from 'mobx';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+/* style */
 import './ProductOne.style.css';
 
 /* store */
@@ -11,8 +13,6 @@ import userStore from '../../../store/UserStore';
 
 /*components*/
 import LoaderElement from '../../Loader/LoaderElement';
-
-
 
 inject('userStore', 'ProductStore');
 @observer
@@ -51,7 +51,6 @@ class ProductOne extends Component {
 
     }
     handlerAddToCart = () => {
-       // userStore.addProductToCart(ProductStore.productOne.id);
         this.handlerChangeBt();
     };
 

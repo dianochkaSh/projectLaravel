@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { observable } from 'mobx';
 
 /* Components */
 import InputField from '../FormElements/InputField/InputField';
@@ -10,14 +11,13 @@ import userStore from '../../store/UserStore';
 inject('userStore');
 @observer
 class SignUp extends Component {
-    constructor() {
-        super();
-        this.state = {
-            name: null,
-            email: null,
-            password: null,
-            confirmPassword: null
-        };
+    @observable name = null;
+    @observable email = null;
+    @observable password = null;
+    @observable confirmationPassword = null;
+
+    constructor(props) {
+        super(props);
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
         this.signUp = this.signUp.bind(this);
     }
@@ -25,14 +25,12 @@ class SignUp extends Component {
         if (userStore.errorMessage !== null) {
             userStore.setErrorMessage(null);
         }
-        this.setState({
-            [key]: value
-        });
+        this[key] =  value;
 
     };
 
     signUp () {
-        userStore.registration(this.state.name, this.state.email, this.state.password, this.state.confirmPassword);
+        userStore.registration(this.name, this.email, this.password, this.confirmPassword);
     }
     render() {
         if (userStore.isAuthorization === true) {
@@ -47,7 +45,7 @@ class SignUp extends Component {
                         nameField='name'
                         titleField='Name'
                         IdInput='NameInput'
-                        valueField = {this.state.name}
+                        valueField = {this.name}
                         handlerFiled = {this.handlerFieldValue}
                     />
                     <InputField
@@ -55,7 +53,7 @@ class SignUp extends Component {
                         nameField='email'
                         titleField='E-mail'
                         IdInput='EmailInput'
-                        valueField = {this.state.email}
+                        valueField = {this.email}
                         handlerFiled = {this.handlerFieldValue}
                     />
                     <InputField
@@ -63,7 +61,7 @@ class SignUp extends Component {
                         nameField='password'
                         titleField='Password'
                         IdInput='PasswordInput'
-                        valueField = {this.state.password}
+                        valueField = {this.password}
                         handlerFiled = {this.handlerFieldValue}
                     />
                     <InputField
@@ -71,7 +69,7 @@ class SignUp extends Component {
                         nameField='confirmPassword'
                         titleField='Confirm Password'
                         IdInput='ConfirmPasswordInput'
-                        valueField = {this.state.confirmPassword}
+                        valueField = {this.confirmPassword}
                         handlerFiled = {this.handlerFieldValue}
                     />
                     <button

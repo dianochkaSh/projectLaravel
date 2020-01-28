@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction, observable } from 'mobx';
+
+/* store */
 import userStore from '../../../store/UserStore';
 
 /* styles */
@@ -31,7 +33,6 @@ class ProductItem extends Component {
         if (userStore.isAuthorization === undefined && localStorage.getItem('isAutorization') !== null) {
             userStore.isAuthorization = localStorage.getItem('isAutorization');
         }
-
     }
 
     handlerOpenItem = (id) => {
