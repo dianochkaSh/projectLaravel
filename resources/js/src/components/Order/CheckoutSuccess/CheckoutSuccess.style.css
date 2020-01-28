@@ -1,0 +1,15 @@
+.checkout-success-container {
+    margin: 0 auto;
+    width: 70%;
+    padding: 41px 14px;
+}
+.checkout-success-container .title {
+    text-align: center;
+    color: #999999;
+}
+.checkout-success-container .subtitle {
+    text-align: center;
+    color: #004a99;
+    font-weight: 600;
+    margin-top: 20px;
+}

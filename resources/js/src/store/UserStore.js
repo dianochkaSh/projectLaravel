@@ -340,6 +340,7 @@ class UserStore {
                     localStorage.removeItem('cartIds');
                     this.cartIdsProduct = [];
                     this.cart = [];
+                    window.location.href = '/checkoutSuccess'
                 }
             })
     }

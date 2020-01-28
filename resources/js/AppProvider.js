@@ -19,6 +19,7 @@ import ProductList from './src/components/Products/ProductList/ProductList';
 import ProductOne from './src/components/Products/ProductOne/ProductOne';
 import Cart from './src/components/Cart/Cart';
 import Order from './src/components/Order/Order';
+import CheckoutSuccess from './src/components/Order/CheckoutSuccess/CheckoutSuccess';
 const history = createHistory.createBrowserHistory();
 const App = () => (
     <Provider{...storesProvider}>
@@ -37,6 +38,7 @@ const App = () => (
                     <Route  path="/product/oneProduct/:id" component={ProductOne}/>
                     <Route  path="/cart" component={Cart}/>
                     <Route  path="/order" component={Order}/>
+                    <Route  path="/checkoutSuccess" component={CheckoutSuccess}/>
                 </Switch>
             </div>
         </Router>
