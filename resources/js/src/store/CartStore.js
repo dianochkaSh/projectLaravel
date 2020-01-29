@@ -1,5 +1,6 @@
 import { action, observable, runInAction } from 'mobx';
 import axios from 'axios';
+import userStore from './UserStore';
 
 class CartStore {
     @observable cartIdsProduct = [];
@@ -94,7 +95,7 @@ class CartStore {
         let data = {
             totalSum: total,
             token: idToken,
-            username: this.username === null ?  localStorage.getItem('username') : this.username
+            username: userStore.username === null ?  localStorage.getItem('username') : userStore.username
         };
         axios.post('/api/totalOrder', data, {headers: headers })
             .then((response) => {

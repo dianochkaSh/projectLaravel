@@ -56,7 +56,6 @@ class ProductItem extends Component {
                 imgThumbnail = image.original;
             }
         } );
-        console.log(imgThumbnail);
         return (
             <div>
                 <div className="one-item" key={this.props.product.id} onClick={() => this.handlerOpenItem(this.props.product.id)}>
