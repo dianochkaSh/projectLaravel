@@ -5,7 +5,7 @@ class CartStore {
     @observable cartIdsProduct = [];
     @observable cart = [];
 
-    @action addProductToCart(id, title, price){
+    @action addProductToCart(id, title, price, img){
 
         if (this.cart.length > 0) {
             this.cart.map((cart) => {
@@ -19,7 +19,8 @@ class CartStore {
                 id: id,
                 title: title,
                 quantity: 1,
-                price: price
+                price: price,
+                image: img
             };
             this.cart.push(newProductInCart);
         }

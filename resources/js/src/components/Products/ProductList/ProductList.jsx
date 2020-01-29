@@ -33,8 +33,8 @@ class ProductsList extends Component {
     handlerOpenProduct = (id) => {
         this.props.history.push('/product/oneProduct/'+id);
     };
-    handlerAddToCart = (id, title, price) => {
-        cartStore.addProductToCart(id, title, price);
+    handlerAddToCart = (id, title, price, img) => {
+        cartStore.addProductToCart(id, title, price, img);
     };
 
     render() {

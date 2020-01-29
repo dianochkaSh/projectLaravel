@@ -25,7 +25,9 @@ class ProductRepository extends BaseRepository {
             'category',
             'images' => function (HasMany $query) {
                         $query->where('order', '=', 1);
-            }]);
+                        $query->Orwhere('order', '=', 0);
+            }
+            ]);
 
         if (is_array($author) && count($author) > 0) {
             $query->whereIn('products.author_id', $author);

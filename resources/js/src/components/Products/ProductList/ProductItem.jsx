@@ -39,8 +39,8 @@ class ProductItem extends Component {
     handlerOpenItem = (id) => {
         this.props.openOneProduct(id);
     };
-    handlerAddToCart = (id, title, price) => {
-      this.props.addToCart(id,title, price);
+    handlerAddToCart = (id, title, price, img) => {
+      this.props.addToCart(id,title, price, img);
       this.changeTitleBt();
 
     };
@@ -49,10 +49,20 @@ class ProductItem extends Component {
         this.classBtCart = 'btn btn-light';
     };
     render() {
+        const images = this.props.product !== undefined ?  this.props.product.images : null;
+        let imgThumbnail = null;
+        images !== null && images.map( (image)=> {
+            if (image.order === 0) {
+                imgThumbnail = image.original;
+            }
+        } );
+        console.log(imgThumbnail);
         return (
             <div>
                 <div className="one-item" key={this.props.product.id} onClick={() => this.handlerOpenItem(this.props.product.id)}>
-                    <img src={this.props.product.images[0].original} width="200" height="250"/>
+                    {images !== null && images.map((image) =>
+                        image.order === 1 && <img alt='' src={image.original} width="200" height="250"/>
+                    )}
                     <div className="item">
                         <p className="price">{this.props.product.price}&thinsp;₽</p>
                         <p className="item-title">{this.props.product.title}</p>
@@ -61,7 +71,7 @@ class ProductItem extends Component {
                 { userStore.isAuthorization &&
                     <button
                         className={this.classBtCart}
-                        onClick={() => this.handlerAddToCart(this.props.product.id, this.props.product.title, this.props.product.price)}
+                        onClick={() => this.handlerAddToCart(this.props.product.id, this.props.product.title, this.props.product.price, imgThumbnail)}
                     >
                         {this.titleBt}
                     </button>
