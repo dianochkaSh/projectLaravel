@@ -1,4 +1,4 @@
-import { action, observable, runInAction } from 'mobx';
+import { action, observable } from 'mobx';
 import axios from 'axios';
 import { CLIENT_ID, CLIENT_SECRET } from '../constants/costants';
 class UserStore {
@@ -29,7 +29,7 @@ class UserStore {
                 this.isAuthorization = true;
                 localStorage.setItem('isAutorization', true);
             })
-            .catch((error)=> {
+            .catch((error) => {
                 let errors = [];
                 let keys = Object.keys(error.response.data.error);
                 keys.map(function(key) {
@@ -109,7 +109,7 @@ class UserStore {
                     localStorage.setItem('username', response.data.name);
                 }
             })
-            .catch((error)=> {
+            .catch((error) => {
                 this.isAuthorization = false;
             })
     }
@@ -132,7 +132,7 @@ class UserStore {
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         };
         axios.get('/api/user/deletePhoto',{ headers: headers })
-            .then((response)=> {
+            .then((response) => {
                if (response.status === 200) {
                    this.user.photo = null;
                }

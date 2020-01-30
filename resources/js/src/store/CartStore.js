@@ -1,4 +1,4 @@
-import { action, observable, runInAction } from 'mobx';
+import { action, observable } from 'mobx';
 import axios from 'axios';
 import userStore from './UserStore';
 
