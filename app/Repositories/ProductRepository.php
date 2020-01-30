@@ -18,7 +18,8 @@ class ProductRepository extends BaseRepository {
      * Get all products
      * @return Product[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getProductList($priceMin, $priceMax, $categories, $author) {
+    public function getProductList($priceMin, $priceMax, $categories, $author)
+    {
         $author = !empty($author) ? explode(",", $author) : '';
         $categories = !empty($categories) ? explode(",", $categories) : '';
         $query = Product::with(['author',
@@ -42,7 +43,6 @@ class ProductRepository extends BaseRepository {
         if (!empty($priceMax)) {
             $query->where('products.price', '<', $priceMax );
         }
-
 
         return $query->get();
     }
@@ -70,7 +70,8 @@ class ProductRepository extends BaseRepository {
      * @param $ids array id products
      * @return Product|\Illuminate\Database\Eloquent\Builder
      */
-    public function getProductsByArrayIds($ids) {
+    public function getProductsByArrayIds($ids)
+    {
         return Product::with([
             'category',
             'author',

@@ -10,13 +10,14 @@ use App\Mail\MailtrapCheckoutSuccessfull;
 
 class OrderController extends Controller {
 
-    public function createOrder(Request $request) {
-
+    public function createOrder(Request $request)
+    {
         $result = $this->payment($request->get('totalSum'), $request->get('token'));
         $sendMail = Mail::to('dianochkad@yandex.ru')->send(new MailtrapCheckoutSuccessfull($request->get('username')));
     }
 
-    public function payment($total, $token) {
+    public function payment($total, $token)
+    {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $charge = Stripe\Charge::create ([
             "amount" => round(($total / 62 ))* 100,

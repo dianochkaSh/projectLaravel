@@ -42,7 +42,8 @@ class UserController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function get(Request $request) {
+    public function get(Request $request)
+    {
         $user = $accessToken = auth()->guard('api')->user();
         if (!empty($user->getAttribute('photo'))) {
             if (strpos($user->getAttribute('photo'), 'http') === 0) {
@@ -102,7 +103,8 @@ class UserController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function uploadPhoto(Request $request) {
+    public function uploadPhoto(Request $request)
+    {
         $user = $accessToken = auth()->guard('api')->user();
         $file = $request->file('file');
         $ext = $file->extension();
@@ -121,7 +123,8 @@ class UserController extends Controller {
     }
 
 
-    public function deletePhoto() {
+    public function deletePhoto()
+    {
         $user = $accessToken = auth()->guard('api')->user();
         $userRepo = new UserRepository(new User);
         $deletePhoto = $userRepo->updatePhoto($user->getAttribute('id'), '');
@@ -177,7 +180,8 @@ class UserController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function edit(Request $request) {
+    public function edit(Request $request)
+    {
         $dataUser = [
             'name'  => $request->get('username'),
             'email' => $request->get('email')
@@ -215,7 +219,8 @@ class UserController extends Controller {
      *      )
      * )
      */
-    public function getAllCart(Request $request) {
+    public function getAllCart(Request $request)
+    {
         $ids = $request->id;
         $idsArray = explode(',', $ids);
         $productRep = new ProductRepository(new Product);

@@ -16,7 +16,8 @@ class UserRepository extends BaseRepository {
      * @param array $data, data of user(name, email, password)
      * @return mixed
      */
-    public function createUser ($data) {
+    public function createUser ($data)
+    {
         return User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
@@ -33,7 +34,8 @@ class UserRepository extends BaseRepository {
      * @param string $urlPhoto - path photo user
      * @return mixed
      */
-    public function updatePhoto($idUser, $urlPhoto) {
+    public function updatePhoto($idUser, $urlPhoto)
+    {
        $user = User::find($idUser);
        $user->photo = $urlPhoto;
       return $user->save();
@@ -57,7 +59,8 @@ class UserRepository extends BaseRepository {
      * @param $providerId
      * @return mixed
      */
-    public function getUserByProviderId($providerId) {
+    public function getUserByProviderId($providerId)
+    {
        return User::where('provider_id', $providerId)->exists();
     }
 
@@ -66,11 +69,13 @@ class UserRepository extends BaseRepository {
      * @param string $email
      * @return mixed
      */
-    public function getUserByEmail ($email) {
+    public function getUserByEmail ($email)
+    {
         return User::where('email', $email)->first();
     }
 
-    public function updatePassword ($id, $password) {
+    public function updatePassword ($id, $password)
+    {
         return User::find($id)->update(array('password' => $password));
     }
 

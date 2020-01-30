@@ -120,7 +120,8 @@ class ProductController extends Controller
      *      )
      * )
      */
-    public function getAllCategories(Request $request) {
+    public function getAllCategories(Request $request)
+    {
         $categoryRepo = new CategoryRepository(new Category);
         $categories = $categoryRepo->getAllCategory();
         return response()->json($categories, 200);
@@ -150,7 +151,8 @@ class ProductController extends Controller
      *      )
      * )
      */
-    public function getAllAuthors(Request $request) {
+    public function getAllAuthors(Request $request)
+    {
         $authorRepo = new AuthorRepository(new Author);
         $authors = $authorRepo->getAllAuthors();
         return response()->json($authors, 200);

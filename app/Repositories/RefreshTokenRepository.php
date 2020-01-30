@@ -19,7 +19,8 @@ class RefreshTokenRepository extends BaseRepository {
      * @param string $tokenOld
      * @param string $tokenNew
      */
-    public function updateRefreshToken ($tokenOld, $tokenNew ) {
+    public function updateRefreshToken ($tokenOld, $tokenNew )
+    {
         OauthRefreshToken::where('access_token_id', $tokenOld)->update(
             array(
                 'revoked'           => false,

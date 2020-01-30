@@ -15,7 +15,8 @@ class AuthorRepository extends BaseRepository {
      * Get all authors
      * @return Author[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getAllAuthors() {
+    public function getAllAuthors()
+    {
         return Author::all();
     }
 }

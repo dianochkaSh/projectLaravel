@@ -5,7 +5,8 @@ use App\Models\OauthAccessToken;
 
 class AccessTokenRepository extends BaseRepository {
 
-    public function __construct(OauthAccessToken $tokenAccess) {
+    public function __construct(OauthAccessToken $tokenAccess)
+    {
         parent::__construct($tokenAccess);
     }
 
@@ -14,7 +15,8 @@ class AccessTokenRepository extends BaseRepository {
      * @param integer $idUser
      * @return mixed
      */
-    public function getTokenByUserId ($idUser) {
+    public function getTokenByUserId ($idUser)
+    {
         return OauthAccessToken::where('user_id', $idUser)->first();
     }
 
@@ -24,7 +26,8 @@ class AccessTokenRepository extends BaseRepository {
      * @param string $token
      * @return mixed
      */
-    public function updateOauthAccessToken($id, $token) {
+    public function updateOauthAccessToken($id, $token)
+    {
         $oauthToken = OauthAccessToken::find($id);
         $oauthToken->id = $token;
         $oauthToken->created_at = date('Y-m-d H:i:s') ;
@@ -39,7 +42,8 @@ class AccessTokenRepository extends BaseRepository {
      * @param string $token
      * @return mixed
      */
-    public function getAccessTokenByUserIdAndToken($userId, $token) {
+    public function getAccessTokenByUserIdAndToken($userId, $token)
+    {
         return OauthAccessToken::where('user_id', $userId)->where('id', $token)->first();
     }
 }

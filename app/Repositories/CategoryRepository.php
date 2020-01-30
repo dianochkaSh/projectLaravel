@@ -16,7 +16,8 @@ class CategoryRepository extends BaseRepository {
      * Get all categories
      * @return Category[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getAllCategory(){
+    public function getAllCategory()
+    {
         return Category::all();
     }
 }

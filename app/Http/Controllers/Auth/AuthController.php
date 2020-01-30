@@ -30,7 +30,8 @@ class AuthController extends Controller {
      *   @OA\Response(response="default", description="successful operation")
      * )
      */
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
     }
 
@@ -82,7 +83,8 @@ class AuthController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function registration(Request $request) {
+    public function registration(Request $request)
+    {
         $validateFields = Validator::make($request->all(), [
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -117,7 +119,8 @@ class AuthController extends Controller {
      *   @OA\Response(response="default", description="successful operation")
      * )
      */
-    public function logout (Request $request) {
+    public function logout (Request $request)
+    {
         $accessToken = auth()->guard('api')->user()->token();
         DB::table('oauth_refresh_tokens')
             ->where('access_token_id', $accessToken->id)
@@ -155,7 +158,8 @@ class AuthController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function changePassword(Request $request) {
+    public function changePassword(Request $request)
+    {
         $validateFields = Validator::make($request->all(), [
             'oldPassword'  => ['required', 'string', 'min:6'],
             'newPassword'  => ['required', 'string', 'min:6'],
@@ -223,7 +227,8 @@ class AuthController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function signInSocialNetwork (Request $request) {
+    public function signInSocialNetwork (Request $request)
+    {
         $request->request->add([
             'username'      => $request->get('email'),
             'password'      => '',
@@ -274,11 +279,12 @@ class AuthController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function sendLetterForChangePassword(Request $request) {
+    public function sendLetterForChangePassword(Request $request)
+    {
         $email = $request->email;
         $userRepo = new UserRepository(new User);
         $user = $userRepo->getUserByEmail($email);
-        if ( count($user) > 0) {
+        if (count($user) > 0) {
             $tokenRepo = new AccessTokenRepository(new OauthAccessToken);
             $oauthToken = $tokenRepo->getTokenByUserId($user->getAttribute('id'));
 
@@ -347,13 +353,13 @@ class AuthController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function checkTokenUser(Request $request) {
+    public function checkTokenUser(Request $request)
+    {
         $email = $request->get('email');
         $token = $request->get('token');
         $userRepo = new UserRepository(new User);
         $user = $userRepo->getUserByEmail($email);
-        if ( count($user) > 0) {
-
+        if (count($user) > 0) {
             $tokenRepo = new AccessTokenRepository(new OauthAccessToken);
             $oauthToken = $tokenRepo->getAccessTokenByUserIdAndToken($user->getAttribute('id'), $token);
             $tokenTime = $oauthToken->getAttribute('created_at');
@@ -417,7 +423,8 @@ class AuthController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function newPassword(Request $request){
+    public function newPassword(Request $request)
+    {
         $userRepo = new UserRepository(new User);
         $user = $userRepo->getUserByEmail($request->get('email'));
         if (count($user) > 0) {
