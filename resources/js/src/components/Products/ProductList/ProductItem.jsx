@@ -67,7 +67,7 @@ class ProductItem extends Component {
                         <p className="item-title">{this.props.product.title}</p>
                     </div>
                 </div>
-                { userStore.isAuthorization === true &&
+                { userStore.isAuthorization !== 'false' &&
                     <button
                         className={this.classBtCart}
                         onClick={() => this.handlerAddToCart(this.props.product.id, this.props.product.title, this.props.product.price, imgThumbnail)}
