@@ -56,18 +56,19 @@ class ProductItem extends Component {
                 imgThumbnail = image.original;
             }
         } );
+        console.log(userStore.isAuthorization);
         return (
             <div>
                 <div className="one-item" key={this.props.product.id} onClick={() => this.handlerOpenItem(this.props.product.id)}>
-                    {images !== null && images.map((image) =>
-                        image.order === 1 && <img alt='' src={image.original} width="200" height="250"/>
+                    {images !== null && images.map((image, i) =>
+                        image.order === 1 && <img key={i} alt='' src={image.original} width="200" height="250"/>
                     )}
                     <div className="item">
                         <p className="price">{this.props.product.price}&thinsp;₽</p>
                         <p className="item-title">{this.props.product.title}</p>
                     </div>
                 </div>
-                { userStore.isAuthorization &&
+                { userStore.isAuthorization === true &&
                     <button
                         className={this.classBtCart}
                         onClick={() => this.handlerAddToCart(this.props.product.id, this.props.product.title, this.props.product.price, imgThumbnail)}
