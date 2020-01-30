@@ -10,16 +10,16 @@ import LogOutMenu from './LogOutMenu';
 inject('userStore');
 @observer
 class Menu extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.signOutUser = this.signOutUser.bind(this);
     }
     componentDidMount() {
         userStore.autoAuth();
     }
-    signOutUser (){
+    signOutUser = () => {
         userStore.logout();
-    }
+    };
 
     render() {
         const token = userStore.tokenAuth;
@@ -36,7 +36,7 @@ class Menu extends Component {
 
             </div>
         );
-    }
+    };
 };
 
 export default Menu;

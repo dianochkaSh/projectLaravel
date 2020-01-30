@@ -5,7 +5,7 @@ import Loader from 'react-loader-spinner'
 import './LoaderElements.style.css';
 
 const LoaderElement = (props) => {
-    return(
+    return (
         <div className="loader-content">
             <Loader
                 type="Circles"
@@ -15,7 +15,7 @@ const LoaderElement = (props) => {
                 visible={props.load}
             />
         </div>
-    )
+    );
 };
 
 export default LoaderElement;

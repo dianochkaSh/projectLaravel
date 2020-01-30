@@ -33,9 +33,9 @@ const Order = observer(() => {
                                 <div className="div-table-col">Product</div>
                                 <div className="div-table-col">Total</div>
                             </div>
-                            {cartStore.cart.map((product, i) =>
-                                <OrderItem product={product} key={i}/>
-                            )
+                            { cartStore.cart.map((product, i) =>
+                                    <OrderItem product={product} key={i}/>
+                                )
                             }
                             <div className="div-table-row">
                                 <div className="div-table-col"><b>Total</b></div>
@@ -50,7 +50,7 @@ const Order = observer(() => {
                 }
             </div>
         </div>
-    )
+    );
 });
  export default Order;
 

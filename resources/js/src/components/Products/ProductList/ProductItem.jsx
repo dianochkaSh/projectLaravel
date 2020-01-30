@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { reaction, observable } from 'mobx';
+import { observable } from 'mobx';
 
 /* store */
 import cartStore from '../../../store/CartStore';
@@ -14,7 +14,7 @@ inject('cartStore, userStore');
 class ProductItem extends Component {
     @observable titleBt = 'Add to Cart';
     @observable classBtCart = 'btn btn-primary';
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handlerOpenItem = this.handlerOpenItem.bind(this);
         this.handlerAddToCart = this.handlerAddToCart.bind(this);
@@ -77,6 +77,6 @@ class ProductItem extends Component {
                 }
             </div>
         )
-    }
+    };
 };
 export default ProductItem;

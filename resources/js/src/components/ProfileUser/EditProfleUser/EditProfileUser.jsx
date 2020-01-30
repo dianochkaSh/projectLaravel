@@ -120,7 +120,7 @@ class editProfileUser extends Component {
                 </Modal>
             </div>
         );
-    }
+    };
 
 };
 export default editProfileUser;

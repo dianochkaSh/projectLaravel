@@ -15,8 +15,8 @@ inject('userStore');
 @observer
  class ForgetPassword extends Component {
     @observable email = null;
-    constructor(){
-        super();
+    constructor(props) {
+        super(props);
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
         this.handlerSendLetter = this.handlerSendLetter.bind(this);
     }
@@ -47,7 +47,7 @@ inject('userStore');
                          />
                          <button type="button" className="btn btn-primary" onClick={this.handlerSendLetter}>Send Letter</button>
                      </div>
-                     {userStore.message !== null &&
+                     { userStore.message !== null &&
                          <div className="alert alert-primary" role="alert">
                              {userStore.message}
                          </div>
@@ -55,6 +55,6 @@ inject('userStore');
                  </div>
              </div>
          )
-     }
+     };
  };
  export default ForgetPassword;

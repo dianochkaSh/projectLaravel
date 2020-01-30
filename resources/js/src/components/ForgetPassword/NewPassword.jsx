@@ -22,8 +22,8 @@ class NewPassword extends Component {
     @observable passwordNew = null;
     @observable passwordConfirmation = null;
     @observable validatePassword = {};
-    constructor(){
-        super();
+    constructor(props) {
+        super(props);
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
         this.handlerResetPassword = this.handlerResetPassword.bind(this);
     }
@@ -50,7 +50,7 @@ class NewPassword extends Component {
     render() {
         return (
             <div>
-                {userStore.tokenIsValid
+                { userStore.tokenIsValid
                     ? <div className="forget-password-container">
                         <h4>Forget password</h4>
                         <InputField
@@ -92,6 +92,6 @@ class NewPassword extends Component {
 
             </div>
         )
-    }
+    };
 };
 export default NewPassword;

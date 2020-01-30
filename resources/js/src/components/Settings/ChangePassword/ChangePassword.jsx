@@ -113,8 +113,8 @@ class changePassword extends Component {
                 </div>
 
             </div>
-        )
-    }
+        );
+    };
 
 };
 export default changePassword;

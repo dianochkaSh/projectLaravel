@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 const LogOutMenu  = () => {
-    return(
+    return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to='login' className="navbar-brand">Login </Link>
@@ -11,6 +11,6 @@ const LogOutMenu  = () => {
                 <Link to='/products' className="navbar-brand">Products</Link>
             </nav>
         </div>
-    )
+    );
 };
 export default LogOutMenu;

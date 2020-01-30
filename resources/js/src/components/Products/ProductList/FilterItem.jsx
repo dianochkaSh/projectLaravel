@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { observable, observe } from 'mobx';
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 @observer
 class FilterItem extends Component{
     @observable selected = null;
-    constructor(props){
+    constructor(props) {
         super(props);
         this.selectCurrentCategory = this.selectCurrentCategory.bind(this);
     }
@@ -25,6 +25,6 @@ class FilterItem extends Component{
         return (
             <div className={this.selected === this.props.id ? "selected": ""} onClick={() => this.selectCurrentCategory(this.props.id)}>{this.props.title}</div>
         )
-    }
+    };
 };
 export default FilterItem;

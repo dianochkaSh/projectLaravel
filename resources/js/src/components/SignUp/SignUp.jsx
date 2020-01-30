@@ -26,7 +26,6 @@ class SignUp extends Component {
             userStore.setErrorMessage(null);
         }
         this[key] =  value;
-
     };
 
     signUp () {
@@ -83,7 +82,7 @@ class SignUp extends Component {
                 <p>{userStore.errorMessage}</p>
             </div>
         );
-    }
+    };
 };
 
 export default SignUp;

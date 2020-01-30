@@ -42,7 +42,7 @@ class Cart extends Component {
         if (cartStore.cart.length === 0) {
             cartStore.getCart();
         }
-        let totalCart = cartStore.cart.length > 0 ? cartStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0 ) :0;
+        let totalCart = cartStore.cart.length > 0 ? cartStore.cart.reduce((acc, item) => acc += (parseInt(item.price) * parseInt(item.quantity)), 0 ) : 0;
         return (
             <div className="cart">
                 <h4>Cart</h4>
@@ -51,7 +51,7 @@ class Cart extends Component {
                     ? <Loader load={this.isLoaded}/>
 
                     : <div>
-                        {cartStore.cart.length > 0 &&
+                        { cartStore.cart.length > 0 &&
                         <div>
                             <div className="cart-container">
                                 <div className="div-table">
@@ -89,7 +89,7 @@ class Cart extends Component {
                 }
             </div>
         )
-    }
+    };
 };
 
 export default Cart;

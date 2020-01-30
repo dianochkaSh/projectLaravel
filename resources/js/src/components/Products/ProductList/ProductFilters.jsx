@@ -7,7 +7,7 @@ import productStore from '../../../store/ProductStore';
 
 /* components */
 import InputField from '../../FormElements/InputField/InputField';
-import FilterItem  from './FilterItem';
+import FilterItem from './FilterItem';
 
 inject(productStore);
 @observer

@@ -38,7 +38,7 @@ class ProductsList extends Component {
     };
 
     render() {
-        return(
+        return (
             <div className='product-list-container'>
                 <h4 className="title-page">List of products</h4>
                 {this.isLoaded
@@ -68,6 +68,6 @@ class ProductsList extends Component {
                 }
             </div>
         )
-    }
+    };
 }
 export default ProductsList;

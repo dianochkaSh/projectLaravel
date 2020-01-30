@@ -38,7 +38,7 @@ class ProfileUser extends Component {
         if (userStore.isAuthorization === false) {
             this.props.history.push('/login');
         }
-        return(
+        return (
             <div className='profile-block'>
                 <div className='profile-container'>
                     <p className='profile-user-title'>Profile user</p>
@@ -86,7 +86,7 @@ class ProfileUser extends Component {
                     closeWindow={this.handlerModalWindow}
                 />
             </div>
-        )
-    }
+        );
+    };
 }
 export default ProfileUser;

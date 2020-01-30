@@ -28,8 +28,8 @@ class Login extends Component {
     @observable email = '';
     @observable password = '';
     @observable validateLogin = {};
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handlerFieldValue = this.handlerFieldValue.bind(this);
         this.signIn = this.signIn.bind(this);
         this.handlerSuccessGoogle = this.handlerSuccessGoogle.bind(this);
@@ -142,7 +142,7 @@ class Login extends Component {
                 </div>
             </div>
         );
-    }
+    };
 };
 
 export default Login;

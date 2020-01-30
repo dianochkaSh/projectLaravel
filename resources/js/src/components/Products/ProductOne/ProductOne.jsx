@@ -124,7 +124,7 @@ class ProductOne extends Component {
                     </div>
                 }
             </div>
-        )
-    }
+        );
+    };
 };
 export default ProductOne;

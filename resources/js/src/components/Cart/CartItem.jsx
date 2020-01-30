@@ -22,9 +22,9 @@ const CartItem  = (props) => {
                 <button className="bt-delete-product" onClick={() => handlerDelete(props.product.id)}>
                     <img src={require('../../assets/img/close-red.png')}/>
                 </button>
-                {props.product.image !== null
-                ? <img alt="" src={props.product.image} height="50" width="50"/>
-                : <img height="50" width="50" src={require('../../assets/img/userPlaceholder.png')}/>
+                { props.product.image !== null
+                    ? <img alt="" src={props.product.image} height="50" width="50"/>
+                    : <img height="50" width="50" src={require('../../assets/img/userPlaceholder.png')}/>
                 }
             </div>
             <div className="div-table-col title">{props.product.title}</div>
@@ -40,6 +40,6 @@ const CartItem  = (props) => {
             </div>
             <div className="div-table-col">{props.product.quantity * props.product.price}</div>
         </div>
-    )
+    );
 };
 export default  CartItem;
