@@ -109,7 +109,6 @@ class UserController extends Controller {
         $file = $request->file('file');
         $ext = $file->extension();
         $name = Str::random() . '.' . $ext;
-        $file = $request->file('file');
         $path = Storage::disk('public')->putFileAs('uploads', $file, $name);
         if ($path) {
             $userRepo = new UserRepository(new User);
@@ -122,7 +121,31 @@ class UserController extends Controller {
 
     }
 
-
+    /**
+     *
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Get(
+     *      path="/deletePhoto",
+     *      tags={"User"},
+     *      summary="Delete user`s photo",
+     *      description="Delete user`s photo",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\Schema(
+     *              type="object",
+     *              allOf={@OA\Schema(ref="#definitions/ApiResponse")},
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/definitions/User",
+     *              )
+     *          )
+     *      ),
+     *      security={{"auth": {}}}
+     * )
+     */
     public function deletePhoto()
     {
         $user = $accessToken = auth()->guard('api')->user();
