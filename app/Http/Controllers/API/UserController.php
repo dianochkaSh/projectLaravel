@@ -108,16 +108,16 @@ class UserController extends Controller {
         $user = $accessToken = auth()->guard('api')->user();
         $file = $request->file('file');
         $ext = $file->extension();
-        $name = Str::random().'.'.$ext ;
+        $name = Str::random() . '.' . $ext;
         $file = $request->file('file');
         $path = Storage::disk('public')->putFileAs('uploads', $file, $name);
         if ($path) {
             $userRepo = new UserRepository(new User);
             $uploadPhoto = $userRepo->updatePhoto($user->getAttribute('id'), $path);
             $fullPath = Storage::disk('public')->url($path);
-            return response()->json(['photo' => $fullPath ], 200);
+            return response()->json(['photo' => $fullPath], 200);
         } else {
-            return response()->json(['error' => 'File has not upload.' ], 400);
+            return response()->json(['error' => 'File has not upload.'], 400);
         }
 
     }
@@ -129,7 +129,7 @@ class UserController extends Controller {
         $userRepo = new UserRepository(new User);
         $deletePhoto = $userRepo->updatePhoto($user->getAttribute('id'), '');
         if ($deletePhoto) {
-            return response()->json(['message' => 'User Photo deleted.' ], 200);
+            return response()->json(['message' => 'User Photo deleted.'], 200);
         }
     }
 
@@ -183,15 +183,15 @@ class UserController extends Controller {
     public function edit(Request $request)
     {
         $dataUser = [
-            'name'  => $request->get('username'),
+            'name' => $request->get('username'),
             'email' => $request->get('email')
         ];
         $userRepo = new UserRepository(new User);
         $updateUserData = $userRepo->updateUser($request->get('id'), $dataUser);
         if ($updateUserData) {
-            return response()->json(['success' => 'Data of user has updated.' ], 200);
+            return response()->json(['success' => 'Data of user has updated.'], 200);
         } else {
-            return response()->json(['error' => 'Data of user has not updated.' ], 400);
+            return response()->json(['error' => 'Data of user has not updated.'], 400);
         }
     }
 
@@ -228,7 +228,7 @@ class UserController extends Controller {
         foreach ($products as $product) {
             if (!$product->images->isEmpty()) {
                 $image = Storage::disk('public')->url($product->images[0]->original);
-                $product->images[0]->original =  $image;
+                $product->images[0]->original = $image;
             }
         }
         return response()->json($products, 200);

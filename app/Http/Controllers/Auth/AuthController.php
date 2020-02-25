@@ -86,26 +86,26 @@ class AuthController extends Controller {
     public function registration(Request $request)
     {
         $validateFields = Validator::make($request->all(), [
-            'name'      => ['required', 'string', 'max:255'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'  => ['required', 'string', 'min:6'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6'],
         ]);
         if ($validateFields->fails()) {
-            return response()->json(['error' => $validateFields->errors()->getMessages() ], 400);
+            return response()->json(['error' => $validateFields->errors()->getMessages()], 400);
         }
 
         $data = [
-            'name'          => $request->get('name'),
-            'email'         => $request->get('email'),
-            'password'      => $request->get('password'),
-            'provider'      => '',
-            'provider_id'   => '',
-            'photo'         => ''
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
+            'provider' => '',
+            'provider_id' => '',
+            'photo' => ''
         ];
         $userRepo = new UserRepository(new User);
         $user = $userRepo->createUser($data);
         $request->request->add([
-            'username'      => $request->get('email'),
+            'username' => $request->get('email'),
         ]);
         Mail::to($request->get('email'))->send(new MailtrapUserRegistration($request->get('name')));
         return \App::call('\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken', [$request]);
@@ -289,7 +289,6 @@ class AuthController extends Controller {
             $oauthToken = $tokenRepo->getTokenByUserId($user->getAttribute('id'));
 
             $tokenNew = openssl_random_pseudo_bytes(60);
-           // $tokenNew = bin2hex($tokenNew);
             $tokenNew = hash('sha256',$tokenNew);
 
             $tokenOld = $oauthToken->id;
@@ -298,7 +297,7 @@ class AuthController extends Controller {
             $refreshTokenRepo = new RefreshTokenRepository(new OauthRefreshToken);
             $refreshTokenRepo->updateRefreshToken($tokenOld, $tokenNew);
 
-            $link = 'https://' . request()->getHost() . '/newPassword/' . $tokenNew . '/' . $email;
+            $link = url("/newPassword/{$tokenNew}/{$email}");
             Mail::to($email)->send(new MailtrapUserChangePassword($link, $user->getAttribute('name')));
             return response()->json(['success' => 'The letter was sent. Please check mail. ' ], 200);
         } else {

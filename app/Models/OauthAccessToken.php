@@ -12,6 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OauthAccessToken extends Model {
     public $incrementing = false;
-    public $timestamps = false;
+    public $timestamps = true;
 
 }

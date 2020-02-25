@@ -95,7 +95,8 @@ class CartStore {
         let data = {
             totalSum: total,
             token: idToken,
-            username: userStore.username === null ?  localStorage.getItem('username') : userStore.username
+            username: userStore.username === null ?  localStorage.getItem('username') : userStore.username,
+            email: localStorage.getItem('email')
         };
         axios.post('/api/totalOrder', data, {headers: headers })
             .then((response) => {

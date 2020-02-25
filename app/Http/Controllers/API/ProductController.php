@@ -43,11 +43,12 @@ class ProductController extends Controller
      *      )
      * )
      */
-    public function get($priceMin = 0, $priceMax = 0, $categories = 0,  $author = 0, Request $request) {
+    public function get($priceMin = 0, $priceMax = 0, $categories = 0, $author = 0, Request $request)
+    {
         $productRepo = new ProductRepository(new Product);
         $products = $productRepo->getProductList($priceMin, $priceMax, $categories, $author);
         foreach ($products as $product) {
-            foreach($product->images as $image) {
+            foreach ($product->images as $image) {
                 $img = Storage::disk('public')->url($image->original);
                 $image->original = $img;
             }
@@ -80,7 +81,8 @@ class ProductController extends Controller
      *      )
      * )
      */
-    public function getOneProduct(Request $request) {
+    public function getOneProduct(Request $request)
+    {
         $productRepo = new ProductRepository(new Product);
         $product = $productRepo->getOneProductById($request->id);
         if ($product) {
@@ -91,7 +93,7 @@ class ProductController extends Controller
             }
             return response()->json($product, 200);
         } else {
-            return response()->json(['error' => 'The Book do not find.' ], 400);
+            return response()->json(['error' => 'The Book do not find.'], 400);
         }
 
     }

@@ -107,6 +107,7 @@ class UserStore {
                     this.user.id = response.data.id;
                     this.user.provider = response.data.provider;
                     localStorage.setItem('username', response.data.name);
+                    localStorage.setItem('email', response.data.email);
                 }
             })
             .catch((error) => {

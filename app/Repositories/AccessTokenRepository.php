@@ -30,8 +30,6 @@ class AccessTokenRepository extends BaseRepository {
     {
         $oauthToken = OauthAccessToken::find($id);
         $oauthToken->id = $token;
-        $oauthToken->created_at = date('Y-m-d H:i:s') ;
-        $oauthToken->updated_at = date('Y-m-d H:i:s');
         $oauthToken->expires_at = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 60);
         return $oauthToken->save();
     }

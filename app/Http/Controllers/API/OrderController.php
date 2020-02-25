@@ -13,14 +13,14 @@ class OrderController extends Controller {
     public function createOrder(Request $request)
     {
         $result = $this->payment($request->get('totalSum'), $request->get('token'));
-        $sendMail = Mail::to('dianochkad@yandex.ru')->send(new MailtrapCheckoutSuccessfull($request->get('username')));
+        $sendMail = Mail::to($request->get('email'))->send(new MailtrapCheckoutSuccessfull($request->get('username')));
     }
 
     public function payment($total, $token)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $charge = Stripe\Charge::create ([
-            "amount" => round(($total / 62 ))* 100,
+        $charge = Stripe\Charge::create([
+            "amount" => round(($total / 62)) * 100,
             "currency" => "usd",
             "source" => $token,
             "description" => "test payment"
