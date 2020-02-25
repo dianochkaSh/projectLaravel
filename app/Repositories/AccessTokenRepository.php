@@ -3,7 +3,8 @@ namespace App\Repositories;
 use Jsdecena\Baserepo\BaseRepository;
 use App\Models\OauthAccessToken;
 
-class AccessTokenRepository extends BaseRepository {
+class AccessTokenRepository extends BaseRepository
+{
 
     public function __construct(OauthAccessToken $tokenAccess)
     {
@@ -15,7 +16,7 @@ class AccessTokenRepository extends BaseRepository {
      * @param integer $idUser
      * @return mixed
      */
-    public function getTokenByUserId ($idUser)
+    public function getTokenByUserId($idUser)
     {
         return OauthAccessToken::where('user_id', $idUser)->first();
     }

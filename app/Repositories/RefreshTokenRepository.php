@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Jsdecena\Baserepo\BaseRepository;
 use App\Models\OauthRefreshToken;
 
-class RefreshTokenRepository extends BaseRepository {
+class RefreshTokenRepository extends BaseRepository
+{
     public $incrementing = false;
 
     public function __construct(OauthRefreshToken $refreshToken)
@@ -19,7 +20,7 @@ class RefreshTokenRepository extends BaseRepository {
      * @param string $tokenOld
      * @param string $tokenNew
      */
-    public function updateRefreshToken ($tokenOld, $tokenNew )
+    public function updateRefreshToken($tokenOld, $tokenNew)
     {
         OauthRefreshToken::where('access_token_id', $tokenOld)->update(
             array(

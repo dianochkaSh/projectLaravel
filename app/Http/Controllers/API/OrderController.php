@@ -8,7 +8,8 @@ use Stripe;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailtrapCheckoutSuccessfull;
 
-class OrderController extends Controller {
+class OrderController extends Controller
+{
 
     public function createOrder(Request $request)
     {

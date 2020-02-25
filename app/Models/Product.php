@@ -5,7 +5,8 @@ use App\Models\Category;
 use App\Models\Author;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model {
+class Product extends Model
+{
 
     public function category()
     {
@@ -17,7 +18,8 @@ class Product extends Model {
         return $this->belongsTo(Author::class);
     }
 
-    public function images() {
+    public function images()
+    {
         return $this->hasMany(ProductImage::class);
     }
 }

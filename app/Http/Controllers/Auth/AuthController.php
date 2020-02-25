@@ -20,9 +20,12 @@ use OpenApi\Annotations as OAS;
 /**
  * Class AuthController
  */
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
     /**
+     * @param Request $request
+     * @return Response
      * @OA\Get(path="/auth/login",
      *   tags={"Auth"},
      *   summary="Log in user",
@@ -119,7 +122,7 @@ class AuthController extends Controller {
      *   @OA\Response(response="default", description="successful operation")
      * )
      */
-    public function logout (Request $request)
+    public function logout(Request $request)
     {
         $accessToken = auth()->guard('api')->user()->token();
         DB::table('oauth_refresh_tokens')
@@ -227,7 +230,7 @@ class AuthController extends Controller {
      *      security={{"auth": {}}}
      * )
      */
-    public function signInSocialNetwork (Request $request)
+    public function signInSocialNetwork(Request $request)
     {
         $request->request->add([
             'username'      => $request->get('email'),
@@ -289,7 +292,7 @@ class AuthController extends Controller {
             $oauthToken = $tokenRepo->getTokenByUserId($user->getAttribute('id'));
 
             $tokenNew = openssl_random_pseudo_bytes(60);
-            $tokenNew = hash('sha256',$tokenNew);
+            $tokenNew = hash('sha256', $tokenNew);
 
             $tokenOld = $oauthToken->id;
             $tokenRepo->updateOauthAccessToken($tokenOld, $tokenNew);
@@ -432,6 +435,6 @@ class AuthController extends Controller {
         } else {
             return response()->json(['error' => 'Error. The password is not changed.' ], 400);
         }
-
     }
+
 }

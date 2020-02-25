@@ -15,7 +15,8 @@ use App\Repositories\ProductRepository;
 /**
  * Class UserController
  */
-class UserController extends Controller {
+class UserController extends Controller
+{
 
      /**
      *
@@ -118,8 +119,8 @@ class UserController extends Controller {
         } else {
             return response()->json(['error' => 'File has not upload.'], 400);
         }
-
     }
+
 
     /**
      *

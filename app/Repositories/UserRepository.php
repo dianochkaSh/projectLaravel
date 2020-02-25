@@ -5,9 +5,11 @@ use Jsdecena\Baserepo\BaseRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository extends BaseRepository {
+class UserRepository extends BaseRepository
+{
 
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         parent::__construct($user);
     }
 
@@ -16,7 +18,7 @@ class UserRepository extends BaseRepository {
      * @param array $data, data of user(name, email, password)
      * @return mixed
      */
-    public function createUser ($data)
+    public function createUser($data)
     {
         return User::create([
             'name'          => $data['name'],
@@ -36,9 +38,9 @@ class UserRepository extends BaseRepository {
      */
     public function updatePhoto($idUser, $urlPhoto)
     {
-       $user = User::find($idUser);
-       $user->photo = $urlPhoto;
-      return $user->save();
+        $user = User::find($idUser);
+        $user->photo = $urlPhoto;
+        return $user->save();
     }
 
     /**
@@ -47,7 +49,8 @@ class UserRepository extends BaseRepository {
      * @param array $data
      * @return mixed
      */
-    public function updateUser ($idUser, $data) {
+    public function updateUser ($idUser, $data)
+    {
         $user = User::find($idUser);
         $user->name = $data['name'];
         $user->email = $data['email'];
@@ -61,7 +64,7 @@ class UserRepository extends BaseRepository {
      */
     public function getUserByProviderId($providerId)
     {
-       return User::where('provider_id', $providerId)->exists();
+        return User::where('provider_id', $providerId)->exists();
     }
 
     /**
@@ -69,15 +72,14 @@ class UserRepository extends BaseRepository {
      * @param string $email
      * @return mixed
      */
-    public function getUserByEmail ($email)
+    public function getUserByEmail($email)
     {
         return User::where('email', $email)->first();
     }
 
-    public function updatePassword ($id, $password)
+    public function updatePassword($id, $password)
     {
         return User::find($id)->update(array('password' => $password));
     }
 
 }
-

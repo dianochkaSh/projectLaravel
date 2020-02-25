@@ -43,7 +43,7 @@ class ProductController extends Controller
      *      )
      * )
      */
-    public function get($priceMin = 0, $priceMax = 0, $categories = 0, $author = 0, Request $request)
+    public function get(Request $request, $priceMin = 0, $priceMax = 0, $categories = 0, $author = 0)
     {
         $productRepo = new ProductRepository(new Product);
         $products = $productRepo->getProductList($priceMin, $priceMax, $categories, $author);
@@ -95,7 +95,6 @@ class ProductController extends Controller
         } else {
             return response()->json(['error' => 'The Book do not find.'], 400);
         }
-
     }
 
     /**
@@ -158,6 +157,6 @@ class ProductController extends Controller
         $authorRepo = new AuthorRepository(new Author);
         $authors = $authorRepo->getAllAuthors();
         return response()->json($authors, 200);
-
     }
+
 }

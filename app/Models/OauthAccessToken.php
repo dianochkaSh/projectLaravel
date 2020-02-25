@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property $increment
  * @property $timestamps
  */
-class OauthAccessToken extends Model {
+class OauthAccessToken extends Model
+{
     public $incrementing = false;
     public $timestamps = true;
 

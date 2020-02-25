@@ -7,7 +7,8 @@ use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ProductRepository extends BaseRepository {
+class ProductRepository extends BaseRepository
+{
 
     public function __construct(Product $product)
     {
@@ -16,6 +17,7 @@ class ProductRepository extends BaseRepository {
 
     /**
      * Get all products
+     * @params $priceMin
      * @return Product[]|\Illuminate\Database\Eloquent\Collection
      */
     public function getProductList($priceMin, $priceMax, $categories, $author)
@@ -33,15 +35,16 @@ class ProductRepository extends BaseRepository {
         if (is_array($author) && count($author) > 0) {
             $query->whereIn('products.author_id', $author);
         }
-        if ( is_array($categories) && count($categories) > 0) {
+
+        if (is_array($categories) && count($categories) > 0) {
             $query->whereIn('products.category_id', $categories);
         }
 
         if (!empty($priceMin)) {
-            $query->where('products.price', '>', $priceMin );
+            $query->where('products.price', '>', $priceMin);
         }
         if (!empty($priceMax)) {
-            $query->where('products.price', '<', $priceMax );
+            $query->where('products.price', '<', $priceMax);
         }
 
         return $query->get();
@@ -82,6 +85,6 @@ class ProductRepository extends BaseRepository {
         ])
             ->whereIn('id', $ids)
             ->get();
-
     }
+
 }

@@ -17,19 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('auth/registration','Auth\AuthController@registration');
+Route::post('auth/registration', 'Auth\AuthController@registration');
 Route::post('auth/login', 'Auth\AuthController@login');
 Route::post('auth/google/login', 'Auth\AuthController@signInSocialNetwork');
 Route::post('auth/facebook/login', 'Auth\AuthController@signInSocialNetwork');
-Route::get( 'auth/chanSendLetterForChangePass/{email}', 'Auth\AuthController@sendLetterForChangePassword');
+Route::get('auth/chanSendLetterForChangePass/{email}', 'Auth\AuthController@sendLetterForChangePassword');
 Route::post('auth/checkTokenUser', 'Auth\AuthController@checkTokenUser');
 Route::post('auth/newPassword', 'Auth\AuthController@newPassword');
 
 Route::post('auth/token', 'Api\Auth\DefaultController@authenticate');
 Route::post('auth/refresh', 'Api\Auth\DefaultController@refreshToken');
 
-Route::middleware('auth:api')->group(function() {
-    Route::group(['prefix' => 'user'], function() {
+Route::middleware('auth:api')->group(function () {
+    Route::group(['prefix' => 'user'], function () {
         Route::get('getUser', 'API\UserController@get');
         Route::post('uploadPhoto', 'API\UserController@uploadPhoto');
         Route::get('deletePhoto', 'API\UserController@deletePhoto');
@@ -44,7 +44,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 });
 
-Route::group(['prefix' => 'product'], function() {
+Route::group(['prefix' => 'product'], function () {
     Route::get('list/{priceMin?}/{priceMax?}/{categories?}/{author?}', 'API\ProductController@get');
     Route::get('getOneProduct/{id}', 'API\ProductController@getOneProduct');
     Route::get('allCategories', 'API\ProductController@getAllCategories');
@@ -54,5 +54,3 @@ Route::group(['prefix' => 'product'], function() {
 Route::middleware('auth:api')->group(function () {
     Route::post('totalOrder', 'API\OrderController@createOrder');
 });
-
-

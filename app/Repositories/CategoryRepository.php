@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Jsdecena\Baserepo\BaseRepository;
 use App\Models\Category;
 
-class CategoryRepository extends BaseRepository {
+class CategoryRepository extends BaseRepository
+{
 
     public function __construct(Category $category)
     {
