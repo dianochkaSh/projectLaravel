@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Stripe;
+use App\Services\Payment;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailtrapCheckoutSuccessfull;
 
@@ -13,20 +13,8 @@ class OrderController extends Controller
 
     public function createOrder(Request $request)
     {
-        $result = $this->payment($request->get('totalSum'), $request->get('token'));
-        $sendMail = Mail::to($request->get('email'))->send(new MailtrapCheckoutSuccessfull($request->get('username')));
-    }
-
-    public function payment($total, $token)
-    {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $charge = Stripe\Charge::create([
-            "amount" => round(($total / 62)) * 100,
-            "currency" => "usd",
-            "source" => $token,
-            "description" => "test payment"
-        ]);
-
-        return $charge;
+        $payment  = new Payment();
+        $payment->handlerPayment($request->get('token'), $request->get('totalSum'));
+        Mail::to($request->get('email'))->send(new MailtrapCheckoutSuccessfull($request->get('username')));
     }
 }
